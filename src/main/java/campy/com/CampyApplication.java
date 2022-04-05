@@ -10,3 +10,4 @@ public class CampyApplication {
 		SpringApplication.run(CampyApplication.class, args);
 	}
 }
+
