@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>예약 상세 내역</title>
 </head>
 <body>
-
+<h3>예약 상세 내역</h3>
 </body>
 </html>
