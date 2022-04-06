@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import campy.com.dto.ReserveDto;
+import campy.com.dto.CampingDto;
 import campy.com.dto.ReserveDto;
 import campy.com.service.ReserveService;
 
-@SessionAttributes("reserve")
+@SessionAttributes({"reserve","camping"})
 @Controller
 public class ReserveController {
 
@@ -19,8 +19,13 @@ public class ReserveController {
 	ReserveService rservice;
 
 	@ModelAttribute("reserve")
-	public ReserveDto getDto() {
+	public ReserveDto reserveDto() {
 		return new ReserveDto();
+	}
+	
+	@ModelAttribute("camping")
+	public CampingDto campDto() {
+		return new CampingDto();
 	}
 
 	

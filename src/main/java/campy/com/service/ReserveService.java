@@ -16,7 +16,6 @@ public class ReserveService {
 		return rdao.reserveStatus();
 	}
 	
-	
 	public int deleteReserve(ReserveDto dto) {
 		return rdao.deleteReserve(dto);
 	}
