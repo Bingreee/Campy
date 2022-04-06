@@ -13,15 +13,20 @@
   		display: inline-block;
   		float : right;
 	}
+	
+	.rightButton{
+		width : 100px;
+	}
 </style>
 </head>
 <body>
 	<h1> Campy </h1>
+	
 	<nav>
 		<ul>
 			<c:if test="${user.id == null }">
-				<button type="button" onclick="location.href='login' ">로그인</button><br>
-				<button type="button" onclick="location.href='join' ">회원가입</button>
+				<button type="button" onclick="location.href='login' " class="rightButton">로그인</button><br>
+				<button type="button" onclick="location.href='join' " class="rightButton">회원가입</button>
 		<!-- 		<a href="login">로그인</a><br>
 				<a href="join">회원가입</a> -->
 			</c:if>

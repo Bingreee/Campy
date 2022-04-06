@@ -1,13 +1,27 @@
 package campy.com.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import campy.com.dto.MemberDto;
 
+@SessionAttributes("user")
 @Controller
 public class CampingController {
+	
+	@ModelAttribute("user")
+	public MemberDto getDto() {
+		return new MemberDto();
+	}
+	
+	
 	
 	@RequestMapping("/main")
 	public String main() {
@@ -25,8 +39,23 @@ public class CampingController {
 			return "/login";
 	}
 	
+	/* 로그인 페이지 만들어지면 login uri 받았을 때 이 쪽으로 수정할 것
+	 * @PostMapping("/login") public String login(@ModelAttribute("command") @Valid
+	 * MemberDto dto, BindingResult error, Model m) {
+	 * 
+	 * MemberDto resultDto = service.login(dto); if(resultDto == null) {
+	 * error.reject("nocode", "로그인 실패: 아이디나 비밀번호가 틀림"); return "member/loginform";
+	 * }else {//로그인 성공 m.addAttribute("user", resultDto); } return "redirect:/main";
+	 * }
+	 */
+	
 	@RequestMapping("/join")
 	public String join() {
 			return "/join";
+	}
+	
+	@RequestMapping("/mypage")
+	public String mypage() {
+		return "/mypage";
 	}
 }
