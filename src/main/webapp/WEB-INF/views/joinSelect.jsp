@@ -6,6 +6,6 @@
 </head>
 <body>
 <button onclick="location.href='insert'" value="email">이메일 회원가입</button><br>
-<button value="sns">SNS 회원가입</button>
+<button onclick="location.href='snsJoin'" value="sns">SNS 회원가입</button>
 </body>
 </html>
