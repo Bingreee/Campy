@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>문의사항 글내용</title>
 </head>
 <body>
-
+<h1>문의사항 글내용</h1>
 </body>
 </html>

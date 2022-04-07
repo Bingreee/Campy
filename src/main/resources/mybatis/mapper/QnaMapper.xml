@@ -4,4 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="campy.com.dao.QnaDao">
 	
+	
+	<select id="list" resultType="campy.com.dto.QaDto">
+		select * from qa order by qa_date desc
+	</select>
+	
+	
+	<insert parameterType="campy.com.dto.QaDto" id="insert">
+		insert into qa(no, title, content,) values(#{no}, #{title}, #{content})
+	</insert>
+	
+	<update parameterType="campy.com.dto.QaDto" id="updateQna">
+		update qa set title=#{title} , content=#{content} where no=#{no} 
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>자주묻는질문 및 문의사항바로가기</title>
 </head>
 <body>
-
+<h1>자주묻는질문 및 문의사항바로가기</h1>
 </body>
 </html>
