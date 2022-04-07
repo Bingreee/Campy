@@ -4,4 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="campy.com.dao.LoginDao">
 
+<insert id="insertMem" parameterType="campy.com.dto.MemberDto">
+	insert into member values(#{id}, #{pw}, #{mem_name}, #{mem_address}, #{mem_tel})
+</insert>
+
+<select id="memLogin" parameterType="campy.com.dto.MemberDto" resultType="campy.com.dto.MemberDto">
+	select * from member where id=#{id} and pw=#{pw}
+</select>
+
+<select id="idCheck" parameterType="String" resultType="String">
+	select id from member where id=#{id}
+</select>
 </mapper>
