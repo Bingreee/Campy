@@ -29,10 +29,18 @@
 		display : inline;
 		position : relative;
 		left : 500px;
-		border-top : 20px;
+		border-top : 10px;
 		background-color: #BBDEFB;
         margin: 10px 20px;
         padding: 10px 20px;
+	}
+	.roomListDetail{
+		position : relative;
+		left : 550px;
+		margin :15px;
+	}
+	fieldset{
+		display : inline;
 	}
 </style>
 </head>
@@ -55,7 +63,20 @@
 	<hr>
 	<div class="v-line"></div>
 	
-	<h4 class="roomList">객실 목록</h4>
+	<h4>검색결과</h4>
+	<%-- <c:set items="${ }">
+		
+	</c:set> --%>
+	<form action="room">
+	<input type="submit" id="searchRoomInfo" value="검색">
+	</form>
 	
+	
+	
+	<h4 class="roomList">객실 목록</h4>
+	<c:forEach items="${room}" var="room">
+		<div class="roomListDetail">${room.c_no } / ${room.r_no} / ${room.r_content }
+		<input type="button" value="예약하기"></div><br>
+	</c:forEach>
 </body>
 </html>

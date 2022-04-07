@@ -1,5 +1,7 @@
 package campy.com.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,13 @@ public class RoomService2 {
 	
 	public RoomDto selectRoomInfo() {
 		return rdao2.selectRoomInfo();
+	}
+	
+	public int countRoom() {
+		return rdao2.countRoom();
+	}
+	
+	public List<RoomDto> room(){
+		return rdao2.room();
 	}
 }
