@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,12 @@
 	.rightButton{
 		width : 100px;
 	}
+	.detail {
+		position : relative;
+		left :600px;
+		right : 100px;
+		padding : 2px;
+	}
 	
 </style>
 
@@ -66,19 +73,45 @@
 			
 		</ul>
 	</nav>
-<table border="1">
-	<thead >예약한 날짜 : ${reserve.reserve_date }</thead>
-	<tr><td width="100px">캠핑장 이름 : ${camping.c_name }</td><td><a href="reserveDetail">상세보기</a></td>
-	<tr><td colspan="2" align="left">
-	이용날짜 : ${reserve.start_date } ~ ${reserve.end_date }</td>
-	<c:if test="${reserve.end_date - sysdate > 0 }">
-		<a href="reviewWrite">리뷰 작성하러 가기</a>
-	</c:if>
-	<c:if test="${reserve.end_date - sysdate < 0 }">
-		<a href="deleteReserve">예약 취소</a>
-	</c:if>
+	<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="today" />
+	<fmt:formatDate value="${reserve.end_date }" pattern="yyyyMMdd" var="end_date"/>
+	
+	<h3>예약 내역</h3>
+<fieldset>
+<table>
+<c:choose>
+	<c:when test="${reserve.id != null }">
+		<legend>예약한 날짜  ${reserve.reserve_date }</legend>
+		<tr><td>캠핑장 이름 : ${camping.c_name }</td><td><a href="reserveDetail" class="detail">상세보기</a></td>
+		<tr><td>
+		이용날짜 : ${reserve.start_date } ~ ${reserve.end_date }</td>
+		<c:if test="${end_date - today >= 0 }">
+			<a href="reviewWrite" class="detail">리뷰 작성하러 가기</a>
+		</c:if>
+		<c:if test="${end_date - today < 0 }">
+			<a href="deleteReserve" class="detail">예약 취소</a>
+		</c:if>
+	</c:when>
+	<c:when test="${reserve.id == null }">
+		<h4>예약 내역이 없습니다.</h4>
+	</c:when>
+</c:choose>
 </table>
+</fieldset>
 
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	function getToday(){
+    	var date = new Date();
+    	var year = date.getFullYear();
+    	var month = ("0" + (1 + date.getMonth())).slice(-2);
+    	var day = ("0" + date.getDate()).slice(-2);
+
+    	return year + month + day;
+	}
+
+</script> -->
 
 </body>
 </html>
