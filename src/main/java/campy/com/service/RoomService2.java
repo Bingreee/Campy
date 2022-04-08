@@ -14,10 +14,6 @@ public class RoomService2 {
 	@Autowired
 	RoomDao2 rdao2;
 	
-	public RoomDto selectRoomInfo() {
-		return rdao2.selectRoomInfo();
-	}
-	
 	public int countRoom() {
 		return rdao2.countRoom();
 	}

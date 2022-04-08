@@ -64,12 +64,13 @@
 	<div class="v-line"></div>
 	
 	<h4>검색결과</h4>
-	<%-- <c:set items="${ }">
 		
-	</c:set> --%>
-	<form action="room">
-	<input type="submit" id="searchRoomInfo" value="검색">
-	</form>
+	<select>
+		<option>캠핑장 선택</option>
+		<c:forEach items="${campList }" var="campList">
+			<option value="${campList.c_name }">${campList.c_name }</option>
+		</c:forEach>
+	</select>
 	
 	
 	
@@ -78,5 +79,7 @@
 		<div class="roomListDetail">${room.c_no } / ${room.r_no} / ${room.r_content }
 		<input type="button" value="예약하기"></div><br>
 	</c:forEach>
+	
+	캠핑장 이름 : ${camping.c_name }
 </body>
 </html>

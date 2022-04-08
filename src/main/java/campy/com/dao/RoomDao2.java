@@ -9,7 +9,6 @@ import campy.com.dto.RoomDto;
 @Mapper
 public interface RoomDao2 {
 
-	RoomDto selectRoomInfo();
 	int countRoom();
 	List<RoomDto> room();
 }
