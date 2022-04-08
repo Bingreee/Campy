@@ -1,20 +1,15 @@
 package campy.com.controller;
 
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -45,9 +40,9 @@ public class LoginController {
 			return "login";
 		}
 		
-		MemberDto resultDto = service.login(dto);
+		MemberDto resultDto = service.memLogin(dto);
 		if(resultDto == null) {
-			error.reject("nocode", "로그인 실패: 아이디나 비밀번호가 틀림");
+			error.reject("nocode", "아이디나 비밀번호가 틀렸습니다.");
 			return "login";
 		}else {
 			m.addAttribute("user", resultDto);
