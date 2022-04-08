@@ -29,10 +29,18 @@
 		display : inline;
 		position : relative;
 		left : 500px;
-		border-top : 20px;
+		border-top : 10px;
 		background-color: #BBDEFB;
         margin: 10px 20px;
         padding: 10px 20px;
+	}
+	.roomListDetail{
+		position : relative;
+		left : 550px;
+		margin :15px;
+	}
+	fieldset{
+		display : inline;
 	}
 </style>
 </head>
@@ -55,7 +63,23 @@
 	<hr>
 	<div class="v-line"></div>
 	
-	<h4 class="roomList">객실 목록</h4>
+	<h4>검색결과</h4>
+		
+	<select>
+		<option>캠핑장 선택</option>
+		<c:forEach items="${campList }" var="campList">
+			<option value="${campList.c_name }">${campList.c_name }</option>
+		</c:forEach>
+	</select>
 	
+	
+	
+	<h4 class="roomList">객실 목록</h4>
+	<c:forEach items="${room}" var="room">
+		<div class="roomListDetail">${room.c_no } / ${room.r_no} / ${room.r_content }
+		<input type="button" value="예약하기"></div><br>
+	</c:forEach>
+	
+	캠핑장 이름 : ${camping.c_name }
 </body>
 </html>
