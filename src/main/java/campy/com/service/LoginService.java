@@ -14,7 +14,7 @@ public class LoginService {
 	@Autowired
 	LoginDao dao;
 	
-	public MemberDto login(MemberDto dto) {
+	public MemberDto memLogin(MemberDto dto) {
 		return dao.memLogin(dto);
 	}
 	public int insertMem(MemberDto dto) {
