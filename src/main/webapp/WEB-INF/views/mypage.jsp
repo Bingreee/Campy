@@ -7,8 +7,9 @@
 <style>
 	#MypageSide {
 		float : left;
-		height : 100px;
+		height : 500px;
 		width : 300px;
+		border-right : solid 1px black;
 	}
 	
 	h1 {
@@ -70,14 +71,13 @@
 	
 	${user.mem_name}님의 페이지
 	
-	<form action = "update" method = "post" id="updateform">
+	<form action = "memUpdateCheck" method = "get" id="privateInfo">
 	<table>
-		<tr> <td>이름</td><td><input name="name" id="mem_name" value="${user.mem_name}"></td> </tr>
-		<tr> <td>이메일</td><td><input name="name" id="mem_address" value="${user.mem_address}"></td> </tr>
-		<tr> <td>전화번호</td><td><input name="name" id="mem_tel" value="${user.mem_tel}"></td> </tr>
-		<tr> <td>				<input type="submit" value="수정" id="fix" ></td> </tr>
+		<tr> <td>이름</td><td><textarea readonly> ${user.mem_name} </textarea> </td> </tr>
+		<tr> <td>이메일</td><td><textarea readonly> ${user.mem_address} </textarea></td> </tr>
+		<tr> <td>전화번호</td><td><textarea readonly> ${user.mem_tel} </textarea></td> </tr>
+		<tr> <td><input type="submit" value="수정" id="fix" ></td> </tr>
 	</table>
-		
 	</form>
 	
 	
