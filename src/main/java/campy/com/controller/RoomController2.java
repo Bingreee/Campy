@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.google.gson.Gson;
 
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
@@ -37,10 +41,30 @@ public class RoomController2 {
 		return new MemberDto();
 	}
 	
+	
+	
+//	@RequestMapping("/room")
+//	public String room(Model m) {
+//		List<RoomDto> rlist = rservice2.room();
+//		m.addAttribute("room",rlist);
+//		return "room";
+//	}
+	
 	@RequestMapping("/room")
-	public String room(Model m) {
-		List<RoomDto> rlist = rservice2.room();
-		m.addAttribute("room",rlist);
+	public String selectC_name(Model m) {
+		List<CampingDto> r = rservice2.selectC_name();
+		m.addAttribute("campList",r);
 		return "room";
+	}
+	
+	@RequestMapping("/room/{c_no}")
+	@ResponseBody //view가 따로 없고 room.jsp 그대로 사용할 것이니까
+	public String selectRoom(@PathVariable int c_no) {
+		List<RoomDto> r2 = rservice2.selectRoom(c_no);
+		
+		Gson gson = new Gson();
+		String r2_text = gson.toJson(r2);
+		System.out.println(r2_text);
+		return r2_text;
 	}
 }
