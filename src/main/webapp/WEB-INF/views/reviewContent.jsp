@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>리뷰 작성</title>
+<title>리뷰 상세보기</title>
 <style>
 	h1 {
   		display: inline-block;
@@ -43,9 +43,6 @@ a {
 #page {
 	text-align: center;
 }
-
-.lightgray{background-color: lightgray; width: 50px;}
-	table{border-collapse : collapse; width: 800px;}
 </style>
 </head>
 <body>
@@ -65,35 +62,22 @@ a {
 	</nav>
 	<hr>
 
-<form method="post" id="reviewWrite" action="/reviewWrite">
-<table>
-		<tr>
-			<td class="lightgray">제목</td>
-			<td><input name="rv_title"/></td>
-		</tr>
-		<tr>
-			<td class="lightgray">작성자</td>
-			<td><input name="id" value="${user.id}" readonly></td>
-		</tr>
-		<tr>
-			<td class="lightgray">내용</td>
-			<td>
-			<textarea name="rv_content" id="editorTxt" cols="40" rows="10" placeholder="내용을 입력해주세요"
-                  style="width: 700px"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="button" id="save" value="새글 등록"> 
-			</td>
-		</tr>
-	</table>
+<h3>${rdto.rv_title}</h3>
+<table border="1">
+	<tr><td>제목</td><td>${rdto.rv_title}</td>
+	<tr><td>작성자</td><td>${rdto.id}</td>
+	<tr><td>내용</td><td>${rdto.rv_content}</td>
+	<tr><td>등록일</td><td><fmt:formatDate value="${rdto.rv_date }" dateStyle="long"/></td>
+	<tr><td>조회수</td><td>${rdto.rv_no}</td>
+	<tr><td colspan="2" align="right">
+	<c:if test="${ user.id == rdto.id }">
+	<%-- <a href="/board/update/${rdto.no}">글 수정 </a>  --%>
+	<a id="${rdto.rv_no}" href="#">글 삭제</a>
+	</c:if>
+	<a href="/review">목록 이동</a> 
+	</td></tr>
+</table>
 
-</form>
-
-	
-	
-	
-	
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

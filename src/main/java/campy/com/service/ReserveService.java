@@ -1,10 +1,15 @@
 package campy.com.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import campy.com.dao.ReserveDao;
 import campy.com.dto.ReserveDto;
+import campy.com.dto.ReviewDto;
 
 @Service
 public class ReserveService {
@@ -19,4 +24,23 @@ public class ReserveService {
 	public int deleteReserve(ReserveDto dto) {
 		return rdao.deleteReserve(dto);
 	}
+	
+	public int countReview() {
+		return rdao.countReview();
+	}
+	
+	public List<ReviewDto> reviewList(int start, int end) {
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("start", start);
+		m.put("end", end);
+		return rdao.reviewList(m);
+	}
+	
+	public ReviewDto reviewContent(int rv_no) {
+		return rdao.reviewContent(rv_no);
+	}
+	
+	/*
+	 * public int reviewWrite(ReviewDto rv_dto) { return rdao.reviewWrite(rv_dto); }
+	 */
 }

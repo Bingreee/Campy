@@ -10,8 +10,15 @@
   
   <select id="room" resultType="campy.com.dto.RoomDto">
   	select * from room
-  </select>
+  </select> <!--  room 정보 가져오기 -->
   
+  <select id="selectC_name" resultType="campy.com.dto.CampingDto">
+  	select c_name, c_no from camping order by c_no
+  </select> <!-- 캠핑장 이름 뽑아오기 -->
+  
+  <select id="selectRoom" parameterType="int" resultType="campy.com.dto.RoomDto">
+  	select * from room where c_no = #{c_no}
+  </select>
   <!-- mapper에서 캠핑장 이름 List로 뽑아오기 , 컨트롤러에서 model로 객체 만들기,
    jsp에서 select option에서 ${}사용해서 출력 -->
   
