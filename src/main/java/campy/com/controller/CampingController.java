@@ -21,8 +21,6 @@ public class CampingController {
 		return new MemberDto();
 	}
 	
-	
-	
 	@RequestMapping("/main")
 	public String main() {
 		return "/main";
@@ -34,10 +32,9 @@ public class CampingController {
 	 * if(dto.getId() != null) { return "/main"; }else { return "/login"; } }
 	 */
 	
-	@RequestMapping("/login")
-	public String login() {
-			return "/login";
-	}
+	/*
+	 * @RequestMapping("/login") public String login() { return "/login"; }
+	 */
 	
 	/* 로그인 페이지 만들어지면 login uri 받았을 때 이 쪽으로 수정할 것
 	 * @PostMapping("/login") public String login(@ModelAttribute("command") @Valid

@@ -8,6 +8,7 @@ class CampyApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }
