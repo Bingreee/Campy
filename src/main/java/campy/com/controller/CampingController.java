@@ -2,6 +2,7 @@ package campy.com.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,14 +11,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
+import campy.com.service.CampingService;
 
-@SessionAttributes("user")
+@SessionAttributes({"user","mainSearchInfoResult"})
 @Controller
 public class CampingController {
 	
+	@Autowired
+	CampingService service;
+	
 	@ModelAttribute("user")
 	public MemberDto getDto() {
+		return new MemberDto();
+	}
+	
+	@ModelAttribute("mainSearchInfoResult")
+	public MemberDto getCampingDto() {
 		return new MemberDto();
 	}
 	
@@ -54,5 +65,12 @@ public class CampingController {
 	@RequestMapping("/mypage")
 	public String mypage() {
 		return "/mypage";
+	}
+	
+	@PostMapping("/mainSearch")
+	public String mainSearch(@ModelAttribute("mainSearchInfo") CampingDto dto, Model m) {
+		CampingDto mainSearchInfoResult=service.mainSearch(dto);
+		m.addAttribute("mainSearchInfoResult", mainSearchInfoResult);
+		return "/main";
 	}
 }
