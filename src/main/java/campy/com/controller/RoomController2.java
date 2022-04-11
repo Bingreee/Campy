@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,8 +42,7 @@ public class RoomController2 {
 		return new MemberDto();
 	}
 	
-	
-	
+
 //	@RequestMapping("/room")
 //	public String room(Model m) {
 //		List<RoomDto> rlist = rservice2.room();
@@ -57,8 +57,8 @@ public class RoomController2 {
 		return "room";
 	}
 	
-	@RequestMapping("/room/{c_no}")
-	@ResponseBody //view가 따로 없고 room.jsp 그대로 사용할 것이니까
+	@GetMapping("/room/{c_no}")
+	@ResponseBody //view가 따로 없고 room.jsp 그대로 사용할 것
 	public String selectRoom(@PathVariable int c_no) {
 		List<RoomDto> r2 = rservice2.selectRoom(c_no);
 		

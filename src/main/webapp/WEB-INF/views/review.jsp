@@ -70,17 +70,17 @@ a {
 	<c:if test="${countReview != 0 }">
 			<table>
 				<tr>
+					<th>글번호</th>
 					<th>제목</th>
 					<th>작성자</th>
 					<th>작성일</th>
-					<th>조회수</th>
 				</tr>
-				<c:forEach items="${bList}" var="board">
+				<c:forEach items="${reviewList}" var="review">
 					<tr>
-						<td><a href ="content/${board.no}">${board.title}</a></td>
-						<td>${board.id }</td>
-						<td><fmt:formatDate value="${board.regdate }" dateStyle="short"/> </td>
-						<td>${board.readcount }</td>
+						<td>${review.rv_no }</td>
+						<td><a href ="reviewContent/${review.rv_no}">${review.rv_title}</a></td>
+						<td>${review.id }</td>
+						<td><fmt:formatDate value="${review.rv_date }" dateStyle="short"/> </td>
 					</tr>
 				</c:forEach>
 			</table>

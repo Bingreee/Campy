@@ -34,18 +34,16 @@
         margin: 10px 20px;
         padding: 10px 20px;
 	}
-	.roomListDetail{
-		position : relative;
-		left : 550px;
-		margin :15px;
-	}
-	fieldset{
-		display : inline;
-	}
 	
 	span{
 		position : relative;
 		left : 550px;
+	}
+	#roomInfo{
+		position : relative;
+		left : 550px;
+		display : block;
+		margin-top : 50px;
 	}
 </style>
 </head>
@@ -77,33 +75,22 @@
 		<!-- value는 c_no, 출력은 c_name -->
 	</select>
 	
+	
 	<h4 class="roomList">객실 목록</h4>
+	<div id="roomInfo"></div>
+	
+	
 	<%-- 전체 객실 가져오기
 	<c:forEach items="${room}" var="room">
 		<div class="roomListDetail">${room.c_no } / ${room.r_no} / ${room.r_content }
 		<input type="button" value="예약하기"></div><br>
 	</c:forEach> --%>
-<span></span>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
-
-for(var i=0; i<10;i++){
-	$("select").click(function(i){
-		$.ajax({
-			url : "room/"+c_no,
-			type : "get",
-			dataType : "json",
-			async:false,
-			success:function(data){
-				$("span").append(data[i].r_no+"<br>")
-			}
-		});
-	});
-}
-
-	/* $(function(){
+	$(function(){
 		$("select").click(function(){
 			let c_no = $(this).val();
 			$.ajax({
@@ -111,20 +98,19 @@ for(var i=0; i<10;i++){
 				type : "get",
 				dataType : "json"
 			}).done(function(data){
-				$("span").empty(); 
-				$("span").append("객실번호 :"+data.r_no+"<br>")
-						.append("캠핑 종류 : "+data.theme+"<br>")
-						.append("최대 인원 : "+data.r_maxno+"<br>")
-						.append("객실 소개 : "+data.r_content+"<br>")
-						.append("가격 : "+data.c_price+"<br>")
-						
-				for(int i=0; i<data.length; i++){
-					$("span").append(data[i].r_no+"<br>")
+				console.log(data);
+				$("#roomInfo").empty();
+				for(let i=0; i<data.length; i++){
+					$("#roomInfo").append("객실번호 :"+data[i].r_no+"<br>")
+					.append("캠핑 종류 : "+data[i].theme+"<br>")
+					.append("최대 인원 : "+data[i].r_maxno+"<br>")
+					.append("객실 소개 : "+data[i].r_content+"<br>")
+					.append("가격 : "+data[i].c_price+"<br><br>")
 				}
 			 })
 			
 		});
-	});  */
+	}); 
 </script>
 
 </body>
