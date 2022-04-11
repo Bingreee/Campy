@@ -35,4 +35,12 @@ public class ReserveService {
 		m.put("end", end);
 		return rdao.reviewList(m);
 	}
+	
+	public ReviewDto reviewContent(int rv_no) {
+		return rdao.reviewContent(rv_no);
+	}
+	
+	/*
+	 * public int reviewWrite(ReviewDto rv_dto) { return rdao.reviewWrite(rv_dto); }
+	 */
 }

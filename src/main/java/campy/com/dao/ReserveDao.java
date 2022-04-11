@@ -15,4 +15,6 @@ public interface ReserveDao {
 	int deleteReserve(ReserveDto dto);
 	int countReview(); //리뷰 개수
 	List<ReviewDto> reviewList(Map<String, Object>m); //리뷰 리스트
+	ReviewDto reviewContent(int rv_no); //리뷰 내용 확인
+	/* int reviewWrite(ReviewDto rv_dto); */
 }

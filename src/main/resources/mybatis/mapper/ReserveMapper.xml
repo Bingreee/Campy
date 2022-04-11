@@ -27,4 +27,12 @@
 </select>
 <!-- Dto에 start와 end가 없는 상태에서 2개 이상의 값을 보낼때 : map의 키 -->
   
+<select id="reviewContent" parameterType="int" resultType="campy.com.dto.ReviewDto">
+	select * from review where rv_no = #{rv_no}
+</select>
+
+<!-- <insert id="reviewWrite" parameterType="campy.com.dto.ReviewDto">
+	insert into review(rv_no, rv_title, id, rv_date, rv_content, rate)
+	values(seq_review.nextval, #{rv_title}, #{id}, #{rv_date}, #{rv_content}, #{rate} )
+</insert> -->
 </mapper>
