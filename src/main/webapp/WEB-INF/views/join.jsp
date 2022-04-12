@@ -74,7 +74,7 @@
 <form action="insert" method="POST" id="signform">
         <div id="wrapper">
             <div class="title">회원 가입 정보 입력</div>
-            <label>아이디 : </label><input type="text" name="id" id="id" placeholder="example@google.com">
+            <label>아이디 : </label><input type="text" name="id" id="id" placeholder="ex)example@google.com">
             <input type="button" value="중복확인" id="id_check"><input type="button" id="mail_ck" value="인증">
             <div class="id regex"></div>
 			<div id="input"><input id="ck_num"><input type="button" id="ck_b" value="인증 확인"></div>
@@ -88,13 +88,13 @@
             <label>이름: </label><input type="text" name="mem_name" id="mem_name"><br>
             <div class="mem_name regex"></div>
             
-            <label>휴대폰번호 : </label><input type="text" name="mem_tel" id="mem_tel"><br>
+            <label>휴대폰번호 : </label><input type="text" name="mem_tel" id="mem_tel" placeholder="ex)010-0000-0000"><br>
             <div class="mem_tel regex"></div>
             
-            <label>우편번호 :</label><input type="text" id="postcode" placeholder="우편번호" name="zipcode">
+            <label>우편번호 :</label><input type="text" id="postcode" placeholder="우편번호" name="postcode">
             <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ><br>
-            <label>주소1 : </label><input type="text" id="roadAddress" placeholder="도로명주소" name="roadaddress"><br>
-            <label>주소2 : </label><input type="text" id="detailAddress" placeholder="상세주소" name="detailaddress"><br>
+            <label>주소1 : </label><input type="text" id="roadAddress" placeholder="도로명주소" name="roadAddress"><br>
+            <label>주소2 : </label><input type="text" id="detailAddress" placeholder="상세주소" name="detailAddress"><br>
             <div id="signup">
             <input type="button" name="signup" value="회원가입" id="signupbtn">
             <input type="reset" value="다시입력" id="resignupbtn">
@@ -158,7 +158,7 @@ $(function(){
 	 $("#mail_ck").click(function(){
 		 let email = $("#id").val();
 		if(!email){
-				alert("아이디를 먼저 입력하세요.")
+				alert("아이디를 먼저 입력하세요.");
 				
 				return false;
 			} 
