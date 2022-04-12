@@ -93,6 +93,11 @@ input:focus, input:not(:placeholder-shown) {
 	color: red;
 	margin-bottom: 30px;
 }
+
+a {
+	text-decoration-line: none;
+	color:rgb(164, 164, 164);
+}
 </style>
 <head>
 <meta name="viewport"
@@ -111,7 +116,8 @@ input:focus, input:not(:placeholder-shown) {
 			<input id="pw" type="password" name="pw" placeholder="비밀번호">
 			<label for="pw">비밀번호</label>
 		</div>
-		<div id="forgot">비밀번호 찾기</div>
+		<div id="forgot"><a href="/find_Id_Form">아이디 찾기</a></div>
+		<div id="forgot"><a href="/find_Pw_Form">비밀번호 찾기</a></div>
 			<form:errors id="errors" element="div"/>
 		<input id="loginbtn" type="submit" value="로그인">
 	</form:form>

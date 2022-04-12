@@ -5,8 +5,12 @@
 <mapper namespace="campy.com.dao.LoginDao">
 
 <insert id="insertMem" parameterType="campy.com.dto.MemberDto">
-	insert into member values(#{id}, #{pw}, #{mem_name}, #{mem_address}, #{mem_tel})
+	insert into member values(#{id}, #{pw}, #{mem_name}, #{roadAddress}, #{mem_tel}, #{postcode}, #{detailAddress})
 </insert>
+
+<update id="updatePw" parameterType="map">
+	update member set pw=#{pw} where id=#{id}
+</update>
 
 <select id="memLogin" parameterType="campy.com.dto.MemberDto" resultType="campy.com.dto.MemberDto">
 	select * from member where id=#{id} and pw=#{pw}
@@ -14,5 +18,9 @@
 
 <select id="idCheck" parameterType="String" resultType="String">
 	select id from member where id=#{id}
+</select>
+
+<select id="findId" parameterType="String" resultType="String">
+	select id from member where mem_tel=#{mem_tel}
 </select>
 </mapper>
