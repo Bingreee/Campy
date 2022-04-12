@@ -11,20 +11,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.google.gson.Gson;
 
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.ReviewDto;
+import campy.com.dto.RoomDto;
 import campy.com.service.ReserveService;
+import campy.com.service.RoomService2;
 
-@SessionAttributes({"reserve","camping","user"})
+@SessionAttributes({"reserve","camping","user, review"})
 @Controller
 public class ReserveController {
 
 	@Autowired
 	ReserveService rservice;
+	
+	@Autowired
+	RoomService2 rservice2;
 
 	@ModelAttribute("reserve")
 	public ReserveDto reserveDto() {
@@ -60,6 +68,8 @@ public class ReserveController {
 	
 	@GetMapping("/review")
 	public String review(@RequestParam(name="p", defaultValue="1") int page, Model m) {
+		List<CampingDto> r = rservice2.selectC_name();
+		m.addAttribute("campList",r);
 		
 		//글이 있는지 체크
 		int countReview = rservice.countReview();
@@ -90,7 +100,7 @@ public class ReserveController {
 	}
 	
 	@GetMapping("/reviewContent/{rv_no}")
-	public String reviewContent(@ModelAttribute("user")MemberDto user, @PathVariable int rv_no, Model m) {
+	public String reviewContent(@ModelAttribute("user")MemberDto user, @ModelAttribute("review")ReviewDto review, @PathVariable int rv_no, Model m) {
 		ReviewDto rdto = rservice.reviewContent(rv_no);
 		m.addAttribute("rdto",rdto);
 		return "reviewContent";
@@ -99,6 +109,17 @@ public class ReserveController {
 	@GetMapping("reviewWrite")
 	public String reviewWrite(@ModelAttribute("user")MemberDto dto) {
 		return "reviewWrite";
+	}
+	
+	@GetMapping("/review/{c_no}")
+	@ResponseBody //view가 따로 없고 review.jsp 그대로 사용할 것
+	public String reviewOne(@PathVariable int c_no) {
+		List<ReviewDto> rr = rservice.reviewOne(c_no);
+		
+		Gson gson = new Gson();
+		String rr_text = gson.toJson(rr);
+		System.out.println(rr_text);
+		return rr_text;
 	}
 	
 }
