@@ -31,6 +31,10 @@
 	select * from review where rv_no = #{rv_no}
 </select>
 
+<select id="reviewOne" parameterType="int" resultType="campy.com.dto.ReviewDto">
+	select * from review where c_no = #{c_no}
+</select> <!-- 캠핑장 선택에 따른 리뷰 보여주기 -->
+
 <!-- <insert id="reviewWrite" parameterType="campy.com.dto.ReviewDto">
 	insert into review(rv_no, rv_title, id, rv_date, rv_content, rate)
 	values(seq_review.nextval, #{rv_title}, #{id}, #{rv_date}, #{rv_content}, #{rate} )
