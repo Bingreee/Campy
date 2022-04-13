@@ -65,16 +65,17 @@ a {
 <h3>${rdto.rv_title}</h3>
 <table border="1">
 	<tr><td>제목</td><td>${rdto.rv_title}</td>
+	<tr><td>등록일</td><td>${rdto.rv_date }<%-- <fmt:formatDate value="${rdto.rv_date }" dateStyle="long"/> --%></td>
 	<tr><td>작성자</td><td>${rdto.id}</td>
 	<tr><td>내용</td><td>${rdto.rv_content}</td>
-	<tr><td>등록일</td><td>${rdto.rv_date }<%-- <fmt:formatDate value="${rdto.rv_date }" dateStyle="long"/> --%></td>
-	<tr><td>조회수</td><td>${rdto.rv_no}</td>
+	<tr><td>별점</td><td>${rdto.rate }</td>
+	<tr><td>사진 업로드</td><td></td>
 	<tr><td colspan="2" align="right">
 	<c:if test="${ user.id == rdto.id }">
 	<%-- <a href="/board/update/${rdto.no}">글 수정 </a>  --%>
 	<a id="${rdto.rv_no}" href="#">글 삭제</a>
 	</c:if>
-	<a href="/review">목록 이동</a> 
+	<a href="#" onclick='history.back(-1); return false;'>목록 이동</a> 
 	</td></tr>
 </table>
 

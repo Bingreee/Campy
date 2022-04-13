@@ -68,10 +68,11 @@ td{
 	<div id="center">
 		<h3>Review</h3>
 		<div align="right">
-			<a href="reviewWrite">리뷰 등록</a>
+			<a href="reviewWrite" id="reviewWrite">리뷰 등록</a>
 		</div>
 		
 	<select>
+		<option>캠핑장 선택</option>
 		<c:forEach items="${campList }" var="campList">
 			<option value="${campList.c_no }">${campList.c_name }</option> 
 		</c:forEach>
@@ -157,12 +158,7 @@ $(function(){
 		
 	});
 }); 
-//
-/* $(function(){
-	$(".reviewContent").on("click", function(){
-		
-	})
-}) */
+
 
 
 
