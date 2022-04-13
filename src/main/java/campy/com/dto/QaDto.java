@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class QaDto {
 
-	private int number;
-	private String title;
+	private int qa_no;
+	private String qa_title;
 	private String id;
-	private Date date;
-	private String content;
-	private String file;
+	private Date qa_date;
+	private String qa_content;
+	private String qa_open;
 }

@@ -4,26 +4,67 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="campy.com.dao.QnaDao">
 	
+	<!-- insert 수정해야함.    나머지 board 거의그대로 복붙-->
+	<insert parameterType="campy.com.dto.QaDto" id="insert"> 
+		insert into qa(id,qa_title, qa_content) values(
+		#{id}, #{qa_title}, #{qa_content}) 
+	</insert>
+
+	<update parameterType="campy.com.dto.QaDto" id="updateQa"> 
+		update qa set qa_title=#{qa_title} , qa_content=#{qa_content} where qa_no=#{qa_no} 
+	</update>
+
+	<delete parameterType="int" id="deleteQa"> 
+		delete from qa where qa_no = #{qa_no} 
+	</delete>
 	
-	<select id="list" resultType="campy.com.dto.QaDto">
-		select * from qa order by qa_date desc
+	<!-- 전체 데이터 수  -->
+	<select id="count" resultType="int">
+		select count(*) from qa 	
 	</select>
 	
+	<!-- 리스트 -->
+	<select parameterType="map" id="qaList" resultType="campy.com.dto.QaDto">
+		<![CDATA[
+		select * from
+		(select qa_no,id,qa_title,qa_content,qa_date,qa_open, rownum r
+		from (select * from qa order by qa_no desc)
+		order by qa_no desc)where r >= #{start} and r <= #{end}
+		]]>
+	</select>
 	
-	<insert parameterType="campy.com.dto.QaDto" id="insert">
-		insert into qa(no, title, content,) values(#{no}, #{title}, #{content})
-	</insert>
+	<select parameterType="int" id="qaOne" resultType="campy.com.dto.QaDto"> 
+		select * from qa where qa_no = #{qa_no} 
+	</select>	
 	
-	<update parameterType="campy.com.dto.QaDto" id="updateQna">
-		update qa set title=#{title} , content=#{content} where no=#{no} 
-	</update>
+	<select id="countSearch" resultType="int" parameterType="campy.com.dto.QaDto">
+		select count(*) from qa
+		<where>
+			<choose>
+				<when test="searchn == 0">
+				qa_title like '%'||#{search}||'%' </when>
+				<when test="searchn == 1"> qa_content like '%'||#{search}||'%'</when>
+				<when test="searchn == 2"> id like '%'||#{search}||'%' </when>
+			</choose>
+		</where> 
+	</select>
 	
-	
-	
-	
-	
-	
-	
-	
+	<select id="qaListSearch" parameterType="map" resultType="campy.com.dto.QaDto">
+		select * from
+		(select qa_no,id,qa_title,qa_content,qa_date,qa_open, rownum r)
+		from (select * from qa order by qa_no desc)
+		<where>
+			<choose>
+				<when test="searchn == 0">
+				qa_title like '%'||#{search}||'%'</when>
+				<when test="searchn == 1"> qa_content like '%'||#{search}||'%' </when>
+				<when test="searchn == 2"> id like '%'||#{search}||'%' </when>
+			</choose>
+		</where> 
+		order by qa_date desc 
+		
+		) where r >= #{start} AND r &lt;= #{end}
+ 		
+	</select>
 	
 </mapper>

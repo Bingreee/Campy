@@ -15,27 +15,30 @@
 		<tr>
 			<td>파일첨부</td>
 			<td>
-			<input name="id" type="file" name="file">
+			<input name="id" type="file" name="file"/>
 			
 			</td>
 		</tr>
 		<tr>
 			<td>내용</td>
 			<td>
-        	<textarea name="content" id="editorTxt" 
-                  rows="20" cols="10" 
-                  placeholder="내용을 입력해주세요"
-                  style="width: 700px"></textarea>
-      </td>
+	        	<textarea name="content" id="editorTxt" 
+	                  rows="20" cols="10" 
+	                  placeholder="내용을 입력해주세요"
+	                  style="width: 700px">
+	             </textarea>
+	       </td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-				<input type="button" id="save" value="새글 등록">
+				<input type="button" id="save" value="새글등록">
 				 
 			</td>
 		</tr>
 	</table>
 
 </form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 </html>
