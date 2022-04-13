@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Qa_CommDto {
 
-	private int no;
-	private Date comm_date;
-	private String comm_content;
+	private int qa_no;
+	private Date qa_comm_date;
+	private String qa_comm_content;
 }

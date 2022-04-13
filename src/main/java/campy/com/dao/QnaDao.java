@@ -2,16 +2,39 @@ package campy.com.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
+import java.util.Map;
+
 import campy.com.dto.QaDto;
+import campy.com.dto.Qa_CommDto;
 
 @Mapper
 public interface QnaDao {
 
-	public List<QaDto> list();
-		
-		
-	int insert(QaDto qdto);
+	//리스트
+	List<QaDto> qaList(Map<String, Object> m);
+	
+	//글쓰기
+	int insert(QaDto dto);
+	
+	//글삭제
+	int deleteQa(int no);
+	
+	//글수정
+	int updateQa(QaDto dto);
+	
+	//전체 글 갯수
+	int count();
 
-	int updateQna(QaDto qdto);
+	QaDto qaOne(int no);
+
+	List<QaDto> qaListSearch(Map<String, Object> m);
+
+	int countSearch(Map<String, Object> m);
+
+	List<Qa_CommDto> selectComm(int no);
+
+
+
+	
 
 }
