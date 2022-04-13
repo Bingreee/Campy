@@ -146,7 +146,7 @@ $(function(){
 			var html = "";
 			for(let i=0; i<data.length; i++){
 				html += '<tr>';
-				html += '<td><a href="/reviewContent/"+{data[i].rv_no}>'+data[i].rv_title+'</a>';
+				html += "<td> <a href='/reviewContent/"+data[i].rv_no+"'>"+data[i].rv_title+"</a> </td>";
 				html += '<td>'+data[i].id+'</td>';
 				html += '<td>'+data[i].rv_date+'</td>';
 				html += '</tr>';
@@ -157,6 +157,12 @@ $(function(){
 		
 	});
 }); 
+//
+/* $(function(){
+	$(".reviewContent").on("click", function(){
+		
+	})
+}) */
 
 
 
