@@ -67,7 +67,7 @@ a {
 	<tr><td>제목</td><td>${rdto.rv_title}</td>
 	<tr><td>작성자</td><td>${rdto.id}</td>
 	<tr><td>내용</td><td>${rdto.rv_content}</td>
-	<tr><td>등록일</td><td><fmt:formatDate value="${rdto.rv_date }" dateStyle="long"/></td>
+	<tr><td>등록일</td><td>${rdto.rv_date }<%-- <fmt:formatDate value="${rdto.rv_date }" dateStyle="long"/> --%></td>
 	<tr><td>조회수</td><td>${rdto.rv_no}</td>
 	<tr><td colspan="2" align="right">
 	<c:if test="${ user.id == rdto.id }">
