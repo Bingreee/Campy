@@ -74,7 +74,7 @@
 	<form action = "memUpdateCheck" method = "get" id="privateInfo">
 	<table>
 		<tr> <td>이름</td><td><textarea readonly> ${user.mem_name} </textarea> </td> </tr>
-		<tr> <td>이메일</td><td><textarea readonly> ${user.mem_address} </textarea></td> </tr>
+		<tr> <td>이메일</td><td><textarea readonly> ${user.roadAddress} </textarea></td> </tr>
 		<tr> <td>전화번호</td><td><textarea readonly> ${user.mem_tel} </textarea></td> </tr>
 		<tr> <td><input type="submit" value="수정" id="fix" ></td> </tr>
 	</table>
