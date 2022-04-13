@@ -68,10 +68,11 @@ td{
 	<div id="center">
 		<h3>Review</h3>
 		<div align="right">
-			<a href="reviewWrite">리뷰 등록</a>
+			<a href="reviewWrite" id="reviewWrite">리뷰 등록</a>
 		</div>
 		
 	<select>
+		<option>캠핑장 선택</option>
 		<c:forEach items="${campList }" var="campList">
 			<option value="${campList.c_no }">${campList.c_name }</option> 
 		</c:forEach>
@@ -146,7 +147,7 @@ $(function(){
 			var html = "";
 			for(let i=0; i<data.length; i++){
 				html += '<tr>';
-				html += '<td><a href="/reviewContent/"+{data[i].rv_no}>'+data[i].rv_title+'</a>';
+				html += "<td> <a href='/reviewContent/"+data[i].rv_no+"'>"+data[i].rv_title+"</a> </td>";
 				html += '<td>'+data[i].id+'</td>';
 				html += '<td>'+data[i].rv_date+'</td>';
 				html += '</tr>';
@@ -157,6 +158,7 @@ $(function(){
 		
 	});
 }); 
+
 
 
 
