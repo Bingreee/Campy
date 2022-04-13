@@ -34,15 +34,15 @@ public class QnaService {
 		return qdao.insert(dto);
 	}
 
-	public int deleteQa(int no) {
-		return qdao.deleteQa(no);
+	public int delete(int qa_no) {
+		return qdao.deleteQa(qa_no);
 	}
 	
-	public int updateQa(QaDto dto) {
+	public int update(QaDto dto) {
 		return qdao.updateQa(dto);
 	}
-	public QaDto qaOne(int no) {
-		return qdao.qaOne(no);
+	public QaDto qaOne(int qa_no) {
+		return qdao.qaOne(qa_no);
 	}
 	public List<QaDto> qaListSearch(int searchn2, String searchn,int start,int end){
 		Map<String,Object> m = new HashMap<String,Object>();
@@ -59,11 +59,11 @@ public class QnaService {
 		m.put("search", search);
 		return qdao.countSearch(m);
 	}
-	public List<Qa_CommDto> selectComm(int no) {
-		
-		return qdao.selectComm(no);
-	}
-	
+	/*
+	 * public List<Qa_CommDto> selectComm(int qa_no) {
+	 * 
+	 * return qdao.selectComm(qa_no); }
+	 */
 	
 	
 	

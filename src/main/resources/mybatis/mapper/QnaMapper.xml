@@ -10,11 +10,11 @@
 		#{id}, #{qa_title}, #{qa_content}) 
 	</insert>
 
-	<update parameterType="campy.com.dto.QaDto" id="updateQa"> 
+	<update parameterType="campy.com.dto.QaDto" id="update"> 
 		update qa set qa_title=#{qa_title} , qa_content=#{qa_content} where qa_no=#{qa_no} 
 	</update>
 
-	<delete parameterType="int" id="deleteQa"> 
+	<delete parameterType="int" id="delete"> 
 		delete from qa where qa_no = #{qa_no} 
 	</delete>
 	

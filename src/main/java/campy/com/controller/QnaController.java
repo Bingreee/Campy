@@ -27,7 +27,7 @@ import campy.com.service.QnaService;
 public class QnaController {
 
 	@Autowired
-	QnaService Qservice;
+	QnaService qservice;
 
 	@ModelAttribute("user")
 	public MemberDto getDto() {
@@ -37,14 +37,14 @@ public class QnaController {
 	@RequestMapping("/ask")
 	public String ask(@RequestParam(name = "p", defaultValue = "1") int page, Model m) {
 		// 글이 있는지 체크
-		int count = Qservice.count();
+		int count = qservice.count();
 		if (count > 0) {
 
 			int perPage = 5; // 한 페이지에 보일 글의 갯수
 			int startRow = (page - 1) * perPage + 1;
 			int endRow = page * perPage;
 
-			List<QaDto> qaList = Qservice.qaList(startRow, endRow);
+			List<QaDto> qaList = qservice.qaList(startRow, endRow);
 			m.addAttribute("qaList", qaList);
 
 			int pageNum = 5;
@@ -67,26 +67,26 @@ public class QnaController {
 	}
 
 	@GetMapping("/askWrite")
-	public String writeForm(@ModelAttribute("user") MemberDto dto) {
+	public String askWrite(@ModelAttribute("user") MemberDto dto) {
 		return "askWrite";
 	}
 
 	@PostMapping("/askWrite")
-	public String write(QaDto dto) {
-		Qservice.insert(dto);
+	public String askWrite(QaDto dto) {
+		qservice.insert(dto);
 		return "redirect:ask";// 글목록
 	}
 
 	@RequestMapping("/search")
 	public String search(int searchn, String search, @RequestParam(name = "p", defaultValue = "1") int page, Model m) {
-		int count = Qservice.countSearch(searchn, search);
+		int count = qservice.countSearch(searchn, search);
 		if (count > 0) {
 
 			int perPage = 5; // 한 페이지에 보일 글의 갯수
 			int startRow = (page - 1) * perPage + 1;
 			int endRow = page * perPage;
 
-			List<QaDto> qaList = Qservice.qaListSearch(searchn, search, startRow, endRow);
+			List<QaDto> qaList = qservice.qaListSearch(searchn, search, startRow, endRow);
 			m.addAttribute("qaList", qaList);
 
 			int pageNum = 5;
@@ -110,32 +110,32 @@ public class QnaController {
 		return "search";
 	}
 
-	@GetMapping("/askContent/{no}")
-	public String askContent(@PathVariable int no, Model m) {
-		QaDto dto = Qservice.qaOne(no);
+	@GetMapping("/askContent/{qa_no}")
+	public String askContent(@PathVariable int qa_no, Model m) {
+		QaDto dto = qservice.qaOne(qa_no);
 		m.addAttribute("dto", dto);
-		List<Qa_CommDto> cList = Qservice.selectComm(no);
-		m.addAttribute("cList", cList);
+		//List<Qa_CommDto> cList = qservice.selectComm(qa_no);
+		//m.addAttribute("cList", cList);
 		return "askContent";
 	}
 
-	@GetMapping("/update/{no}")
-	public String updateForm(@PathVariable int no, Model m) {
-		QaDto dto = Qservice.qaOne(no);
+	@GetMapping("/update/{qa_no}")
+	public String update(@PathVariable int qa_no, Model m) {
+		QaDto dto = qservice.qaOne(qa_no);
 		m.addAttribute("dto", dto);
 		return "askContent";
 	}
 
 	@PutMapping("/update")
 	public String update(QaDto dto) {
-		Qservice.updateQa(dto);
+		qservice.update(dto);
 		return "redirect:ask";
 	}
 
 	@DeleteMapping("/delete")
 	@ResponseBody
-	public String delete(int no) {
-		int i = Qservice.deleteQa(no);
+	public String delete(int qa_no) {
+		int i = qservice.delete(qa_no);
 		return "" + i;
 	}
 

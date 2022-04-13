@@ -59,7 +59,7 @@ a {
 						
 						<td>${qa.qa_no}</td>
 						<td>${qa.id }</td>
-						<td><a href ="askContent/${qa.qa_title}">${qa.qa_title}</a></td>
+						<td><a href ="askContent/${qa.qa_no}">${qa.qa_title}</a></td>
 						
 						<td><fmt:formatDate value="${qa.qa_date }" dateStyle="short"/> </td>
 						<td>${qa.qa_open }</td>
