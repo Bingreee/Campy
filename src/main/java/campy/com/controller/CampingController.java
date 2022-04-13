@@ -28,12 +28,12 @@ public class CampingController {
 	}
 	
 	@ModelAttribute("mainSearchInfoResult")
-	public MemberDto getCampingDto() {
-		return new MemberDto();
+	public CampingDto getCampingDto() {
+		return new CampingDto();
 	}
 	
 	@RequestMapping("/main")
-	public String main() {
+	public String main(@ModelAttribute("mainSearchInfoResult") CampingDto dto) {
 		return "/main";
 	}
 	
@@ -69,8 +69,10 @@ public class CampingController {
 	
 	@PostMapping("/mainSearch")
 	public String mainSearch(@ModelAttribute("mainSearchInfo") CampingDto dto, Model m) {
+		System.out.println("mainSearch 들어왔음");
 		CampingDto mainSearchInfoResult=service.mainSearch(dto);
 		m.addAttribute("mainSearchInfoResult", mainSearchInfoResult);
+		System.out.println(mainSearchInfoResult+"mainSearch메서드 In Controller");
 		return "/main";
 	}
 }
