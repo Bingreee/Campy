@@ -17,7 +17,7 @@ public interface QnaDao {
 	int insert(QaDto dto);
 	
 	//글삭제
-	int deleteQa(int no);
+	int deleteQa(int qa_no);
 	
 	//글수정
 	int updateQa(QaDto dto);
@@ -25,13 +25,13 @@ public interface QnaDao {
 	//전체 글 갯수
 	int count();
 
-	QaDto qaOne(int no);
+	QaDto qaOne(int qa_no);
 
 	List<QaDto> qaListSearch(Map<String, Object> m);
 
 	int countSearch(Map<String, Object> m);
 
-	List<Qa_CommDto> selectComm(int no);
+	//List<Qa_CommDto> selectComm(int qa_no);
 
 
 
