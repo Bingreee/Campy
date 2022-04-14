@@ -2,6 +2,8 @@ package campy.com.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -14,6 +16,8 @@ public class ReserveDto {
 	private Date reserve_date;
 	private String mem_tel;
 	private int c_price;
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date start_date;
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date end_date;
 }

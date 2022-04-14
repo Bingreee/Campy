@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <title>캠핑 객실 검색</title>
 <style>
 	h1 {
@@ -28,23 +29,44 @@
 	.roomList{
 		display : inline;
 		position : relative;
-		left : 500px;
+		left : 800px;
 		border-top : 10px;
 		background-color: #BBDEFB;
         margin: 10px 20px;
         padding: 10px 20px;
 	}
-	
-	span{
-		position : relative;
-		left : 550px;
-	}
+
 	#roomInfo{
 		position : relative;
-		left : 550px;
+		left : 1000px;
 		display : block;
 		margin-top : 50px;
 	}
+	
+	#setting{
+		position: absolute;
+	}
+	
+	.thumbnail{
+		position: relative;
+		right:200px;
+		width:150px;
+		height:150px;
+		border-radius: 10%;
+	}
+	
+	.loveBtn {
+		margin-top: 100px;
+	}
+	
+	.loveBtn, .reservation, .detail{
+		cursor: pointer;
+	}
+	
+	.roomDetail, #lovechk{
+		display:none;
+	}
+	
 </style>
 </head>
 <body>
@@ -68,18 +90,32 @@
 	
 	<h4>검색결과</h4>
 		
-	<select>
+	<select id="c_no" name="c_no">
 		<c:forEach items="${campList }" var="campList">
 			<option value="${campList.c_no }">${campList.c_name }</option> 
 		</c:forEach>
 		<!-- value는 c_no, 출력은 c_name -->
 	</select>
 	
+	<h4>날짜선택</h4>
+	<input id="selectDate" class="form-control linkedCalendars"/><br><br>
+	<span id="setting" class="input-group-text calendar-icon">
+	<i data-feather="calendar" class="feather-sm"></i>
+	</span>
+	
+	<span>인원 선택 </span><span id='result'> 0</span>
+	<input type="button" value="+" onclick='count("plus")'><input type="button" value="-"  onclick='count("minus")'><br>
+	
+	<c:if test="${user.id == null }">
+	</c:if>
+	<c:if test="${user.id != null }">
+		<input type="button" id="lovebtn" value="찜하기"><br>
+	</c:if>
+	<input type="button" value="리뷰 확인하러가기">
 	
 	<h4 class="roomList">객실 목록</h4>
 	<div id="roomInfo"></div>
-	
-	
+
 	<%-- 전체 객실 가져오기
 	<c:forEach items="${room}" var="room">
 		<div class="roomListDetail">${room.c_no } / ${room.r_no} / ${room.r_content }
@@ -88,8 +124,52 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script type="text/javascript">
 
+$('.linkedCalendars').daterangepicker({
+	linkedCalendars: false,
+	"locale":{
+	"format": "YYYY-MM-DD",
+	"separator": " ~ ",
+	"applyLabel": "확인",
+	"cancelLabel": "취소",
+	"fromLabel": "From",
+	"toLabel": "To",
+	"customRangeLabel": "Custom",
+	"daysOfWeek": ["일","월", "화", "수", "목", "금", "토"],
+	"monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"] },
+	}, function (start, end, label) {
+	console.log('선택된 날짜: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+	});//dateRangePicker
+	
+	function count(type)  {
+		  // 결과를 표시할 element
+		  const resultElement = document.getElementById('result');
+		  
+		  // 현재 화면에 표시된 값
+		  let number = resultElement.innerText;
+		  
+		  // 더하기/빼기
+		  if(type === 'plus') {
+		    number = parseInt(number) + 1;
+		    if(number > 5) {
+		    	alert("최대 인원은 5명입니다.")
+		    	return false;
+		    }
+		  }else if(type === 'minus')  {
+		    number = parseInt(number) - 1;
+		    if(number < 0) {
+		    	alert("최소 인원은 1명입니다.");
+		    	return false;
+		    }
+		  }
+		  // 결과 출력
+		  resultElement.innerText = number;
+		}
+	
 	$(function(){
 		$("select").click(function(){
 			let c_no = $(this).val();
@@ -101,17 +181,63 @@
 				console.log(data);
 				$("#roomInfo").empty();
 				for(let i=0; i<data.length; i++){
-					$("#roomInfo").append("객실번호 :"+data[i].r_no+"<br>")
-					.append("캠핑 종류 : "+data[i].theme+"<br>")
-					.append("최대 인원 : "+data[i].r_maxno+"<br>")
-					.append("객실 소개 : "+data[i].r_content+"<br>")
-					.append("가격 : "+data[i].c_price+"<br><br>")
+					let img = $("<img class='thumbnail'>").attr({'src': '../../CampPhoto/'+data[i].r_photo});
+					let str = "<div id='"+data[i].r_no+"'>객실번호 :"+data[i].r_no+"<br>"+
+								"캠핑 종류 : "+data[i].theme+"<br>" +
+								"최대 인원 : "+data[i].r_maxno+"<br>"+
+								"객실 소개 : "+data[i].r_content+"<br>"+
+								"가격 : <span class='c_price'>"+data[i].c_price+"</span><br>"+
+								"<input type='button' id='"+data[i].r_no+"' class='reservation' value='예약하기'>"+
+								"<input type='button' id='"+data[i].r_no+"' class='detail' value='상세정보'>"+
+								"<div class='roomDetail'>"+data[i].r_content+"</div></div><br><br>";
+					$("#roomInfo").append(img);			
+					$("#roomInfo").append(str);
+					
 				}
-			 })
+			 })  
+		});     
+		
+		$(document).on('click',".reservation",function(){
+			let r_no = $(this).attr("id");
+			let countP = document.getElementById('result').innerText;
+			let date = $("#selectDate").val();
+			let start_date = date.substr(0,10);
+			let end_date = date.substr(13);
+			let sday = start_date.substr(8);
+			let eday = end_date.substr(8);
+			let day = eday - sday;
+			let c_no = $("#c_no").val();
+			let c_price = $(this).parents().children(".c_price").text() * day;
 			
-		});
-	}); 
+			let url = "/insertReserve?c_no="+c_no+"&r_no="+r_no+"&start_date="+start_date+"&end_date="+end_date+"&c_price="+c_price;
+			location.href=url;	
+		})
+		
+		$(document).on('click',".detail",function(){
+			$(this).next(".roomDetail").stop().slideToggle(300);
+			  $(this).toggleClass('on').siblings().removeClass('on');
+			  $(this).next(".roomDetail").siblings(".roomDetail").slideUp(300); // 1개씩 펼치기
+		})
+		
+		$("#lovebtn").click(function(){
+			var c_no = $("#c_no").val();
+			var btnval = $("#lovebtn").val();
+			
+			if(btnval == "완료") {
+				alert("이미 찜한 상품입니다.");
+				return false;
+			}
+			
+			$.ajax({
+				url:"/insertLove",
+				data:"c_no="+c_no,
+				dataType:"text"
+			}).done(function(){
+				alert("찜 목록에 추가되었습니다.");
+				$("#lovebtn").val("완료");
+			})
+		})
+	});//ready
 </script>
-
 </body>
 </html>
