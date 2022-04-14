@@ -24,7 +24,7 @@ import campy.com.dto.RoomDto;
 import campy.com.service.ReserveService;
 import campy.com.service.RoomService2;
 
-@SessionAttributes({"reserve","camping","user, review"})
+@SessionAttributes({"reserve","camping","user","review"})
 @Controller
 public class ReserveController {
 
@@ -47,6 +47,11 @@ public class ReserveController {
 	@ModelAttribute("user")
 	public MemberDto memDto() {
 		return new MemberDto();
+	}
+	
+	@ModelAttribute("review")
+	public ReviewDto reviewDto() {
+		return new ReviewDto();
 	}
 
 	
@@ -100,15 +105,23 @@ public class ReserveController {
 	}
 	
 	@GetMapping("/reviewContent/{rv_no}")
-	public String reviewContent(@ModelAttribute("user")MemberDto user, @ModelAttribute("review")ReviewDto review, @PathVariable int rv_no, Model m) {
+	public String reviewContent(@ModelAttribute("user") MemberDto memDto, @ModelAttribute("review") ReviewDto reviewDto, @PathVariable int rv_no, Model m) {
 		ReviewDto rdto = rservice.reviewContent(rv_no);
 		m.addAttribute("rdto",rdto);
 		return "reviewContent";
 	}
 	
 	@GetMapping("reviewWrite")
-	public String reviewWrite(@ModelAttribute("user")MemberDto dto) {
+	public String reviewWriteForm(@ModelAttribute("user")MemberDto memDto, @ModelAttribute("review")ReviewDto reviewDto, @ModelAttribute("camping") CampingDto campDto, Model m) {
+		List<CampingDto> r = rservice2.selectC_name();
+		m.addAttribute("campList",r);
 		return "reviewWrite";
+	}
+	
+	@PostMapping("reviewWrite")
+	public String reviewWrite(ReviewDto rv_dto) {
+		rservice.reviewWrite(rv_dto);
+		return "redirect:review";
 	}
 	
 	@GetMapping("/review/{c_no}")
@@ -120,6 +133,18 @@ public class ReserveController {
 		String rr_text = gson.toJson(rr);
 		System.out.println(rr_text);
 		return rr_text;
+	}
+	
+	@DeleteMapping("/review/delete")
+	@ResponseBody
+	public String reviewDelete(int rv_no) {
+		int i = rservice.reviewDelete(rv_no);
+		return ""+i;
+	}
+	
+	@GetMapping("fileUploadForm")
+	public String fileUploadForm() {
+		return "fileUploadForm";
 	}
 	
 }

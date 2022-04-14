@@ -40,11 +40,17 @@ public class ReserveService {
 		return rdao.reviewContent(rv_no);
 	}
 	
-	/*
-	 * public int reviewWrite(ReviewDto rv_dto) { return rdao.reviewWrite(rv_dto); }
-	 */
+	
+	 public int reviewWrite(ReviewDto rv_dto) { 
+		 return rdao.reviewWrite(rv_dto); 
+	 }
+	 
 	
 	public List<ReviewDto> reviewOne(int c_no) {
 		return rdao.reviewOne(c_no);
+	}
+	
+	public int reviewDelete(int rv_no) {
+		return rdao.reviewDelete(rv_no);
 	}
 }

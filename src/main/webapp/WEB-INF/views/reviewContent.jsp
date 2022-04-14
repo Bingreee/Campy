@@ -50,8 +50,8 @@ a {
 <nav>
 		<ul>
 			<c:if test="${user.id == null }">
-				<button type="button" onclick="location.href='login' " class="rightButton">로그인</button><br>
-				<button type="button" onclick="location.href='join' " class="rightButton">회원가입</button>
+				<button type="button" onclick="location.href='/login' " class="rightButton">로그인</button><br>
+				<button type="button" onclick="location.href='/join' " class="rightButton">회원가입</button>
 		<!-- 		<a href="login">로그인</a><br>
 				<a href="join">회원가입</a> -->
 			</c:if>
@@ -69,7 +69,7 @@ a {
 	<tr><td>작성자</td><td>${rdto.id}</td>
 	<tr><td>내용</td><td>${rdto.rv_content}</td>
 	<tr><td>별점</td><td>${rdto.rate }</td>
-	<tr><td>사진 업로드</td><td></td>
+	<tr><td>사진</td><td></td>
 	<tr><td colspan="2" align="right">
 	<c:if test="${ user.id == rdto.id }">
 	<%-- <a href="/board/update/${rdto.no}">글 수정 </a>  --%>
@@ -80,5 +80,19 @@ a {
 </table>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+	$("a[id]").click(function(){
+		let rv_no = $(this).attr("id");
+		$.ajax({url:"/review/delete", data:"rv_no="+rv_no, method:"delete"}
+		).done(function(){
+			location.href="/review";
+		})
+		return false;
+	})//click
+})//ready
+
+</script>
 </body>
 </html>

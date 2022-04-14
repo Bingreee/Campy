@@ -45,14 +45,19 @@ a {
 }
 
 .lightgray{background-color: lightgray; width: 50px;}
-	table{border-collapse : collapse; width: 800px;}
+
+table{border-collapse : collapse; width: 800px;}
+	
+input:invalid {
+  border: 3px solid red;/* 별점에 pattern 넣으면 사용가능  */
+}
 </style>
 </head>
 <body>
 <h1> Campy </h1>
 <nav>
 		<ul>
-			<c:if test="${user.id == null }">
+			<%-- <c:if test="${user.id == null }">
 				<button type="button" onclick="location.href='login' " class="rightButton">로그인</button><br>
 				<button type="button" onclick="location.href='join' " class="rightButton">회원가입</button>
 		<!-- 		<a href="login">로그인</a><br>
@@ -60,16 +65,22 @@ a {
 			</c:if>
 			<c:if test="${user.id != null }">
 				${user.id}
-			</c:if>
+			</c:if> --%>
 		</ul>
 	</nav>
 	<hr>
 
-<form method="post" id="reviewWrite" action="/reviewWrite">
+<form method="post" id="reviewWriteForm" action="reviewWrite"> <!-- enctype="multipart/form-data" -->
+
+<select name="c_no">
+		<c:forEach items="${campList }" var="campList">
+		<option value="${campList.c_no }" >${campList.c_name }</option> 
+		</c:forEach>
+</select>
 <table>
 		<tr>
 			<td class="lightgray">제목</td>
-			<td><input name="rv_title"/></td>
+			<td><input type="text" name="rv_title"/></td>
 		</tr>
 		<tr>
 			<td class="lightgray">작성자</td>
@@ -83,17 +94,33 @@ a {
 			</td>
 		</tr>
 		<tr>
+			<td class="lightgray">별점</td>
+			<td><input type="number" min="0.5" max="5.0" step="0.5" name="rate" id="rate"></td>
+			<!-- <td><input type="text" pattern = "[0-9]+(.[0-9]+)?" name="rate" id="rate"></td> -->
+		</tr>
+		<tr>
+			<td class="lightgray">사진 업로드</td>
+			<td><input type="file" name="rv_photo" id="rv_photo"></td>
+		</tr>
+		<tr>
 			<td colspan="2" align="center">
-				<input type="button" id="save" value="새글 등록"> 
+				<input type="button" id="rv_save" value="후기 등록"> 
 			</td>
 		</tr>
 	</table>
 
 </form>
 
-	
-	
-	
-	
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+      
+      $("#rv_save").click(function(){
+    	  $("#reviewWriteForm").submit();
+      });
+      
+    });
+		
+</script>
 </body>
 </html>

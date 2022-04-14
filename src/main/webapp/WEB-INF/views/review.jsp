@@ -54,8 +54,8 @@ td{
 <nav>
 		<ul>
 			<c:if test="${user.id == null }">
-				<button type="button" onclick="location.href='login' " class="rightButton">로그인</button><br>
-				<button type="button" onclick="location.href='join' " class="rightButton">회원가입</button>
+				<button type="button" onclick="location.href='/login' " class="rightButton">로그인</button><br>
+				<button type="button" onclick="location.href='/join' " class="rightButton">회원가입</button>
 		<!-- 		<a href="login">로그인</a><br>
 				<a href="join">회원가입</a> -->
 			</c:if>
@@ -130,6 +130,7 @@ td{
 			<input type="submit" value="검색" />
 		</form>
 	</div>
+	<a href="fileUploadForm">업로드</a>
 	
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -156,6 +157,13 @@ $(function(){
 			$("#table1").html(html);
 		 })
 		
+	});
+	
+	$("#reviewWrite").click(function(){
+		if ("${user.id}" == null){
+			alert("로그인 해야함");
+			return false;
+		}
 	});
 }); 
 
