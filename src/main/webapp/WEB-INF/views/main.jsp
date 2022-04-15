@@ -57,7 +57,7 @@
 	<tr>
 		<td>
 			<select name="c_address">
-    			<option value="">직업선택</option>
+    			<option value="">지역선택</option>
     			<option value="서울">서울</option>
     			<option value="경기도">경기도</option>
     			<option value="강원도">강원도</option>
@@ -71,8 +71,7 @@
 	<tr>
 		<td>
 			<select name="maxno">
-    			<option value="">인원선택</option>
-    			<option value="0">0</option>
+    			<option value="0">인원선택</option>
     			<option value="1">1</option>
     			<option value="2">2</option>
     			<option value="3">3</option>
@@ -94,37 +93,54 @@
 	</tr>
 	
 	<tr>
-		<td><label><input type="checkbox" name="swim" value="t" id="swim"> 수영</label> </td>
-		<td><label><input type="hidden" name="swim" value="f" id="swim_hidden"> 수영</label> </td>
-		
-		<td><label><input type="checkbox" name="pick" value='t' id="pick"> 픽업</label> </td>
-		<td><label><input type="hidden" name="pick" value='f' id="pick_hidden"> 픽업</label> </td>
-		
-		<td><label><input type="checkbox" name="elec" value='t' id="elec"> 전기</label> </td>
-		<td><label><input type="hidden" name="elec" value='f' id="elec_hidden"> 전기</label> </td>
-		
-		<td><label><input type="checkbox" name="wifi" value='t' id="wifi"> 와이파이</label> </td>
-		<td><label><input type="hidden" name="wifi" value='f' id="wifi_hidden">와이파이</label> </td>
-		
-		<td><label><input type="checkbox" name="snack" value='t' id="snack"> 스낵</label> </td>
-		<td><label><input type="hidden" name="snack" value='f' id="snack_hidden"> 스낵</label> </td>
-		
-		<td><label><input type="checkbox" name="pet" value='t' id="pet"> 펫</label> </td>
-		<td><label><input type="hidden" name="pet" value='f' id="pet_hidden"> 펫</label> </td>
+		<td><label><input type="checkbox" name="swim" value="t" id="swim"> 수영</label> </td>			
+		<td><label><input type="checkbox" name="pick" value='t' id="pick"> 픽업</label> </td>				
+		<td><label><input type="checkbox" name="elec" value='t' id="elec"> 전기</label> </td>				
+		<td><label><input type="checkbox" name="wifi" value='t' id="wifi"> 와이파이</label> </td>				
+		<td><label><input type="checkbox" name="snack" value='t' id="snack"> 스낵</label> </td>				
+		<td><label><input type="checkbox" name="pet" value='t' id="pet"> 펫</label> </td>		
 	</tr>
 	
 	
 	
 	<tr>
 		<td>
-			<input type="submit" value="검색">
+			<input type="submit" value="검색" id="mainSearchButton">
 		</td>  
 	</tr>
 	
 	</table>
+	
+	<input type="hidden" name="swim" value="f" id="swim_hidden"> 
+	<input type="hidden" name="pick" value='f' id="pick_hidden"> 
+	<input type="hidden" name="elec" value='f' id="elec_hidden"> 
+	<input type="hidden" name="wifi" value='f' id="wifi_hidden">
+	<input type="hidden" name="snack" value='f' id="snack_hidden"> 
+	<input type="hidden" name="pet" value='f' id="pet_hidden">
+	
 	</form:form>
-		${mainSearchInfoResult}
-		<img src="../../CampPhoto/${mainSearchInfoResult.c_photo}" width="50px" height="50px">	
+
+	<c:choose>
+		
+		<c:when test="${mainSearchInfoResult == '[]'}">
+			<h4>검색 결과가 없습니다.</h4>
+		</c:when>
+
+		<c:otherwise>
+			
+			<c:forEach items="${mainSearchInfoResult}" var="result">
+					<img src="../../CampPhoto/${result.c_photo}" width="100px">
+					<input type="button" value="Room페이지로" id='${result.c_no}'>
+					<br>
+			</c:forEach>
+		</c:otherwise>
+
+	</c:choose>
+
+
+
+
+
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -148,7 +164,10 @@
 		if(document.getElementById("pet").checked){
 			document.getElementById("pet_hidden").disabled=true;
 		}
+		
+		
 	}
+	
 </script>
 
 </html>
