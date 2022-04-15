@@ -72,7 +72,6 @@ td{
 		</div>
 		
 	<select>
-		<option>캠핑장 선택</option>
 		<c:forEach items="${campList }" var="campList">
 			<option value="${campList.c_no }">${campList.c_name }</option> 
 		</c:forEach>
@@ -130,7 +129,6 @@ td{
 			<input type="submit" value="검색" />
 		</form>
 	</div>
-	<a href="fileUploadForm">업로드</a>
 	
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -143,7 +141,7 @@ $(function(){
 			type : "get",
 			dataType : "json"
 		}).done(function(data){
-			console.log(data);
+			//console.log(data);
 			$("td").empty();
 			var html = "";
 			for(let i=0; i<data.length; i++){

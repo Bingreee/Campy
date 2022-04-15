@@ -1,6 +1,10 @@
 package campy.com.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -20,7 +27,6 @@ import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.ReviewDto;
-import campy.com.dto.RoomDto;
 import campy.com.service.ReserveService;
 import campy.com.service.RoomService2;
 
@@ -142,9 +148,23 @@ public class ReserveController {
 		return ""+i;
 	}
 	
-	@GetMapping("fileUploadForm")
-	public String fileUploadForm() {
-		return "fileUploadForm";
+	@GetMapping("/review/update/{rv_no}")
+	public String reviewUpdateForm(@PathVariable int rv_no, Model m) {
+		ReviewDto rv_dto = rservice.reviewContent(rv_no);
+		m.addAttribute("rv_dto",rv_dto);
+		return "reviewUpdateForm";
 	}
+	
+	@PutMapping("/review/update")
+	public String reviewUpdate(ReviewDto rv_dto) {
+		rservice.reviewUpdate(rv_dto);
+		return "redirect:/review";
+	}
+	
+	@GetMapping("/upload")
+	public String uploadForm() {
+		return "upload";
+	}
+	
 	
 }

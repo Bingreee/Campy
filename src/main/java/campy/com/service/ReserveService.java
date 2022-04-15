@@ -53,4 +53,8 @@ public class ReserveService {
 	public int reviewDelete(int rv_no) {
 		return rdao.reviewDelete(rv_no);
 	}
+	
+	public int reviewUpdate(ReviewDto rv_dto) {
+		return rdao.reviewUpdate(rv_dto);
+	}
 }

@@ -69,10 +69,9 @@ a {
 	<tr><td>작성자</td><td>${rdto.id}</td>
 	<tr><td>내용</td><td>${rdto.rv_content}</td>
 	<tr><td>별점</td><td>${rdto.rate }</td>
-	<tr><td>사진</td><td></td>
 	<tr><td colspan="2" align="right">
 	<c:if test="${ user.id == rdto.id }">
-	<%-- <a href="/board/update/${rdto.no}">글 수정 </a>  --%>
+	<a href="/review/update/${rdto.rv_no}">글 수정 </a>
 	<a id="${rdto.rv_no}" href="#">글 삭제</a>
 	</c:if>
 	<a href="#" onclick='history.back(-1); return false;'>목록 이동</a> 

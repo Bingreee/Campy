@@ -19,4 +19,5 @@ public interface ReserveDao {
 	int reviewWrite(ReviewDto rv_dto); //리뷰 작성
 	List<ReviewDto> reviewOne(int c_no); //캠핑장 마다의 리뷰
 	int reviewDelete(int rv_no);//리뷰 삭제
+	int reviewUpdate(ReviewDto rv_dto);//리뷰 수정
 }

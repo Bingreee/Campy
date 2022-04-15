@@ -88,19 +88,15 @@ input:invalid {
 		</tr>
 		<tr>
 			<td class="lightgray">내용</td>
-			<td>
+			<td><div id="smarteditor">
 			<textarea name="rv_content" id="editorTxt" cols="40" rows="10" placeholder="내용을 입력해주세요"
                   style="width: 700px"></textarea>
-			</td>
+			</div></td>
 		</tr>
 		<tr>
 			<td class="lightgray">별점</td>
 			<td><input type="number" min="0.5" max="5.0" step="0.5" name="rate" id="rate"></td>
 			<!-- <td><input type="text" pattern = "[0-9]+(.[0-9]+)?" name="rate" id="rate"></td> -->
-		</tr>
-		<tr>
-			<td class="lightgray">사진 업로드</td>
-			<td><input type="file" name="rv_photo" id="rv_photo"></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
@@ -112,14 +108,32 @@ input:invalid {
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
+
+let oEditors = []
+
+smartEditor = function() {
+  //console.log("Naver SmartEditor") 없어도 됨
+  nhn.husky.EZCreator.createInIFrame({
+    oAppRef: oEditors,
+    elPlaceHolder: "editorTxt",
+    sSkinURI: "/smarteditor/SmartEditor2Skin.html",
+    fCreator: "createSEditor2"
+  })
+} 
+
+
 	$(document).ready(function() {
       
+	  smartEditor() 
+	  
       $("#rv_save").click(function(){
+    	  oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
     	  $("#reviewWriteForm").submit();
       });
       
-    });
+    })
 		
 </script>
 </body>
