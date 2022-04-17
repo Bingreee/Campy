@@ -17,7 +17,7 @@ public class ReserveService {
 	@Autowired
 	ReserveDao rdao;
 	
-	public ReserveDto reserveStatus() {
+	public List<ReserveDto> reserveStatus() {
 		return rdao.reserveStatus();
 	}
 	
@@ -56,5 +56,23 @@ public class ReserveService {
 	
 	public int reviewUpdate(ReviewDto rv_dto) {
 		return rdao.reviewUpdate(rv_dto);
+	}
+	
+	public int reviewSearchCount(int searchn, String search) {
+		System.out.println(searchn+search);
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("searchn", searchn);
+		m.put("search", search);
+		return rdao.reviewSearchCount(m);
+	}
+	
+	public List<ReviewDto> reviewSearch(int searchn, String search, int start, int end){
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("searchn", searchn);
+		m.put("search", search);
+		m.put("start", start);
+		m.put("end", end);
+		
+		return rdao.reviewSearch(m);
 	}
 }

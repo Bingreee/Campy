@@ -73,45 +73,31 @@
 			
 		</ul>
 	</nav>
-	<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="today" />
-	<fmt:formatDate value="${reserve.end_date }" pattern="yyyyMMdd" var="end_date"/>
-	
+	<fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
+	<%-- <c:set><fmt:formatDate var="end_date" value="${rStatus.end_date }" pattern="yyyyMMdd" /></c:set>
+ --%>	
 	<h3>예약 내역</h3>
 <fieldset>
 <table>
 <c:choose>
-	<c:when test="${reserve.id != null }">
-		<legend>예약한 날짜  ${reserve.reserve_date }</legend>
-		<tr><td>캠핑장 이름 : ${camping.c_name }</td><td><a href="reserveDetail" class="detail">상세보기</a></td>
+	<c:when test="${rStatus.id != null}">
+		<tr><td>캠핑장 이름 : ${camping.c_name}</td><td><a href="reserveDetail" class="detail">상세보기</a></td>
 		<tr><td>
-		이용날짜 : ${reserve.start_date } ~ ${reserve.end_date }</td>
-		<c:if test="${end_date - today >= 0 }">
+		이용날짜 : ${rStatus.start_date} ~ ${rStatus.end_date}</td>
+		<c:if test="${(rStatus.end_date - today) >= 0}">
 			<a href="reviewWrite" class="detail">리뷰 작성하러 가기</a>
 		</c:if>
-		<c:if test="${end_date - today < 0 }">
+		<c:if test="${(rStatus.end_date - today) < 0}">
 			<a href="deleteReserve" class="detail">예약 취소</a>
 		</c:if>
 	</c:when>
-	<c:when test="${reserve.id == null }">
+	<c:if test="${rStatus.id == null}">
 		<h4>예약 내역이 없습니다.</h4>
-	</c:when>
+	</c:if>
 </c:choose>
 </table>
 </fieldset>
 
-
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-	function getToday(){
-    	var date = new Date();
-    	var year = date.getFullYear();
-    	var month = ("0" + (1 + date.getMonth())).slice(-2);
-    	var day = ("0" + date.getDate()).slice(-2);
-
-    	return year + month + day;
-	}
-
-</script> -->
 
 </body>
 </html>
