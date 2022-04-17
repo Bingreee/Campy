@@ -1,0 +1,36 @@
+package campy.com.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import campy.com.dto.QaDto;
+import campy.com.dto.Qa_CommDto;
+import campy.com.service.Qa_CommService;
+
+@RestController
+public class Qa_CommController {
+
+	@Autowired
+	Qa_CommService cservice;
+	
+	@PostMapping("/insertComm")
+	public String insertComm(Qa_CommDto dto) {
+		int i = cservice.insertComm(dto);
+		return i+"";
+	}
+	
+	@DeleteMapping("deleteComm/{qa_no}")
+	public String deleteComm(@PathVariable int qa_no) {
+		int i = cservice.deleteComm(qa_no);
+		return i+"";
+	}
+	
+
+}

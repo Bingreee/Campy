@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="campy.com.dao.Qa_CommDao">
+	
+	<insert id="insertComm" parameterType="campy.com.dto.Qa_CommDto">
+		insert into qa_comm values(c_seq.nextval,#{qa_no}, sysdate, #{qa_comm_content} )
+	</insert>
+	
+	<delete id="deleteComm" parameterType="int">
+		delete from qa_comm where qa_no = #{qa_no}
+	</delete>
+	
+	<select id="selectComm" parameterType="int" 
+	resultType="campy.com.dto.Qa_CommDto">
+		select * from qa_comm where qa_no = #{qa_no} order by qa_comm_date desc
+	</select>
+	
+</mapper>
