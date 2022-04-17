@@ -54,8 +54,8 @@ td{
 <nav>
 		<ul>
 			<c:if test="${user.id == null }">
-				<button type="button" onclick="location.href='login' " class="rightButton">로그인</button><br>
-				<button type="button" onclick="location.href='join' " class="rightButton">회원가입</button>
+				<button type="button" onclick="location.href='/login' " class="rightButton">로그인</button><br>
+				<button type="button" onclick="location.href='/join' " class="rightButton">회원가입</button>
 		<!-- 		<a href="login">로그인</a><br>
 				<a href="join">회원가입</a> -->
 			</c:if>
@@ -72,7 +72,6 @@ td{
 		</div>
 		
 	<select>
-		<option>캠핑장 선택</option>
 		<c:forEach items="${campList }" var="campList">
 			<option value="${campList.c_no }">${campList.c_name }</option> 
 		</c:forEach>
@@ -142,7 +141,7 @@ $(function(){
 			type : "get",
 			dataType : "json"
 		}).done(function(data){
-			console.log(data);
+			//console.log(data);
 			$("td").empty();
 			var html = "";
 			for(let i=0; i<data.length; i++){
@@ -156,6 +155,13 @@ $(function(){
 			$("#table1").html(html);
 		 })
 		
+	});
+	
+	$("#reviewWrite").click(function(){
+		if ("${user.id}" == null){
+			alert("로그인 해야함");
+			return false;
+		}
 	});
 }); 
 

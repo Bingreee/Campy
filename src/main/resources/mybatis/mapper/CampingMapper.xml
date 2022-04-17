@@ -2,10 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="campy.com.dao.CampingDao">
 	<select parameterType="campy.com.dto.CampingDto" id="mainSearch" resultType="campy.com.dto.CampingDto">
-		<![CDATA[ 
-		select * from Camping where c_name LIKE '%'||#{c_name}||'%' and c_address LIKE '%'||#{c_address}||'%' 
-		and maxno>=#{maxno} and place=#{place} and swim=#{swim} and pick=#{pick} and elec=#{elec} 
-		and wifi=#{wifi} and snack=#{snack} and pet=#{pet}	
-		]]>
+	
+		select * from Camping
+		<where>
+		<if test="c_name != null">
+		c_name LIKE '%'||#{c_name}||'%'  
+		</if>
+		<if test="c_address != null">
+		and c_address LIKE '%'||#{c_address}||'%' 
+		</if>
+		<if test="maxno != 0">
+		and maxno&gt;=#{maxno} 
+		</if>
+		and place=#{place} and swim=#{swim} and pick=#{pick} and elec=#{elec} 
+		
+		and wifi=#{wifi} and snack=#{snack} and pet=#{pet}
+		</where>
 	</select>
 </mapper>
