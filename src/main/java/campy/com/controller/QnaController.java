@@ -20,6 +20,7 @@ import campy.com.dao.QnaDao;
 import campy.com.dto.MemberDto;
 import campy.com.dto.QaDto;
 import campy.com.dto.Qa_CommDto;
+import campy.com.service.Qa_CommService;
 import campy.com.service.QnaService;
 
 @SessionAttributes("user")
@@ -28,7 +29,10 @@ public class QnaController {
 
 	@Autowired
 	QnaService qservice;
-
+	
+	@Autowired
+	Qa_CommService cservice;
+	
 	@ModelAttribute("user")
 	public MemberDto getDto() {
 		return new MemberDto();
@@ -67,7 +71,7 @@ public class QnaController {
 	}
 
 	@GetMapping("/askWrite")
-	public String askWrite(@ModelAttribute("user") MemberDto dto) {
+	public String writeForm(@ModelAttribute("user") MemberDto dto) {
 		return "askWrite";
 	}
 
@@ -77,7 +81,7 @@ public class QnaController {
 		return "redirect:ask";// 글목록
 	}
 
-	@RequestMapping("/search")
+	@GetMapping("/search")
 	public String search(int searchn, String search, @RequestParam(name = "p", defaultValue = "1") int page, Model m) {
 		int count = qservice.countSearch(searchn, search);
 		if (count > 0) {
@@ -114,28 +118,28 @@ public class QnaController {
 	public String askContent(@PathVariable int qa_no, Model m) {
 		QaDto dto = qservice.qaOne(qa_no);
 		m.addAttribute("dto", dto);
-		//List<Qa_CommDto> cList = qservice.selectComm(qa_no);
-		//m.addAttribute("cList", cList);
+		List<Qa_CommDto> cList = cservice.selectComm(qa_no);
+		m.addAttribute("cList", cList);
 		return "askContent";
 	}
 
-	@GetMapping("/update/{qa_no}")
-	public String update(@PathVariable int qa_no, Model m) {
+	@GetMapping("/updateForm/{qa_no}")
+	public String updateForm(@PathVariable int qa_no, Model m) {
 		QaDto dto = qservice.qaOne(qa_no);
 		m.addAttribute("dto", dto);
-		return "askContent";
+		return "updateForm";
 	}
 
-	@PutMapping("/update")
+	@RequestMapping("/update")
 	public String update(QaDto dto) {
-		qservice.update(dto);
+		qservice.updateQa(dto);
 		return "redirect:ask";
 	}
 
 	@DeleteMapping("/delete")
 	@ResponseBody
 	public String delete(int qa_no) {
-		int i = qservice.delete(qa_no);
+		int i = qservice.deleteQa(qa_no);
 		return "" + i;
 	}
 

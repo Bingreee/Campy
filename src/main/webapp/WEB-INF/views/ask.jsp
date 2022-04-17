@@ -52,7 +52,7 @@ a {
 					<th>작성자</th>
 					<th>제목</th>
 					<th>작성일</th>
-					<th>진행상태</th>
+					<!-- <th>진행상태</th> -->
 				</tr>
 				<c:forEach items="${qaList}" var="qa">
 					<tr>
@@ -62,7 +62,7 @@ a {
 						<td><a href ="askContent/${qa.qa_no}">${qa.qa_title}</a></td>
 						
 						<td><fmt:formatDate value="${qa.qa_date }" dateStyle="short"/> </td>
-						<td>${qa.qa_open }</td>
+						<%-- <td>${qa.qa_open }</td> --%>
 					</tr>
 				</c:forEach>
 			</table>

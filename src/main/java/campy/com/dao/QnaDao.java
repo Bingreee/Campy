@@ -31,8 +31,9 @@ public interface QnaDao {
 
 	int countSearch(Map<String, Object> m);
 
-	//List<Qa_CommDto> selectComm(int qa_no);
+	List<Qa_CommDto> selectComm(int qa_no);
 
+	
 
 
 	
