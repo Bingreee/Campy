@@ -24,12 +24,12 @@
 
  <div>
 	<c:forEach items="${cList}" var="Qa_CommDto">
-		<div><fmt:formatDate value="${Qa_CommDto.qa_comm_date }" dateStyle="short"/></div>
+		<div>${Qa_CommDto.id} / <fmt:formatDate value="${Qa_CommDto.qa_comm_date }" dateStyle="short"/></div>
 		<div>${Qa_CommDto.qa_comm_content} 
 		
-		<%-- <c:if test="${Qa_CommDto.id == user.id }">
-		<button class="dbtn" id="${Qa_CommDto.qa_no}">삭제</button>
-		</c:if> --%>
+		 <c:if test="${Qa_CommDto.id == user.id }">
+		<button class="dbtn" id="${Qa_CommDto.qa_comm}">삭제</button>
+		</c:if> 
 		
 		</div>
 		<hr>
@@ -65,8 +65,8 @@
 			
 		})//click
 		$(".dbtn").click(function(){
-			let qa_no = $(this).attr("id");
-			$.ajax({url:"/delete/"+qa_no,
+			let qa_comm = $(this).attr("id");
+			$.ajax({url:"/deleteComm/"+qa_comm,
 				method:"delete"
 		}).done(function(){
 				location.reload();		

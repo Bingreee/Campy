@@ -40,7 +40,7 @@ a {
 </head>
 <body>
 	<div id="center">
-		<h1>게시글 목록</h1>
+		<h1>문의사항 목록</h1>
 		<div align="right">
 			<a href="/main">main </a><a href="/askWrite"> 새글 등록</a>
 		</div>

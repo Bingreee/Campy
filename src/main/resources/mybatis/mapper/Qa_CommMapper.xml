@@ -5,11 +5,11 @@
 <mapper namespace="campy.com.dao.Qa_CommDao">
 	
 	<insert id="insertComm" parameterType="campy.com.dto.Qa_CommDto">
-		insert into qa_comm values(c_seq.nextval,#{qa_no}, sysdate, #{qa_comm_content} )
+		insert into qa_comm values(c_seq.nextval,#{qa_no}, sysdate, #{qa_comm_content},#{id} )
 	</insert>
 	
 	<delete id="deleteComm" parameterType="int">
-		delete from qa_comm where qa_no = #{qa_no}
+		delete from qa_comm where qa_comm = #{qa_comm}
 	</delete>
 	
 	<select id="selectComm" parameterType="int" 

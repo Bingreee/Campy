@@ -13,7 +13,7 @@ public interface Qa_CommDao {
 
 	int insertComm(Qa_CommDto dto);
 
-	int deleteComm(int qa_no);
+	int deleteComm(int qa_comm);
 
 
 
