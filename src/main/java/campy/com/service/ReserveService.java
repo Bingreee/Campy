@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import campy.com.dao.ReserveDao;
+import campy.com.dto.CampAndReserveDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.ReviewDto;
 
@@ -17,7 +18,7 @@ public class ReserveService {
 	@Autowired
 	ReserveDao rdao;
 	
-	public List<ReserveDto> reserveStatus() {
+	public List<CampAndReserveDto> reserveStatus() {
 		return rdao.reserveStatus();
 	}
 	

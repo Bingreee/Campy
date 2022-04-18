@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 
+import campy.com.dto.CampAndReserveDto;
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
 import campy.com.dto.ReserveDto;
@@ -24,7 +26,7 @@ import campy.com.dto.ReviewDto;
 import campy.com.service.ReserveService;
 import campy.com.service.RoomService2;
 
-@SessionAttributes({"reserve","camping","user","review"})
+@SessionAttributes({"reserve","camping","user","review","cAr"})
 @Controller
 public class ReserveController {
 
@@ -54,17 +56,21 @@ public class ReserveController {
 		return new ReviewDto();
 	}
 
+	@ModelAttribute("cAr")
+	public CampAndReserveDto cArDto() {
+		return new CampAndReserveDto();
+	}
 	
 	
-	 @GetMapping("/reserveStatus")
-	 public String reserveStatus(@ModelAttribute("user") MemberDto memberdto, @ModelAttribute("reserve") ReserveDto dto,  Model m) {
-		 List<ReserveDto> rStatus = rservice.reserveStatus();
+	 @GetMapping("/reserveStatus2")
+	 public String reserveStatus(Model m) {
+		 List<CampAndReserveDto> rStatus = rservice.reserveStatus();
+		 System.out.println("rStatus"+rStatus);
+		 
 		 m.addAttribute("rStatus",rStatus);
-		 return"reserveStatus";
+		 return "reserveStatus";
 	}
 	 
-	 
-	
 	@GetMapping("/reserveDetail")
 	public String getReserve(ReserveDto dto) {
 		return "reserveDetail";

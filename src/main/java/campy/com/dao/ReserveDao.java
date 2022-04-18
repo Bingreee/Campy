@@ -5,13 +5,14 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import campy.com.dto.CampAndReserveDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.ReviewDto;
 
 @Mapper
 public interface ReserveDao {
 
-	List<ReserveDto> reserveStatus();
+	List<CampAndReserveDto> reserveStatus();//예약 현황
 	int deleteReserve(ReserveDto dto);
 	int countReview(); //리뷰 개수
 	List<ReviewDto> reviewList(Map<String, Object>m); //리뷰 리스트
