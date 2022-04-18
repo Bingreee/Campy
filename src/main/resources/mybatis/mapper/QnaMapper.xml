@@ -4,17 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="campy.com.dao.QnaDao">
 	
-	<!-- insert 수정해야함.    나머지 board 거의그대로 복붙-->
+	
 	<insert parameterType="campy.com.dto.QaDto" id="insert"> 
-		insert into qa(id,qa_title, qa_content) values(
-		#{id}, #{qa_title}, #{qa_content}) 
+		insert into qa(qa_no,id,qa_title, qa_content,qa_date)values(qa_seq.nextval,#{id},#{qa_title}, #{qa_content},sysdate) 
 	</insert>
 
-	<update parameterType="campy.com.dto.QaDto" id="update"> 
-		update qa set qa_title=#{qa_title} , qa_content=#{qa_content} where qa_no=#{qa_no} 
+	<update parameterType="campy.com.dto.QaDto" id="updateQa"> 
+		update qa set qa_title=#{qa_title} , qa_content=#{qa_content} where qa_no=#{qa_no}  
 	</update>
 
-	<delete parameterType="int" id="delete"> 
+	<delete parameterType="int" id="deleteQa"> 
 		delete from qa where qa_no = #{qa_no} 
 	</delete>
 	
@@ -37,7 +36,7 @@
 		select * from qa where qa_no = #{qa_no} 
 	</select>	
 	
-	<select id="countSearch" resultType="int" parameterType="campy.com.dto.QaDto">
+	<select id="countSearch" resultType="int" parameterType="map">
 		select count(*) from qa
 		<where>
 			<choose>
@@ -51,8 +50,8 @@
 	
 	<select id="qaListSearch" parameterType="map" resultType="campy.com.dto.QaDto">
 		select * from
-		(select qa_no,id,qa_title,qa_content,qa_date,qa_open, rownum r)
-		from (select * from qa order by qa_no desc)
+		(select qa_no,id,qa_title,qa_content,qa_date,qa_open, rownum r
+		from (select * from qa order by qa_date desc)
 		<where>
 			<choose>
 				<when test="searchn == 0">
@@ -66,5 +65,11 @@
 		) where r >= #{start} AND r &lt;= #{end}
  		
 	</select>
+		
+	<select id="selectComm" parameterType="int" resultType="campy.com.dto.QaDto">
+		select * from qa_comm where qa_no = #{qa_no} order by qa_comm_date desc
+	</select>
+	
+	
 	
 </mapper>
