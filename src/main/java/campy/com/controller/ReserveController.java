@@ -1,10 +1,6 @@
 package campy.com.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import campy.com.dto.CampAndReserveDto;
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
 import campy.com.dto.ReserveDto;
@@ -30,7 +26,7 @@ import campy.com.dto.ReviewDto;
 import campy.com.service.ReserveService;
 import campy.com.service.RoomService2;
 
-@SessionAttributes({"reserve","camping","user","review"})
+@SessionAttributes({"reserve","camping","user","review","cAr"})
 @Controller
 public class ReserveController {
 
@@ -60,13 +56,21 @@ public class ReserveController {
 		return new ReviewDto();
 	}
 
+	@ModelAttribute("cAr")
+	public CampAndReserveDto cArDto() {
+		return new CampAndReserveDto();
+	}
 	
-	@GetMapping("/reserveStatus")
-	public String reserveStatus(@ModelAttribute("reserve") ReserveDto dto) { 
-		return "reserveStatus"; 
+	
+	 @GetMapping("/reserveStatus2")
+	 public String reserveStatus(Model m) {
+		 List<CampAndReserveDto> rStatus = rservice.reserveStatus();
+		 System.out.println("rStatus"+rStatus);
+		 
+		 m.addAttribute("rStatus",rStatus);
+		 return "reserveStatus";
 	}
 	 
-	
 	@GetMapping("/reserveDetail")
 	public String getReserve(ReserveDto dto) {
 		return "reserveDetail";
@@ -161,10 +165,39 @@ public class ReserveController {
 		return "redirect:/review";
 	}
 	
-	@GetMapping("/upload")
-	public String uploadForm() {
-		return "upload";
+	@GetMapping("/review/search")
+	public String reviewSearch(int searchn, String search,@RequestParam(name="p", defaultValue = "1") int page,@ModelAttribute("user") MemberDto memDto, Model m) {
+		int count = rservice.reviewSearchCount(searchn,search);
+		if(count > 0) {
+		
+		int perPage = 10; // 한 페이지에 보일 글의 갯수
+		int startRow = (page - 1) * perPage + 1;
+		int endRow = page * perPage;
+		
+		List<ReviewDto> reviewList = rservice.reviewSearch(searchn,search,startRow, endRow);
+		m.addAttribute("rSearch", reviewList);
+
+		int pageNum = 5;
+		int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); //전체 페이지 수
+		
+		int begin = (page - 1) / pageNum * pageNum + 1;
+		int end = begin + pageNum -1;
+		if(end > totalPages) {
+			end = totalPages;
+		}
+		 m.addAttribute("begin", begin);
+		 m.addAttribute("end", end);
+		 m.addAttribute("pageNum", pageNum);
+		 m.addAttribute("totalPages", totalPages);
+		
+		}
+		m.addAttribute("count", count);
+		m.addAttribute("searchn", searchn);
+		m.addAttribute("search", search);
+		
+		return "review/reviewSearch";
 	}
+
 	
 	
 }

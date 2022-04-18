@@ -71,7 +71,8 @@ td{
 			<a href="reviewWrite" id="reviewWrite">리뷰 등록</a>
 		</div>
 		
-	<select>
+	<select onfocus="this.selectedIndex = -1;">
+			<option>캠핑장 선택</option>
 		<c:forEach items="${campList }" var="campList">
 			<option value="${campList.c_no }">${campList.c_name }</option> 
 		</c:forEach>
@@ -139,7 +140,8 @@ $(function(){
 		$.ajax({
 			url : "review/"+c_no,
 			type : "get",
-			dataType : "json"
+			dataType : "json",
+			async : false
 		}).done(function(data){
 			//console.log(data);
 			$("td").empty();
@@ -157,14 +159,15 @@ $(function(){
 		
 	});
 	
-	$("#reviewWrite").click(function(){
+})
+	
+	/* $(document).ready(function(){ */
+	$('#reviewWrite').click(function(){
 		if ("${user.id}" == null){
 			alert("로그인 해야함");
 			return false;
 		}
 	});
-}); 
-
 
 
 
