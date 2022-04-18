@@ -44,20 +44,26 @@ a {
 		<c:if test="${count != 0 }">
 			<table>
 				<tr>
-					<th>제목</th>
+					<th>번호</th>
 					<th>작성자</th>
+					<th>제목</th>
 					<th>작성일</th>
-					
+					<!-- <th>진행상태</th> -->
 				</tr>
 				<c:forEach items="${qaList}" var="qa">
 					<tr>
-						<td><a href ="askContent/${qa.qa_no}">${qa.qa_title}</a></td>
+						
+						<td>${qa.qa_no}</td>
 						<td>${qa.id }</td>
+						<td><a href ="askContent/${qa.qa_no}">${qa.qa_title}</a></td>
+						
 						<td><fmt:formatDate value="${qa.qa_date }" dateStyle="short"/> </td>
-						<%-- <td>${board.readcount }</td> --%>
+						<%-- <td>${qa.qa_open }</td> --%>
 					</tr>
 				</c:forEach>
 			</table>
+			
+			
 			<div id="page">
 				<c:if test="${begin > pageNum }">
 					<a href="search?p=${begin-1}&search=${search}&searchn=${searchn}">[이전]</a>

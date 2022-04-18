@@ -13,5 +13,6 @@ public class ReviewDto {
 	private String rv_date;
 	private String rv_content;
 	private int c_no;
-	private long rate;
+	private double rate;
+	private String rv_photo;
 }

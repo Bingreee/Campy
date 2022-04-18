@@ -1,6 +1,10 @@
 package campy.com.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -20,11 +27,10 @@ import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.ReviewDto;
-import campy.com.dto.RoomDto;
 import campy.com.service.ReserveService;
 import campy.com.service.RoomService2;
 
-@SessionAttributes({"reserve","camping","user, review"})
+@SessionAttributes({"reserve","camping","user","review"})
 @Controller
 public class ReserveController {
 
@@ -47,6 +53,11 @@ public class ReserveController {
 	@ModelAttribute("user")
 	public MemberDto memDto() {
 		return new MemberDto();
+	}
+	
+	@ModelAttribute("review")
+	public ReviewDto reviewDto() {
+		return new ReviewDto();
 	}
 
 	
@@ -100,15 +111,23 @@ public class ReserveController {
 	}
 	
 	@GetMapping("/reviewContent/{rv_no}")
-	public String reviewContent(@ModelAttribute("user")MemberDto user, @ModelAttribute("review")ReviewDto review, @PathVariable int rv_no, Model m) {
+	public String reviewContent(@ModelAttribute("user") MemberDto memDto, @ModelAttribute("review") ReviewDto reviewDto, @PathVariable int rv_no, Model m) {
 		ReviewDto rdto = rservice.reviewContent(rv_no);
 		m.addAttribute("rdto",rdto);
 		return "reviewContent";
 	}
 	
 	@GetMapping("reviewWrite")
-	public String reviewWrite(@ModelAttribute("user")MemberDto dto) {
+	public String reviewWriteForm(@ModelAttribute("user")MemberDto memDto, @ModelAttribute("review")ReviewDto reviewDto, @ModelAttribute("camping") CampingDto campDto, Model m) {
+		List<CampingDto> r = rservice2.selectC_name();
+		m.addAttribute("campList",r);
 		return "reviewWrite";
+	}
+	
+	@PostMapping("reviewWrite")
+	public String reviewWrite(ReviewDto rv_dto) {
+		rservice.reviewWrite(rv_dto);
+		return "redirect:review";
 	}
 	
 	@GetMapping("/review/{c_no}")
@@ -121,5 +140,31 @@ public class ReserveController {
 		System.out.println(rr_text);
 		return rr_text;
 	}
+	
+	@DeleteMapping("/review/delete")
+	@ResponseBody
+	public String reviewDelete(int rv_no) {
+		int i = rservice.reviewDelete(rv_no);
+		return ""+i;
+	}
+	
+	@GetMapping("/review/update/{rv_no}")
+	public String reviewUpdateForm(@PathVariable int rv_no, Model m) {
+		ReviewDto rv_dto = rservice.reviewContent(rv_no);
+		m.addAttribute("rv_dto",rv_dto);
+		return "reviewUpdateForm";
+	}
+	
+	@PutMapping("/review/update")
+	public String reviewUpdate(ReviewDto rv_dto) {
+		rservice.reviewUpdate(rv_dto);
+		return "redirect:/review";
+	}
+	
+	@GetMapping("/upload")
+	public String uploadForm() {
+		return "upload";
+	}
+	
 	
 }

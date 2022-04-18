@@ -18,6 +18,15 @@
 	.rightButton{
 		width : 100px;
 	}
+	
+	.main{
+	
+	}
+	
+	.footer{
+	
+	}
+	
 </style>
 <body>
 
@@ -42,14 +51,21 @@
 	 
 </header>
  
-<section>
+<main class="main">
  
+ 	<section>
+ 		<a href="/ask">목록 이동</a><hr>
+ 	</section>
+
  	
- 	<a href="/ask">목록 이동</a>
- 
-</section>
+</main>
    
-<footer>
+   
+   
+   
+   
+   
+<footer class="footer">
  <p>사이트명 고객센터친절하게 도와드리겠습니다.
  010-0000-0000평일 : 9:00 ~ 16:30(점심시간 12:00 ~ 1:00)
  주말 및 공휴일에는 문의 게시판을 이용해주세요.
