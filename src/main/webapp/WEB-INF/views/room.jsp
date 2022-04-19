@@ -47,7 +47,7 @@
 		position: absolute;
 	}
 	
-	.thumbnail{
+	.thumbnail, .roomPhoto{
 		position: relative;
 		right:200px;
 		width:150px;
@@ -63,7 +63,7 @@
 		cursor: pointer;
 	}
 	
-	.roomDetail, #lovechk{
+	.roomDetail, #lovechk, .roomContent{
 		display:none;
 	}
 	
@@ -71,7 +71,7 @@
 </head>
 <body>
 <h1> Campy </h1>
-	
+
 	<nav>
 		<ul>
 			<c:if test="${user.id == null }">
@@ -82,6 +82,9 @@
 			</c:if>
 			<c:if test="${user.id != null }">
 				${user.id}
+				<form action="logout" method="get">
+					<button type="submit">로그아웃</button>
+				</form>
 			</c:if>
 		</ul>
 	</nav>
@@ -103,16 +106,14 @@
 	<i data-feather="calendar" class="feather-sm"></i>
 	</span>
 	
-	<span>인원 선택 </span><span id='result'> 0</span>
+	<span>인원 선택 </span><span id='result'> 1</span>
 	<input type="button" value="+" onclick='count("plus")'><input type="button" value="-"  onclick='count("minus")'><br>
-	
 	<c:if test="${user.id == null }">
 	</c:if>
-	<c:if test="${user.id != null }">
-		<input type="button" id="lovebtn" value="찜하기"><br>
+	<c:if test="${user.id != null}">
+		<input type="button" id="lovebtn" value="♡"><br>
 	</c:if>
-	<input type="button" value="리뷰 확인하러가기">
-	
+	<input type="button" value="리뷰 확인하러가기" onclick="location.href='/review'">
 	<h4 class="roomList">객실 목록</h4>
 	<div id="roomInfo"></div>
 
@@ -161,7 +162,7 @@ $('.linkedCalendars').daterangepicker({
 		    }
 		  }else if(type === 'minus')  {
 		    number = parseInt(number) - 1;
-		    if(number < 0) {
+		    if(number < 1) {
 		    	alert("최소 인원은 1명입니다.");
 		    	return false;
 		    }
@@ -189,15 +190,29 @@ $('.linkedCalendars').daterangepicker({
 								"가격 : <span class='c_price'>"+data[i].c_price+"</span><br>"+
 								"<input type='button' id='"+data[i].r_no+"' class='reservation' value='예약하기'>"+
 								"<input type='button' id='"+data[i].r_no+"' class='detail' value='상세정보'>"+
-								"<div class='roomDetail'>"+data[i].r_content+"</div></div><br><br>";
+								"<div class='roomDetail'></div>"+
+								"<div class='roomContent'>"+data[i].r_content+"</div><br><br>";
 					$("#roomInfo").append(img);			
-					$("#roomInfo").append(str);
-					
+					$("#roomInfo").append(str);	
 				}
+				$.ajax({url : "/checkLove",
+					type : "get",
+					data : {"c_no" :c_no},
+					dataType : "text"})
+					.done(function(data){
+						if(data == 0){
+							 $("#lovebtn").val("♡");
+						}else{
+							 $("#lovebtn").val("♥");
+						}	
+					})
+				
 			 })  
 		});     
 		
 		$(document).on('click',".reservation",function(){
+			
+			let id = "${user.id}";
 			let r_no = $(this).attr("id");
 			let countP = document.getElementById('result').innerText;
 			let date = $("#selectDate").val();
@@ -205,26 +220,83 @@ $('.linkedCalendars').daterangepicker({
 			let end_date = date.substr(13);
 			let sday = start_date.substr(8);
 			let eday = end_date.substr(8);
-			let day = eday - sday;
-			let c_no = $("#c_no").val();
-			let c_price = $(this).parents().children(".c_price").text() * day;
 			
-			let url = "/insertReserve?c_no="+c_no+"&r_no="+r_no+"&start_date="+start_date+"&end_date="+end_date+"&c_price="+c_price;
-			location.href=url;	
+			let sdate2 = new Date(start_date);
+			let edate2 = new Date(end_date);
+			let date2 = edate2.getTime() - sdate2.getTime();
+			let day2 = Math.abs(date2 / (1000 * 3600 * 24));
+			
+			let c_no = $("#c_no").val();
+			let c_price = $(this).parents().children(".c_price").text() * day2;
+			
+			if(id == "") {
+				alert("로그인 후 이용 가능합니다.");
+				location.href="/login";
+				return false;
+			}
+			
+			if(!confirm("예약하시겠습니까?")) {
+				location.href="redirect:/";
+				return false;
+			}else {
+				alert("예약이 완료되었습니다.");
+				$.ajax({
+					url:"/insertReserve",
+					type:"post",
+					data:{"c_no":c_no,"r_no":r_no,"c_price":c_price,"start_date":start_date,"end_date":end_date},
+					dataType:"text"
+				}).done(function(date){
+					location.href="reserveStatus";
+				})
+			}
 		})
 		
 		$(document).on('click',".detail",function(){
-			$(this).next(".roomDetail").stop().slideToggle(300);
-			  $(this).toggleClass('on').siblings().removeClass('on');
-			  $(this).next(".roomDetail").siblings(".roomDetail").slideUp(300); // 1개씩 펼치기
+			$('.roomContent').slideUp(300);
+	         if ($(this).siblings('.roomContent').is(':hidden')){
+	            $(this).siblings('.roomContent').slideDown(300);
+	         } else{
+	            $(this).siblings('.roomContent').slideUp(300);
+	         }
+			
+			 $('.roomDetail').slideUp(300);
+	         if ($(this).siblings('.roomDetail').is(':hidden')){
+	            $(this).siblings('.roomDetail').slideDown(300);
+	         } else{
+	            $(this).siblings('.roomDetail').slideUp(300);
+	         }
+			
+			  let c_no = $("#c_no").val();
+			  let r_no = $(this).attr("id");
+			  
+			  $.ajax({
+					url:"/selRoomPho",
+					data:{"c_no" :c_no,"r_no":r_no},
+					dataType:"json"
+				}).done(function(data){
+					console.log(data);
+					$(".roomDetail").empty();
+					for(let i=0; i<data.length; i++) {
+						let img = $("<img class='roomPhoto'>").attr({'src': '../../CampPhoto/'+data[i].pho_address});
+						$(".roomDetail").append(img);
+					} 
+				})
+				
 		})
 		
 		$("#lovebtn").click(function(){
 			var c_no = $("#c_no").val();
 			var btnval = $("#lovebtn").val();
 			
-			if(btnval == "완료") {
-				alert("이미 찜한 상품입니다.");
+			if(btnval == "♥") {
+				$.ajax({
+					url:"/deleteLove",
+					data:{"c_no":c_no},
+					dataType:"text"
+				}).done(function(date){
+					alert("찜 목록에서 삭제되었습니다.");
+					$("#lovebtn").val("♡");
+				})
 				return false;
 			}
 			
@@ -232,11 +304,14 @@ $('.linkedCalendars').daterangepicker({
 				url:"/insertLove",
 				data:"c_no="+c_no,
 				dataType:"text"
-			}).done(function(){
+			}).done(function(data){
 				alert("찜 목록에 추가되었습니다.");
-				$("#lovebtn").val("완료");
+				$("#lovebtn").val("♥");
+				return false;
 			})
+			
 		})
+		
 	});//ready
 </script>
 </body>

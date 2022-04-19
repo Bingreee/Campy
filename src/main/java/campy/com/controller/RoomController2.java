@@ -18,6 +18,7 @@ import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.RoomDto;
+import campy.com.service.LoveService;
 import campy.com.service.RoomService2;
 
 @SessionAttributes({"reserve","camping","user"})
@@ -26,6 +27,7 @@ public class RoomController2 {
 
 	@Autowired
 	RoomService2 rservice2;
+	
 	
 	@ModelAttribute("reserve")
 	public ReserveDto reserveDto() {
@@ -51,20 +53,23 @@ public class RoomController2 {
 //	}
 	
 	@RequestMapping("/room")
-	public String selectC_name(Model m) {
+	public String selectC_name(@ModelAttribute("user") MemberDto dto, Model m) {
 		List<CampingDto> r = rservice2.selectC_name();
 		m.addAttribute("campList",r);
+		
+		
 		return "room";
 	}
 	
 	@GetMapping("/room/{c_no}")
 	@ResponseBody //view가 따로 없고 room.jsp 그대로 사용할 것
-	public String selectRoom(@PathVariable int c_no) {
+	public String selectRoom(@PathVariable int c_no, @ModelAttribute("user") MemberDto dto) {
 		List<RoomDto> r2 = rservice2.selectRoom(c_no);
 		
+				
 		Gson gson = new Gson();
 		String r2_text = gson.toJson(r2);
-		System.out.println(r2_text);
+		//System.out.println(r2_text);
 		return r2_text;
 	}
 }

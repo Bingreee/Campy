@@ -5,8 +5,11 @@
 <mapper namespace="campy.com.dao.RoomDao1">
  
 <insert id="insertReserve" parameterType="campy.com.dto.ReserveDto">
-	insert into reserve values(#{id},#{mem_name},#{c_no},#{r_no},sysdate,#{mem_tel},#{c_price},#{start_date},#{end_date})
+	insert into reserve values(#{id},#{mem_name},#{c_no},#{r_no},sysdate,#{mem_tel},#{c_price},#{start_date},#{end_date},seq_reserve.nextval)
 </insert>
 
+<select id="selRoomPho" resultType="campy.com.dto.R_PhotoDto" parameterType="map">
+	select * from r_photo where c_no=#{c_no} and r_no=#{r_no}
+</select>
 
 </mapper>
