@@ -117,6 +117,7 @@ public class LoginController {
 		service.updatePw(id, pw);
 		return "login";
 	}
+
 }
 
 		
