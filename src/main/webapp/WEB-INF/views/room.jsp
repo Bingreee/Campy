@@ -240,10 +240,15 @@ $('.linkedCalendars').daterangepicker({
 				return false;
 			}else {
 				alert("예약이 완료되었습니다.");
-				let url = "/insertReserve?c_no="+c_no+"&r_no="+r_no+"&start_date="+start_date+"&end_date="+end_date+"&c_price="+c_price;
-				location.href=url;	
+				$.ajax({
+					url:"/insertReserve",
+					type:"post",
+					data:{"c_no":c_no,"r_no":r_no,"c_price":c_price,"start_date":start_date,"end_date":end_date},
+					dataType:"text"
+				}).done(function(date){
+					location.href="reserveStatus";
+				})
 			}
-			
 		})
 		
 		$(document).on('click',".detail",function(){
