@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
 <title>리뷰 수정</title>
 <style>
 	.lightgray{background-color: light-gray; width: 50px;}
@@ -15,7 +14,9 @@
 	<table border="1">
 		<tr>
 			<td class="lightgray">제목</td>
-			<td><input type="text" name="rv_title" value="${rv_dto.rv_title }"/></td>
+			<td><input type="text" name="rv_title" value="${rv_dto.rv_title }"/>
+				<input type="hidden" name="rv_no" value="${rv_dto.rv_no }">
+			</td>
 		</tr>
 		<tr>
 			<td class="lightgray">작성자</td>
@@ -24,7 +25,7 @@
 		<tr>
 			<td class="lightgray">내용</td>
 			<td><div id="smarteditor">
-        	<textarea name="content" id="editorTxt" 
+        	<textarea name="rv_content" id="editorTxt" 
                   rows="20" cols="10" 
                   style="width: 100%"></textarea></div></td>
 		</tr>
@@ -35,7 +36,7 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-				<button type="submit">수정완료</button>
+				<input type="button" id="save" value="글 수정 완료"> 
 			</td>
 		</tr>
 	
@@ -65,7 +66,8 @@ smartEditor = function() {
 $(document).ready(function() {
 	smartEditor() 
 	
-    $("#rv_update").click(function(){
+    $("#save").click(function(){
+    	oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
   	  $("#reviewUpdateForm").submit();
     });
     

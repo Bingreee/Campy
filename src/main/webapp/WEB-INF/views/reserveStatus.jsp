@@ -1,6 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.DecimalFormat"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,45 +78,51 @@
 			
 		</ul>
 	</nav>
-	<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="today" />
-	<fmt:formatDate value="${reserve.end_date }" pattern="yyyyMMdd" var="end_date"/>
-	
+<%-- <%
+SimpleDateFormat dfhm        = new SimpleDateFormat("yyyyMMddHHmm");
+Calendar cal = Calendar.getInstance();
+String today = dfhm.format(cal.getTime());
+
+Date end_date = null;
+Date now = null;
+
+long diff = 0;
+long diffDays = 0;
+
+end_date = dfhm.parse("${rStatus.end_date}");    //parse: 문자형 날짜 -> Date 형태로 변환
+now = dfhm.parse(today);
+%> --%>
+	<jsp:useBean id="now" class="java.util.Date" />
+	<fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
+
 	<h3>예약 내역</h3>
 <fieldset>
-<table>
-<c:choose>
-	<c:when test="${reserve.id != null }">
-		<legend>예약한 날짜  ${reserve.reserve_date }</legend>
-		<tr><td>캠핑장 이름 : ${camping.c_name }</td><td><a href="reserveDetail" class="detail">상세보기</a></td>
-		<tr><td>
-		이용날짜 : ${reserve.start_date } ~ ${reserve.end_date }</td>
-		<c:if test="${end_date - today >= 0 }">
-			<a href="reviewWrite" class="detail">리뷰 작성하러 가기</a>
-		</c:if>
-		<c:if test="${end_date - today < 0 }">
-			<a href="deleteReserve" class="detail">예약 취소</a>
-		</c:if>
-	</c:when>
-	<c:when test="${reserve.id == null }">
-		<h4>예약 내역이 없습니다.</h4>
-	</c:when>
-</c:choose>
-</table>
+<ul>
+<c:forEach items="${rStatus }" var="rStatus">
+	<li>캠핑장이름 : ${rStatus.c_name }</li>
+	<span><a href="reserveDetail">상세보기</a></span>
+	<span id="apple"></span>
+	<li>예약날짜 :<fmt:formatDate value="${rStatus.start_date }" pattern="yyyymmdd" var="start_date" /> ~ <fmt:formatDate value="${rStatus.end_date }" pattern="yyyymmdd" var="end_date"/></li> 
+	<li>예약자명 : ${rStatus.mem_name }</li>
+	<c:if test="${rStatus.end_date < today }"><p><a href="deleteReserve">예약 취소</a></p></c:if>
+	<c:if test="${rStatus.end_date >= today }">p><a href="reviewWrite">리뷰 작성</a></c:if>
+</c:forEach>
+</ul>
 </fieldset>
 
-
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-	function getToday(){
-    	var date = new Date();
-    	var year = date.getFullYear();
-    	var month = ("0" + (1 + date.getMonth())).slice(-2);
-    	var day = ("0" + date.getDate()).slice(-2);
+	/* let today = new Date();
+	let end_date = new Date("${rStatus.end_date}")
 
-    	return year + month + day;
-	}
+	$(document).ready(function(){
+		
+	}); */
+		
+	
 
-</script> -->
 
+
+</script>
 </body>
 </html>
