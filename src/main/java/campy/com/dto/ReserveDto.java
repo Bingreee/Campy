@@ -20,4 +20,5 @@ public class ReserveDto {
 	private Date start_date;
 	@DateTimeFormat(pattern = "yyyymmdd")
 	private Date end_date;
+	private int reserve_no;
 }
