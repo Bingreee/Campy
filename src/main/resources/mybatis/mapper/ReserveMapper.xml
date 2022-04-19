@@ -3,13 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="campy.com.dao.ReserveDao">
-<select id="reserveStatus" resultType="campy.com.dto.CampAndReserveDto" > 
-	select c_no,c_name,id,mem_name,mem_tel,c_price,reserve_date,start_date,end_date 
-	from reserve,camping where reserve.c_no = camping.c_no
+<select id="reserveStatus" parameterType="string" resultType="campy.com.dto.CampAndReserveDto" > 
+	select * from reserve,camping where reserve.c_no = camping.c_no and id = #{id}
 </select> 
 
+<select id="reserveDetail" parameterType="int" resultType="campy.com.dto.CampAndReserveDto">
+	select * from reserve, camping where reserve.c_no = camping.c_no and reserve_no=#{reserve_no}
+</select>
+
 <delete id="deleteReserve" parameterType="campy.com.dto.ReserveDto">
-	delete * from reserve where c_no = #{c_no} and r_no = #{r_no}
+	delete from reserve where reserve_no = #{reserve_no}
 </delete>
 
 <!-- 위는 예약 아래는 리뷰 -->
@@ -36,8 +39,8 @@
 </select> <!-- 캠핑장 선택에 따른 리뷰 보여주기 -->
 
 <insert id="reviewWrite" parameterType="campy.com.dto.ReviewDto">
-	insert into review(rv_no, rv_title, id, rv_date, rv_content, c_no, rate, rv_photo)
-	values(seq_review.nextval, #{rv_title}, #{id}, sysdate, #{rv_content},#{c_no}, #{rate}, #{rv_photo} )
+	insert into review(rv_no, rv_title, id, rv_date, rv_content, c_no, rate)
+	values(seq_review.nextval, #{rv_title}, #{id}, sysdate, #{rv_content},#{c_no}, #{rate} )
 </insert>
 
 <delete id="reviewDelete" parameterType="int">

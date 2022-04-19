@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
@@ -70,14 +71,19 @@
 	</nav>
 	
 	<h3>이용정보</h3>
-	<p>캠핑장 이름 : </p>
-	<p> 이용 날짜 : </p>
-	<input type="button" value="리뷰 작성하러 가기" onclick="location.href='reviewWrite'">
-	
+	<p>캠핑장 이름 : ${rStatus.c_name } </p>
+	<p> 이용 날짜 : 
+		<fmt:formatDate value="${rStatus.start_date }" pattern="yyyy-MM-dd" var="start_date"/>
+		<fmt:formatDate value="${rStatus.start_date }" pattern="E" var="start_E"/>
+		<fmt:formatDate value="${rStatus.end_date }" pattern="yyyy-MM-dd" var="end_date"/>
+		<fmt:formatDate value="${rStatus.end_date }" pattern="E" var="end_E"/>
+		${start_date}(${start_E }) ~ ${end_date }(${end_E })
+	</p>
+	<!-- <input type="button" value="리뷰 작성하러 가기" onclick="location.href='reviewWrite'"> -->
+	<hr>
 	<h3>예약 정보</h3>
-	<p>이름 : </p>
-	<p>휴대폰 번호 : </p>
-	<p>예약 금액 : </p>
-	
+	<p>이름 : ${rStatus.mem_name }</p>
+	<p>휴대폰 번호 : ${rStatus.mem_tel }</p>
+	<p>예약 금액 : ${rStatus.c_price }</p>
 </body>
 </html>

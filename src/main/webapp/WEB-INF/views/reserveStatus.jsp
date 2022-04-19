@@ -46,6 +46,10 @@
 		right : 100px;
 		padding : 2px;
 	}
+	fieldset{
+		float:right;
+		width:70%;
+	}
 	
 </style>
 
@@ -78,46 +82,64 @@
 			
 		</ul>
 	</nav>
-<%-- <%
-SimpleDateFormat dfhm        = new SimpleDateFormat("yyyyMMddHHmm");
-Calendar cal = Calendar.getInstance();
-String today = dfhm.format(cal.getTime());
-
-Date end_date = null;
-Date now = null;
-
-long diff = 0;
-long diffDays = 0;
-
-end_date = dfhm.parse("${rStatus.end_date}");    //parse: 문자형 날짜 -> Date 형태로 변환
-now = dfhm.parse(today);
-%> --%>
 	<jsp:useBean id="now" class="java.util.Date" />
-	<fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
+	
 
 	<h3>예약 내역</h3>
-<fieldset>
+
 <ul>
-<c:forEach items="${rStatus }" var="rStatus">
-	<li>캠핑장이름 : ${rStatus.c_name }</li>
-	<span><a href="reserveDetail">상세보기</a></span>
+<c:forEach items="${rStatus}" var="rStatus">
+<c:if test="${user.id == rStatus.id}">
+<fieldset>
+	<li>캠핑장이름 : ${rStatus.c_name}</li>
+	<span><p id="reserveDetail"><a href="/reserveDetail/${rStatus.reserve_no }">상세보기</a> </p></span>
 	<span id="apple"></span>
-	<li>예약날짜 :<fmt:formatDate value="${rStatus.start_date }" pattern="yyyymmdd" var="start_date" /> ~ <fmt:formatDate value="${rStatus.end_date }" pattern="yyyymmdd" var="end_date"/></li> 
-	<li>예약자명 : ${rStatus.mem_name }</li>
-	<c:if test="${rStatus.end_date < today }"><p><a href="deleteReserve">예약 취소</a></p></c:if>
-	<c:if test="${rStatus.end_date >= today }">p><a href="reviewWrite">리뷰 작성</a></c:if>
-</c:forEach>
+	<li>예약날짜 :
+	<fmt:formatDate value="${rStatus.reserve_date }" pattern="yyyy-MM-dd" var="reserve_date" />
+	<fmt:formatDate value="${rStatus.reserve_date }" pattern="E" var="reserve_E"/>
+	${reserve_date }(${reserve_E }) </li>
+	<li>캠핑장 이용 날짜 :
+		<fmt:formatDate value="${rStatus.start_date }" pattern="yyyy-MM-dd" var="start_date"/>
+		<fmt:formatDate value="${rStatus.start_date }" pattern="E" var="start_E"/>
+		<fmt:formatDate value="${rStatus.end_date }" pattern="yyyy-MM-dd" var="end_date"/>
+		<fmt:formatDate value="${rStatus.end_date }" pattern="E" var="end_E"/>
+		${start_date}(${start_E }) ~ ${end_date }(${end_E })
+		</li>
+ 	<li>예약자명 : ${rStatus.mem_name }</li>
+ 	</fieldset>
+ 	</c:if>
+	</c:forEach>
 </ul>
-</fieldset>
+
+<c:forEach items="${rStatus}" var="rStatus">
+<fmt:formatDate value="${rStatus.end_date }" var="end_date2" pattern="yyyyMMdd"/>
+<fmt:parseNumber value="${end_date2/(1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
+<fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
+<fmt:parseNumber value="${today/(1000*60*60*24)}" integerOnly="true" var="todayDate" scope="request"/>
+<c:if test="${today > end_date2 }">
+	 <p><a href="#" id="${rStatus.reserve_no }">예약 취소</a></p> 
+</c:if>
+<c:if test="${today <= end_date2 }">
+	<p><a href="reviewWrite">리뷰 작성</a></p>
+</c:if>
+
+</c:forEach>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-	/* let today = new Date();
-	let end_date = new Date("${rStatus.end_date}")
-
-	$(document).ready(function(){
-		
-	}); */
+$(function(){
+	
+	
+	$("a[id]").click(function(){
+		let reserve_no = $(this).attr("id");
+		$.ajax({url:"/deleteReserve", data:"reserve_no="+reserve_no, method:"delete"}
+		).done(function(){
+			location.href="/reserveStatus";
+		})
+		return false;
+	})//click
+})//ready
 		
 	
 

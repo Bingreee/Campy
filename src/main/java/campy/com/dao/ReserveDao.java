@@ -12,7 +12,8 @@ import campy.com.dto.ReviewDto;
 @Mapper
 public interface ReserveDao {
 
-	List<CampAndReserveDto> reserveStatus();//예약 현황
+	List<CampAndReserveDto> reserveStatus(String id);//예약 현황
+	CampAndReserveDto reserveDetail(int reserve_no);
 	int deleteReserve(ReserveDto dto);
 	int countReview(); //리뷰 개수
 	List<ReviewDto> reviewList(Map<String, Object>m); //리뷰 리스트
