@@ -71,11 +71,11 @@ public class ReserveController {
 		 return "reserveStatus";
 	}
 	 
-	@GetMapping("/reserveDetail")
-	public String reserveDetail(@PathVariable int reserve_no,@ModelAttribute("user") MemberDto dto, Model m) {
-		List <CampAndReserveDto> rStatus = rservice.reserveDetail(reserve_no);
+	@GetMapping("/reserveDetail/{reserve_no}")
+	public String reserveDetail(@PathVariable int reserve_no,Model m) {
+		CampAndReserveDto rStatus = rservice.reserveDetail(reserve_no);
 		m.addAttribute("rStatus",rStatus);
-		return "reserveDetail";
+		return "/reserveDetail";
 	}
 	
 	@DeleteMapping("/deleteReserve")

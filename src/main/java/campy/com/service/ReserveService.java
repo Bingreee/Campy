@@ -22,7 +22,7 @@ public class ReserveService {
 		return rdao.reserveStatus(id);
 	}
 	
-	public List<CampAndReserveDto> reserveDetail(int reserve_no) {
+	public CampAndReserveDto reserveDetail(int reserve_no) {
 		return rdao.reserveDetail(reserve_no);
 	}
 	

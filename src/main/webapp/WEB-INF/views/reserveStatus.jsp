@@ -92,7 +92,7 @@
 <c:if test="${user.id == rStatus.id}">
 <fieldset>
 	<li>캠핑장이름 : ${rStatus.c_name}</li>
-	<span><a href="reserveDetail">상세보기</a></span>
+	<span><p id="reserveDetail"><a href="/reserveDetail/${rStatus.reserve_no }">상세보기</a> </p></span>
 	<span id="apple"></span>
 	<li>예약날짜 :
 	<fmt:formatDate value="${rStatus.reserve_date }" pattern="yyyy-MM-dd" var="reserve_date" />
@@ -129,6 +129,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
+	
 	
 	$("a[id]").click(function(){
 		let reserve_no = $(this).attr("id");

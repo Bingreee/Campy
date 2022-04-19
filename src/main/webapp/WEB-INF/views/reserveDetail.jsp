@@ -71,7 +71,6 @@
 	</nav>
 	
 	<h3>이용정보</h3>
-	<c:forEach items="${rStatus }" var="rStatus">
 	<p>캠핑장 이름 : ${rStatus.c_name } </p>
 	<p> 이용 날짜 : 
 		<fmt:formatDate value="${rStatus.start_date }" pattern="yyyy-MM-dd" var="start_date"/>
@@ -86,6 +85,5 @@
 	<p>이름 : ${rStatus.mem_name }</p>
 	<p>휴대폰 번호 : ${rStatus.mem_tel }</p>
 	<p>예약 금액 : ${rStatus.c_price }</p>
-	</c:forEach>
 </body>
 </html>
