@@ -30,14 +30,15 @@ public class CampAndReserveDto {
 	//private int c_no;
 	private int r_no;
 	
-	@DateTimeFormat(pattern = "yyyymmdd")
+	//@DateTimeFormat(pattern = "yyyymmdd")
 	private Date reserve_date;
 	private String mem_tel;
 	//private int c_price;
 	
-	@DateTimeFormat(pattern = "yyyymmdd")
+	//@DateTimeFormat(pattern = "yyyymmdd")
 	private Date start_date;
 	
-	@DateTimeFormat(pattern = "yyyymmdd")
+	//@DateTimeFormat(pattern = "yyyymmdd")
 	private Date end_date;
+	private int reserve_no;
 }
