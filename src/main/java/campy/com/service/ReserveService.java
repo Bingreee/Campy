@@ -18,8 +18,12 @@ public class ReserveService {
 	@Autowired
 	ReserveDao rdao;
 	
-	public List<CampAndReserveDto> reserveStatus() {
-		return rdao.reserveStatus();
+	public List<CampAndReserveDto> reserveStatus(String id) {
+		return rdao.reserveStatus(id);
+	}
+	
+	public List<CampAndReserveDto> reserveDetail(int reserve_no) {
+		return rdao.reserveDetail(reserve_no);
 	}
 	
 	public int deleteReserve(ReserveDto dto) {

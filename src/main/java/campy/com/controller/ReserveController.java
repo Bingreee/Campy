@@ -62,9 +62,9 @@ public class ReserveController {
 	}
 	
 	
-	 @GetMapping("/reserveStatus2")
-	 public String reserveStatus(Model m) {
-		 List<CampAndReserveDto> rStatus = rservice.reserveStatus();
+	 @GetMapping("/reserveStatus")
+	 public String reserveStatus(@ModelAttribute("user") MemberDto dto, Model m) {
+		 List<CampAndReserveDto> rStatus = rservice.reserveStatus(dto.getId());
 		 System.out.println("rStatus"+rStatus);
 		 
 		 m.addAttribute("rStatus",rStatus);
@@ -72,13 +72,17 @@ public class ReserveController {
 	}
 	 
 	@GetMapping("/reserveDetail")
-	public String getReserve(ReserveDto dto) {
+	public String reserveDetail(@PathVariable int reserve_no,@ModelAttribute("user") MemberDto dto, Model m) {
+		List <CampAndReserveDto> rStatus = rservice.reserveDetail(reserve_no);
+		m.addAttribute("rStatus",rStatus);
 		return "reserveDetail";
 	}
 	
 	@DeleteMapping("/deleteReserve")
+	@ResponseBody
 	public String deleteReserve(ReserveDto dto) {
-		return "redirect:reserveStatus";
+		int i = rservice.deleteReserve(dto);
+		return ""+i;
 	}
 	
 	@GetMapping("/review")
