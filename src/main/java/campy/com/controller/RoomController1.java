@@ -1,15 +1,21 @@
 package campy.com.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.google.gson.Gson;
 
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
+import campy.com.dto.R_PhotoDto;
 import campy.com.dto.ReserveDto;
 import campy.com.service.RoomService1;
 
@@ -41,8 +47,20 @@ public class RoomController1 {
 		dto.setId(memberdto.getId());
 		dto.setMem_name(memberdto.getMem_name());
 		dto.setMem_tel(memberdto.getMem_tel());
-		System.out.println(dto);
+		//System.out.println(dto);
 		rservice1.insertReserve(dto);
 		return "reserveStatus";
 	}
+	
+	@RequestMapping("/selRoomPho")
+	@ResponseBody
+	public String selRoomPho(int c_no, int r_no) {
+		List<R_PhotoDto> listR_pho = rservice1.selRoomPho(c_no, r_no);
+		
+		Gson gson = new Gson();
+		String r_pho = gson.toJson(listR_pho);
+		//System.out.println(r_pho);
+		return r_pho;
+	}
+
 }
