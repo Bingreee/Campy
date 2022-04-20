@@ -8,11 +8,15 @@
 	insert into love values(#{id},#{c_no})
 </insert>
 
-<delete id="deleteLove" parameterType="map">
+<delete id="deleteLove" parameterType="campy.com.dto.CampingAndLoveDto">
 	delete from love where id=#{id} and c_no=#{c_no}
 </delete>
 
 <select id="checkLove" parameterType="map" resultType="int">
 	select count(*) from love where id=#{id} and c_no=#{c_no}
+</select>
+
+<select id="LoveList" parameterType="String" resultType="campy.com.dto.CampingAndLoveDto">
+	select * from love, camping where love.c_no = camping.c_no and id=#{id}
 </select>
 </mapper>

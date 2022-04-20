@@ -68,7 +68,7 @@ td{
 	<div id="center">
 		<h3>Review</h3>
 		<div align="right">
-			<a href="reviewWrite" id="reviewWrite">리뷰 등록</a>
+			<a href="#" onClick="review_check();" id="reviewWrite">리뷰 등록</a>
 		</div>
 		
 	<select onfocus="this.selectedIndex = -1;">
@@ -158,16 +158,28 @@ $(function(){
 		 })
 		
 	});
-	
-})
-	
-	/* $(document).ready(function(){ */
-	$('#reviewWrite').click(function(){
-		if ("${user.id}" == null){
+		/* $('#reviewWrite').click(function(){
+		if ("${user.id}" == "null"){
 			alert("로그인 해야함");
 			return false;
+		}else {
+			alert("리뷰");
+			return false;
 		}
-	});
+	}); */
+});
+	
+function review_check(){ 
+    var userId = '<%=(String)session.getAttribute("${user.id}")%>';
+
+     if(userId=="null"){ 
+       alert("로그인 해야함"); 
+     }else {
+    	 location.href("/reviewWrite"); 
+     }
+ }
+
+
 
 
 
