@@ -86,6 +86,9 @@
 					<button type="submit">로그아웃</button>
 				</form>
 			</c:if>
+			<c:if test="${user.id == 'admin'}">
+				<button type="button" onclick="location.href='adminPage'">관리자 페이지</button>
+			</c:if>
 		</ul>
 	</nav>
 	<hr>
@@ -172,7 +175,7 @@ $('.linkedCalendars').daterangepicker({
 		}
 	
 	$(function(){
-		$("select").click(function(){
+		$("#c_no").change(function(){
 			let c_no = $(this).val();
 			$.ajax({
 				url : "room/"+c_no,

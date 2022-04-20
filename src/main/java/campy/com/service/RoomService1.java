@@ -27,5 +27,8 @@ public class RoomService1 {
 		m.put("r_no", r_no);
 		return rdao1.selRoomPho(m);
 	}
-
+	
+	public List<ReserveDto> allReserve() {
+		return rdao1.allReserve();
+	}
 }
