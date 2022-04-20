@@ -12,4 +12,8 @@
 	select * from r_photo where c_no=#{c_no} and r_no=#{r_no}
 </select>
 
+<select id="allReserve" resultType="campy.com.dto.ReserveDto">
+	select * from reserve order by reserve_no desc
+</select>
+
 </mapper>
