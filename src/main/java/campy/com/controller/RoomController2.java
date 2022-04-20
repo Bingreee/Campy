@@ -73,9 +73,12 @@ public class RoomController2 {
 		return r2_text;
 	}
 	
-	/*
-	 * @GetMapping("/roomInfo/{c_no}") public String roomInfo(@PathVariable int
-	 * c_no,Model m) { List<RoomDto> room = rservice2.selectRoom(c_no);
-	 * m.addAttribute("room",room); return "roomInfo"; }
-	 */
+	@GetMapping("/roomInfo/{c_no}") 
+	  public String roomInfo(@PathVariable int c_no,Model m) { 
+		  int room = rservice2.selectRoomNo(c_no);
+		  List<CampingDto> r = rservice2.selectC_name();
+			m.addAttribute("campList",r);
+			m.addAttribute("room",room); 
+		  return "room"; 
+	  }
 }
