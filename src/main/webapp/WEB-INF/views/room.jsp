@@ -95,10 +95,14 @@
 		
 	<select id="c_no" name="c_no">
 		<c:forEach items="${campList }" var="campList">
-			<option value="${campList.c_no }">${campList.c_name }</option> 
+		<c:if test="${room == campList.c_no }">
+			<option value="${campList.c_no }" selected="${room }" class="bb">${campList.c_name }</option> 
+		</c:if>
 		</c:forEach>
+		
 		<!-- value는 c_no, 출력은 c_name -->
 	</select>
+		<p>${room }</p>
 	
 	<h4>날짜선택</h4>
 	<input id="selectDate" class="form-control linkedCalendars"/><br><br>
@@ -116,6 +120,7 @@
 	<input type="button" value="리뷰 확인하러가기" onclick="location.href='/review'">
 	<h4 class="roomList">객실 목록</h4>
 	<div id="roomInfo"></div>
+	<button id="cc">버튼</button>
 
 	<%-- 전체 객실 가져오기
 	<c:forEach items="${room}" var="room">
@@ -172,10 +177,10 @@ $('.linkedCalendars').daterangepicker({
 		}
 	
 	$(function(){
-		$("select").click(function(){
-			let c_no = $(this).val();
+		$("#cc").click(function(){
+			let c_no = $(".bb").val();
 			$.ajax({
-				url : "room/"+c_no,
+				url : "/room/"+c_no,
 				type : "get",
 				dataType : "json"
 			}).done(function(data){
@@ -208,7 +213,7 @@ $('.linkedCalendars').daterangepicker({
 					})
 				
 			 })  
-		});     
+		}); 
 		
 		$(document).on('click',".reservation",function(){
 			

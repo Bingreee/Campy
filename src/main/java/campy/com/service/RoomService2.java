@@ -30,4 +30,8 @@ public class RoomService2 {
 	public List<RoomDto> selectRoom(int c_no){
 		return rdao2.selectRoom(c_no);
 	}
+	
+	public int selectRoomNo(int c_no) {
+		return rdao2.selectRoomNo(c_no);
+	}
 }
