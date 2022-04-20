@@ -62,5 +62,14 @@ public class RoomController1 {
 		//System.out.println(r_pho);
 		return r_pho;
 	}
-
+	
+	@RequestMapping("/allReserve")
+	@ResponseBody
+	public String allReserve() {
+		List<ReserveDto> ListAllReserve = rservice1.allReserve();
+		
+		Gson gson = new Gson();
+		String list_all = gson.toJson(ListAllReserve);
+		return list_all;
+	}
 }

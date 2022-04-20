@@ -72,4 +72,10 @@ public class RoomController2 {
 		//System.out.println(r2_text);
 		return r2_text;
 	}
+	
+	/*
+	 * @GetMapping("/roomInfo/{c_no}") public String roomInfo(@PathVariable int
+	 * c_no,Model m) { List<RoomDto> room = rservice2.selectRoom(c_no);
+	 * m.addAttribute("room",room); return "roomInfo"; }
+	 */
 }

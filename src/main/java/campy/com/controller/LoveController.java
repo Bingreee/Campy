@@ -1,12 +1,17 @@
 package campy.com.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import campy.com.dto.CampingAndLoveDto;
 import campy.com.dto.CampingDto;
 import campy.com.dto.LoveDto;
 import campy.com.dto.MemberDto;
@@ -51,11 +56,28 @@ public class LoveController {
 		return x+"";
 	}
 	
+	@GetMapping("/memLove")
+	public String LoveList(@ModelAttribute("user") MemberDto memberdto,Model m) {
+		List<CampingAndLoveDto> loveStatus= lservice.checkLove(memberdto.getId());
+		//System.out.println("loveStatus : "+loveStatus);
+		m.addAttribute("loveStatus",loveStatus);
+		return "memLove";
+	}
+	
+	
+	
+//	@RequestMapping("/deleteLove")
+//	@ResponseBody
+//	public String deleteLove(@ModelAttribute("user") MemberDto memberdto, int c_no) {
+//		int y = lservice.deleteLove(memberdto.getId(),c_no);
+//		return y+"";
+//	}
+	
 	@RequestMapping("/deleteLove")
 	@ResponseBody
-	public String deleteLove(@ModelAttribute("user") MemberDto memberdto, int c_no) {
-		int y = lservice.deleteLove(memberdto.getId(),c_no);
-		return y+"";
+	public String deleteLove(CampingAndLoveDto cAldto) {
+		int i = lservice.deleteLove(cAldto);
+		return ""+i;
 	}
 	
 }

@@ -117,6 +117,11 @@ public class LoginController {
 		service.updatePw(id, pw);
 		return "login";
 	}
+	
+	@GetMapping("/adminPage")
+	public String adminPage() {
+		return "adminPage";
+	}
 
 }
 

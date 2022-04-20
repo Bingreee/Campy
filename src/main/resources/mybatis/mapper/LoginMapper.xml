@@ -23,4 +23,5 @@
 <select id="findId" parameterType="String" resultType="String">
 	select id from member where mem_tel=#{mem_tel}
 </select>
+
 </mapper>
