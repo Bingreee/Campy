@@ -46,17 +46,18 @@
 	
 	
 	
-	<form:form action="mainSearch" method="post" modelAttribute="mainSearchInfo">
+	<%-- <form:form action="mainSearch" method="post" modelAttribute="mainSearchInfo"> --%>
+	<form>
 	캠핑장 둘러보기
 	<table border="1" cellpadding="0" cellspacing="0">				
 	<tr>
 		<td>이름으로 검색</td>
-		<td><input name="c_name" type="text" size="10"></td>
+		<td><input name="c_name" type="text" size="10" id="c_name"></td>
 	</tr>
 
 	<tr>
 		<td>
-			<select name="c_address">
+			<select name="c_address" id ="c_address">
     			<option value="">지역선택</option>
     			<option value="서울">서울</option>
     			<option value="경기도">경기도</option>
@@ -70,7 +71,7 @@
 	
 	<tr>
 		<td>
-			<select name="maxno">
+			<select name="maxno" id="maxno">
     			<option value="0">인원선택</option>
     			<option value="1">1</option>
     			<option value="2">2</option>
@@ -86,41 +87,43 @@
 	
 	<tr>
 		<td>
-			<input type="radio" name="place" value="산" checked="checked">산
-			<input type="radio" name="place" value="바다">바다
-			<input type="radio" name="place" value="도심">도심
+			<div class = "place">
+				<input type="radio" name="place" value="산" checked="checked">산
+				<input type="radio" name="place" value="바다">바다
+				<input type="radio" name="place" value="도심">도심
+			</div>
 		</td>
 	</tr>
 	
 	<tr>
-		<td><label><input type="checkbox" name="swim" value="t" id="swim"> 수영</label> </td>			
-		<td><label><input type="checkbox" name="pick" value='t' id="pick"> 픽업</label> </td>				
-		<td><label><input type="checkbox" name="elec" value='t' id="elec"> 전기</label> </td>				
-		<td><label><input type="checkbox" name="wifi" value='t' id="wifi"> 와이파이</label> </td>				
-		<td><label><input type="checkbox" name="snack" value='t' id="snack"> 스낵</label> </td>				
-		<td><label><input type="checkbox" name="pet" value='t' id="pet"> 펫</label> </td>		
+		<td><label><input type="checkbox" name="swim" value="t" id="swim" class="swim"> 수영</label> </td>			
+		<td><label><input type="checkbox" name="pick" value='t' id="pick" class="pick"> 픽업</label> </td>				
+		<td><label><input type="checkbox" name="elec" value='t' id="elec" class="elec"> 전기</label> </td>				
+		<td><label><input type="checkbox" name="wifi" value='t' id="wifi" class="wifi"> 와이파이</label> </td>				
+		<td><label><input type="checkbox" name="snack" value='t' id="snack" class="snack"> 스낵</label> </td>				
+		<td><label><input type="checkbox" name="pet" value='t' id="pet" class="pet"> 펫</label> </td>		
 	</tr>
 	
 	
 	
 	<tr>
 		<td>
-			<input type="submit" value="검색" id="mainSearchButton">
+			<input type="button" value="검색" id="mainSearchButton">
 		</td>  
 	</tr>
 	
 	</table>
 	
-	<input type="hidden" name="swim" value="f" id="swim_hidden"> 
-	<input type="hidden" name="pick" value='f' id="pick_hidden"> 
-	<input type="hidden" name="elec" value='f' id="elec_hidden"> 
-	<input type="hidden" name="wifi" value='f' id="wifi_hidden">
-	<input type="hidden" name="snack" value='f' id="snack_hidden"> 
-	<input type="hidden" name="pet" value='f' id="pet_hidden">
+	<input type="hidden" name="swim" value="f" id="swim_hidden" class="swim"> 
+	<input type="hidden" name="pick" value='f' id="pick_hidden" class="pick"> 
+	<input type="hidden" name="elec" value='f' id="elec_hidden" class="elec"> 
+	<input type="hidden" name="wifi" value='f' id="wifi_hidden" class="wifi">
+	<input type="hidden" name="snack" value='f' id="snack_hidden" class="snack"> 
+	<input type="hidden" name="pet" value='f' id="pet_hidden" class="pet">
 	
-	</form:form>
+	</form>
 
-	<c:choose>
+	<%-- <c:choose>
 		
 		<c:when test="${mainSearchInfoResult == '[]'}">
 			<h4>검색 결과가 없습니다.</h4>
@@ -135,17 +138,24 @@
 			</c:forEach>
 		</c:otherwise>
 
-	</c:choose>
-
-
-
+	</c:choose> --%>
+	<!-- ajax로 바꾸기 -->
+	<!-- location href으로 보내고 pathvariable로 값 받고 -->
+	
+	<table id="table1">
+			<tr>
+				<td>검색 결과값은 여기에 나옵니다</td>
+			</tr>
+	</table>
+	
+	<div> </div>
 
 
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	$function(){
+	$(function(){
 		if(document.getElementById("swim").checked){
 			document.getElementById("swim_hidden").disabled=true;
 		}
@@ -165,8 +175,62 @@
 			document.getElementById("pet_hidden").disabled=true;
 		}
 		
+	});
+	
+	$(document).on('click',"#mainSearchButton",function(){
 		
-	}
+		let c_name = $("#c_name").val();
+		let c_address = $("#c_address").val();
+		let maxno = $("#maxno").val();
+		let place = $(".place").val();
+		let swim = $(".swim").val();
+		let pick = $(".pick").val();
+		let elec = $(".elec").val();
+		let wifi = $(".wifi").val();
+		let snack = $(".snack").val();
+		let pet = $(".pet").val();
+		
+		console.log("확인!");
+		
+		/* let mainUrl = "/mainSearch?c_name="+c_name+"&c_address="+c_address+"&maxno="+maxno+"&place="+place+"&swim="+swim+"&pick="+pick+"&elec="+elec+"&wifi="+wifi+"&snack="+snack+"&pet="+pet; */
+	
+		$.ajax({
+			type: "get",
+			url : "/mainSearch",
+			data :{
+				"c_name" : c_name,
+				"c_address" : c_address,
+				"maxno" : maxno,
+				"place" : place,
+				"swim" : swim,
+				"pick" : pick,
+				"elec" : elec,
+				"wifi" : wifi,
+				"snack" : snack,
+				"pet" : pet
+			},
+			
+			datatype : "text" ,
+			
+			success : function(result) { // 결과 성공 콜백함수
+			    console.log(result);
+			},
+			error : function(request, status, error) { // 결과 에러 콜백함수
+			    console.log(error)
+			}
+		}).done(function(data){
+			
+		/* 	console.log(data); */
+			var html = "";
+			for(let i=0; i<data.length; i++){
+				html += '<tr>';
+				html += "<td> <a href='/room/"+data[i].c_no+"'>"+data[i].c_name+"</a> </td>";
+				html += '</tr>';
+			}
+			$("#table1").html(html);
+		})	
+	});
+	
 	
 </script>
 
