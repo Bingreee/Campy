@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,20 +89,20 @@
 	<tr>
 		<td>
 			<div class = "place">
-				<input type="radio" name="place" value="산" checked="checked">산
-				<input type="radio" name="place" value="바다">바다
-				<input type="radio" name="place" value="도심">도심
+				<input type="radio" name="place" value="산" checked="checked" class="place">산
+				<input type="radio" name="place" value="바다" class="place">바다
+				<input type="radio" name="place" value="도심" class="place">도심
 			</div>
 		</td>
 	</tr>
 	
 	<tr>
-		<td><label><input type="checkbox" name="swim" value="t" id="swim" class="swim"> 수영</label> </td>			
-		<td><label><input type="checkbox" name="pick" value='t' id="pick" class="pick"> 픽업</label> </td>				
-		<td><label><input type="checkbox" name="elec" value='t' id="elec" class="elec"> 전기</label> </td>				
-		<td><label><input type="checkbox" name="wifi" value='t' id="wifi" class="wifi"> 와이파이</label> </td>				
-		<td><label><input type="checkbox" name="snack" value='t' id="snack" class="snack"> 스낵</label> </td>				
-		<td><label><input type="checkbox" name="pet" value='t' id="pet" class="pet"> 펫</label> </td>		
+		<td><label><input type="checkbox" name="swim"  id="swim" class="swim"> 수영</label> </td>			
+		<td><label><input type="checkbox" name="pick"  id="pick" class="pick"> 픽업</label> </td>				
+		<td><label><input type="checkbox" name="elec"  id="elec" class="elec"> 전기</label> </td>				
+		<td><label><input type="checkbox" name="wifi"  id="wifi" class="wifi"> 와이파이</label> </td>				
+		<td><label><input type="checkbox" name="snack"  id="snack" class="snack"> 스낵</label> </td>				
+		<td><label><input type="checkbox" name="pet"  id="pet" class="pet"> 펫</label> </td>
 	</tr>
 	
 	
@@ -113,13 +114,6 @@
 	</tr>
 	
 	</table>
-	
-	<input type="hidden" name="swim" value="f" id="swim_hidden" class="swim"> 
-	<input type="hidden" name="pick" value='f' id="pick_hidden" class="pick"> 
-	<input type="hidden" name="elec" value='f' id="elec_hidden" class="elec"> 
-	<input type="hidden" name="wifi" value='f' id="wifi_hidden" class="wifi">
-	<input type="hidden" name="snack" value='f' id="snack_hidden" class="snack"> 
-	<input type="hidden" name="pet" value='f' id="pet_hidden" class="pet">
 	
 	</form>
 
@@ -155,34 +149,49 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	$(function(){
-		if(document.getElementById("swim").checked){
-			document.getElementById("swim_hidden").disabled=true;
-		}
-		if(document.getElementById("pick").checked){
-			document.getElementById("pick_hidden").disabled=true;
-		}
-		if(document.getElementById("elec").checked){
-			document.getElementById("elec_hidden").disabled=true;
-		}
-		if(document.getElementById("wifi").checked){
-			document.getElementById("wifi_hidden").disabled=true;
-		}
-		if(document.getElementById("snack").checked){
-			document.getElementById("snack_hidden").disabled=true;
-		}
-		if(document.getElementById("pet").checked){
-			document.getElementById("pet_hidden").disabled=true;
-		}
+/* 	$(function(){
 		
-	});
+	}); */
 	
 	$(document).on('click',"#mainSearchButton",function(){
+		if(document.getElementById("swim").checked==true){
+			document.getElementById("swim").value='t';
+		}else if(document.getElementById("swim").checked!=true){
+			document.getElementById("swim").value='f';
+		}
+		if(document.getElementById("pick").checked==true){
+			document.getElementById("pick").value='t';
+		}else if(document.getElementById("pick").checked!=true){
+			document.getElementById("pick").value='f';
+		}
+		if(document.getElementById("elec").checked==true){
+			document.getElementById("elec").value='t';
+		}else if(document.getElementById("elec").checked!=true){
+			document.getElementById("elec").value='f';
+		}
+		if(document.getElementById("wifi").checked==true){
+			document.getElementById("wifi").value='t';
+		}else if(document.getElementById("wifi").checked!=true){
+			document.getElementById("wifi").value='f';
+		}
+		if(document.getElementById("snack").checked==true){
+			document.getElementById("snack").value='t';
+		}else if(document.getElementById("snack").checked!=true){
+			document.getElementById("snack").value='f';
+		}
+		if(document.getElementById("pet").checked==true){
+			document.getElementById("pet").value='t';
+		}else if(document.getElementById("pet").checked!=true){
+			document.getElementById("pet").value='f';
+		}
+		
+		
 		
 		let c_name = $("#c_name").val();
 		let c_address = $("#c_address").val();
 		let maxno = $("#maxno").val();
-		let place = $(".place").val();
+		let place = $("input[name='place']:checked").val();
+		
 		let swim = $(".swim").val();
 		let pick = $(".pick").val();
 		let elec = $(".elec").val();
@@ -193,7 +202,9 @@
 		console.log("확인!");
 		
 		/* let mainUrl = "/mainSearch?c_name="+c_name+"&c_address="+c_address+"&maxno="+maxno+"&place="+place+"&swim="+swim+"&pick="+pick+"&elec="+elec+"&wifi="+wifi+"&snack="+snack+"&pet="+pet; */
-	
+		
+		console.log(c_name, c_address, maxno, place, swim, pick, elec, wifi, snack, pet);
+		
 		$.ajax({
 			type: "get",
 			url : "/mainSearch",

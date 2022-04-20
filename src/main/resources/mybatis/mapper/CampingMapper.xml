@@ -5,8 +5,9 @@
 	
 		select * from Camping
 		<where>
+		1=1
 		<if test="c_name != null">
-		c_name LIKE '%'||#{c_name}||'%'  
+		and c_name LIKE '%'||#{c_name}||'%'  
 		</if>
 		<if test="c_address != null">
 		and c_address LIKE '%'||#{c_address}||'%' 
