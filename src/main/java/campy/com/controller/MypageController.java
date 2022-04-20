@@ -41,10 +41,6 @@ public class MypageController {
 			return "/memLove";
 	}
 	
-	@RequestMapping("/reserveStatus")
-	public String reserveStatus() {
-			return "/reserveStatus";
-	}
 	
 	@RequestMapping("/qna")
 	public String qna() {

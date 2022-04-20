@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import campy.com.dto.CampingDto;
@@ -64,13 +66,14 @@ public class CampingController {
 		return "/room";
 	}
 	
-	@PostMapping("/mainSearch")
-	public String mainSearch(@ModelAttribute("mainSearchInfo") CampingDto dto, Model m) {
+	@GetMapping("/mainSearch")
+	@ResponseBody						//
+	public List<CampingDto> mainSearch(CampingDto dto, Model m) {
 		System.out.println("mainSearch 들어왔음");
 		System.out.println(dto);
 		List<CampingDto> mainSearchInfoResult=service.mainSearch(dto);
 		m.addAttribute("mainSearchInfoResult", mainSearchInfoResult);
 		System.out.println(mainSearchInfoResult+"mainSearch메서드 In Controller");
-		return "/main";
+		return mainSearchInfoResult;
 	}
 }
