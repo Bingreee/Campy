@@ -19,6 +19,10 @@
   <select id="selectRoom" parameterType="int" resultType="campy.com.dto.RoomDto">
   	select * from room where c_no = #{c_no}
   </select>
+  
+  <select id="selectRoomNo" parameterType="int" resultType="int">
+  	select c_no from camping where c_no = #{c_no}
+  </select>
   <!-- mapper에서 캠핑장 이름 List로 뽑아오기 , 컨트롤러에서 model로 객체 만들기,
    jsp에서 select option에서 ${}사용해서 출력 -->
   

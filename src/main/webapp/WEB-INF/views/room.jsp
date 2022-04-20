@@ -86,9 +86,6 @@
 					<button type="submit">로그아웃</button>
 				</form>
 			</c:if>
-			<c:if test="${user.id == 'admin'}">
-				<button type="button" onclick="location.href='adminPage'">관리자 페이지</button>
-			</c:if>
 		</ul>
 	</nav>
 	<hr>
@@ -98,13 +95,14 @@
 		
 	<select id="c_no" name="c_no">
 		<c:forEach items="${campList }" var="campList">
-			<c:if test="${room == campList.c_no }">
-				<option value="${campList.c_no }" selected="${room }" class="bb">${campList.c_name }</option> 
-			</c:if>
+		<c:if test="${room == campList.c_no }">
+			<option value="${campList.c_no }" selected="${room }" class="bb">${campList.c_name }</option> 
+		</c:if>
 		</c:forEach>
+		
 		<!-- value는 c_no, 출력은 c_name -->
 	</select>
-	<p>${room }</p>
+		<p>${room }</p>
 	
 	<h4>날짜선택</h4>
 	<input id="selectDate" class="form-control linkedCalendars"/><br><br>
@@ -215,7 +213,7 @@ $('.linkedCalendars').daterangepicker({
 					})
 				
 			 })  
-		});     
+		}); 
 		
 		$(document).on('click',".reservation",function(){
 			
