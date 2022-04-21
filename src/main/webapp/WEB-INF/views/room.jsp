@@ -177,7 +177,7 @@ $('.linkedCalendars').daterangepicker({
 		}
 	
 	$(function(){
-		$("#cc").click(function(){
+
 			let c_no = $(".bb").val();
 			$.ajax({
 				url : "/room/"+c_no,
@@ -212,7 +212,7 @@ $('.linkedCalendars').daterangepicker({
 						}	
 					})
 				
-			 })  
+			 
 		}); 
 		
 		$(document).on('click',".reservation",function(){

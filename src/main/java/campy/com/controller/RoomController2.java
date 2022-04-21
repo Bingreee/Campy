@@ -44,7 +44,16 @@ public class RoomController2 {
 		return new MemberDto();
 	}
 	
-
+	@ModelAttribute("campList")
+	public List<CampingDto> campList(){
+		return rservice2.selectC_name();
+	}
+	
+	@ModelAttribute("room")
+	public int roomSetter() {
+		return 1;
+	}
+	
 //	@RequestMapping("/room")
 //	public String room(Model m) {
 //		List<RoomDto> rlist = rservice2.room();
@@ -54,8 +63,8 @@ public class RoomController2 {
 	
 	@RequestMapping("/room")
 	public String selectC_name(@ModelAttribute("user") MemberDto dto, Model m) {
-		List<CampingDto> r = rservice2.selectC_name();
-		m.addAttribute("campList",r);
+		//List<CampingDto> r = rservice2.selectC_name();
+		//m.addAttribute("campList",r);
 		
 		
 		return "room";
@@ -76,11 +85,9 @@ public class RoomController2 {
 	
 	  @GetMapping("/roomInfo/{c_no}") 
 	  public String roomInfo(@PathVariable int c_no,Model m) { 
-		  int room = rservice2.selectRoomNo(c_no);
-		  List<CampingDto> r = rservice2.selectC_name();
-			m.addAttribute("campList",r);
-			m.addAttribute("room",room); 
-		  return "room"; 
+		 int room = rservice2.selectRoomNo(c_no);
+		 m.addAttribute("room",room); 
+		 return "room"; 
 	  }
 	  
 }
