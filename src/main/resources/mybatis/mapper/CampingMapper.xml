@@ -20,4 +20,11 @@
 		and wifi=#{wifi} and snack=#{snack} and pet=#{pet}
 		</where>
 	</select>
+	
+	<insert parameterType="campy.com.dto.CampingDto" id="campCreateInfo">
+		insert into Camping (c_no, c_name, c_address, maxno, place, c_tel, swim, pick, elec, wifi, snack, pet)
+		values
+		(seq_camping.nextval,#{c_name}, #{c_address}, #{maxno}, #{place}, #{c_tel}, #{swim}, #{pick}, #{elec}, #{wifi}, #{snack}, #{pet} )
+	</insert>
+	
 </mapper>

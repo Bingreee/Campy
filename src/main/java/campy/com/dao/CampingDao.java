@@ -10,4 +10,6 @@ import campy.com.dto.CampingDto;
 public interface CampingDao {
 
 	List<CampingDto> mainSearch(CampingDto dto);
+
+	int campCreateInfo(CampingDto dto);
 }
