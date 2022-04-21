@@ -72,9 +72,10 @@ td{
 		</div>
 		
 	<select onfocus="this.selectedIndex = -1;">
-			<option>캠핑장 선택</option>
 		<c:forEach items="${campList }" var="campList">
-			<option value="${campList.c_no }">${campList.c_name }</option> 
+		<c:if test="${review == campList.c_no }">
+			<option value="${campList.c_no }" class="aa">${campList.c_name }</option> 
+		</c:if>
 		</c:forEach>
 		<!-- value는 c_no, 출력은 c_name -->
 	</select>
@@ -138,7 +139,7 @@ $(function(){
 	$("select").click(function(){
 		let c_no = $(this).val();
 		$.ajax({
-			url : "review/"+c_no,
+			url : "/review/"+c_no,
 			type : "get",
 			dataType : "json",
 			async : false

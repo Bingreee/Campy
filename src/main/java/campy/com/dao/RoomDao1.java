@@ -14,4 +14,5 @@ public interface RoomDao1 {
 	int insertReserve(ReserveDto dto);
 	List<R_PhotoDto> selRoomPho(Map<String,Object> m);
 	List<ReserveDto> allReserve();
+	int selCamNO(int c_no);
 }
