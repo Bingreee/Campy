@@ -75,8 +75,8 @@
 	<nav>
 		<ul>
 			<c:if test="${user.id == null }">
-				<button type="button" onclick="location.href='login' " class="rightButton">로그인</button><br>
-				<button type="button" onclick="location.href='join' " class="rightButton">회원가입</button>
+				<button type="button" onclick="location.href='/login' " class="rightButton">로그인</button><br>
+				<button type="button" onclick="location.href='/join' " class="rightButton">회원가입</button>
 		<!-- 		<a href="login">로그인</a><br>
 				<a href="join">회원가입</a> -->
 			</c:if>
@@ -117,7 +117,7 @@
 	<c:if test="${user.id != null}">
 		<input type="button" id="lovebtn" value="♡"><br>
 	</c:if>
-	<input type="button" value="리뷰 확인하러가기" onclick="location.href='/review'">
+	<input type="button" value="리뷰 확인하러가기" onclick="location.href='/reviewInfo/${room}'">
 	<h4 class="roomList">객실 목록</h4>
 	<div id="roomInfo"></div>
 	<button id="cc">버튼</button>

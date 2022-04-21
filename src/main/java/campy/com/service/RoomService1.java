@@ -31,4 +31,8 @@ public class RoomService1 {
 	public List<ReserveDto> allReserve() {
 		return rdao1.allReserve();
 	}
+	
+	public int selCamNO(int c_no) {
+		return rdao1.selCamNO(c_no);
+	}
 }

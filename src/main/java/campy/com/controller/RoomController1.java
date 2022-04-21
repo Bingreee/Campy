@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -18,6 +19,7 @@ import campy.com.dto.MemberDto;
 import campy.com.dto.R_PhotoDto;
 import campy.com.dto.ReserveDto;
 import campy.com.service.RoomService1;
+import campy.com.service.RoomService2;
 
 @SessionAttributes({"reserve","camping","user"})
 @Controller
@@ -25,6 +27,8 @@ public class RoomController1 {
 	
 	@Autowired
 	RoomService1 rservice1;
+	@Autowired
+	RoomService2 rservice2;
 	
 	@ModelAttribute("reserve")
 	public ReserveDto reserveDto() {
@@ -39,6 +43,11 @@ public class RoomController1 {
 	@ModelAttribute("user")
 	public MemberDto memDto() {
 		return new MemberDto();
+	}
+	
+	@ModelAttribute("campList")
+	public List<CampingDto> campList(){
+		return rservice2.selectC_name();
 	}
 	
 	@RequestMapping("/insertReserve")
@@ -72,4 +81,11 @@ public class RoomController1 {
 		String list_all = gson.toJson(ListAllReserve);
 		return list_all;
 	}
+	
+	@GetMapping("reviewInfo/{c_no}")
+	 public String selCamNO(@PathVariable int c_no,Model m) { 
+		 int review = rservice1.selCamNO(c_no);
+		 m.addAttribute("review",review); 
+		 return "review"; 
+	  }
 }
