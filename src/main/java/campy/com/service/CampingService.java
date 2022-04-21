@@ -21,4 +21,10 @@ public class CampingService {
 		System.out.println(dao.mainSearch(dto)+"Service메서드 결과");
 		return dao.mainSearch(dto);
 	}
+
+	public int campCreateInfo(CampingDto dto) {
+		System.out.println("campCreateInfo 서비스 메서드 접속");
+		return dao.campCreateInfo(dto);
+		
+	}
 }
