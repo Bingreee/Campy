@@ -16,4 +16,7 @@
 	select * from reserve order by reserve_no desc
 </select>
 
+<select id="selCamNO" resultType="int" parameterType="int">
+	select c_no from camping where c_no=#{c_no}
+</select>
 </mapper>
