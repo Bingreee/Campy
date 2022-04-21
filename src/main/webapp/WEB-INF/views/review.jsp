@@ -68,17 +68,19 @@ td{
 	<div id="center">
 		<h3>Review</h3>
 		<div align="right">
-			<a href="#" onClick="review_check();" id="reviewWrite">리뷰 등록</a>
+			<a href="/reviewWrite/${review }" id="reviewWrite">리뷰 등록</a>
 		</div>
 		
-	<select onfocus="this.selectedIndex = -1;">
+	<%-- <select onfocus="this.selectedIndex = -1;">
 		<c:forEach items="${campList }" var="campList">
 		<c:if test="${review == campList.c_no }">
-			<option value="${campList.c_no }" class="aa">${campList.c_name }</option> 
+			<p value="${campList.c_no }" class="aa">${campList.c_name }</p> 
 		</c:if>
 		</c:forEach>
 		<!-- value는 c_no, 출력은 c_name -->
-	</select>
+	</select> --%>
+	
+	<p>${review }</p>
 	
 	<c:if test="${countReview != 0 }">
 			<table >
@@ -133,11 +135,11 @@ td{
 	</div>
 	
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
+<script>
 
 $(function(){
-	$("select").click(function(){
-		let c_no = $(this).val();
+	/* $("select").click(function(){ */
+		let c_no = ${review};
 		$.ajax({
 			url : "/review/"+c_no,
 			type : "get",
@@ -158,27 +160,17 @@ $(function(){
 			$("#table1").html(html);
 		 })
 		
-	});
-		/* $('#reviewWrite').click(function(){
-		if ("${user.id}" == "null"){
+	/* }); */
+	/* $('#reviewWrite').click(function(){
+		if ("${user.id}" == null){
 			alert("로그인 해야함");
 			return false;
-		}else {
+		}else if("${user.id}" != null){
 			alert("리뷰");
-			return false;
+			return reviewWrite;
 		}
-	}); */
+	}) */
 });
-	
-function review_check(){ 
-    var userId = '<%=(String)session.getAttribute("${user.id}")%>';
-
-     if(userId=="null"){ 
-       alert("로그인 해야함"); 
-     }else {
-    	 location.href("/reviewWrite"); 
-     }
- }
 
 
 

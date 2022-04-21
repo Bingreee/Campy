@@ -24,6 +24,7 @@ import campy.com.dto.MemberDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.ReviewDto;
 import campy.com.service.ReserveService;
+import campy.com.service.RoomService1;
 import campy.com.service.RoomService2;
 
 @SessionAttributes({"reserve","camping","user","review","cAr"})
@@ -32,6 +33,9 @@ public class ReserveController {
 
 	@Autowired
 	ReserveService rservice;
+	
+	@Autowired
+	RoomService1 rservice1;
 	
 	@Autowired
 	RoomService2 rservice2;
@@ -85,8 +89,45 @@ public class ReserveController {
 		return ""+i;
 	}
 	
-	@GetMapping("/review")
-	public String review(@RequestParam(name="p", defaultValue="1") int page, Model m) {
+//	@GetMapping("/review")
+//	public String review(@RequestParam(name="p", defaultValue="1") int page,@PathVariable int c_no, Model m) {
+//		int review = rservice1.selCamNO(c_no);
+//		 m.addAttribute("review",review); 
+//		List<CampingDto> r = rservice2.selectC_name();
+//		m.addAttribute("campList",r);
+//		
+//		//글이 있는지 체크
+//		int countReview = rservice.countReview();
+//		if(countReview> 0) {
+//			
+//			int perPage = 10; // 한 페이지에 보일 글의 갯수
+//			int startRow = (page - 1) * perPage + 1; //시작 글번호
+//			int endRow = page * perPage;			//끝 글번호
+//			
+//			List<ReviewDto> reviewList = rservice.reviewList(startRow, endRow);
+//			m.addAttribute("reviewList",reviewList);
+//			
+//			int pageNum = 5;
+//			int totalPages = countReview / perPage + (countReview % perPage > 0 ? 1 : 0); //전체 페이지 수
+//			
+//			int begin = (page - 1) / pageNum * pageNum + 1;
+//			int end = begin + pageNum -1;
+//			if(end > totalPages) {
+//				end = totalPages;
+//			}
+//			 m.addAttribute("begin", begin);
+//			 m.addAttribute("end", end);
+//			 m.addAttribute("pageNum", pageNum);
+//			 m.addAttribute("totalPages", totalPages);
+//		}
+//			m.addAttribute("countReview",countReview);
+//			return "review";
+//	}
+	
+	@GetMapping("/reviewInfo/{c_no}")
+	 public String reviewList(@RequestParam(name="p", defaultValue="1") int page,@PathVariable int c_no, Model m) { 
+		int review = rservice1.selCamNO(c_no);
+		 m.addAttribute("review",review); 
 		List<CampingDto> r = rservice2.selectC_name();
 		m.addAttribute("campList",r);
 		
@@ -116,7 +157,7 @@ public class ReserveController {
 		}
 			m.addAttribute("countReview",countReview);
 			return "review";
-	}
+		}
 	
 	@GetMapping("/reviewContent/{rv_no}")
 	public String reviewContent(@ModelAttribute("user") MemberDto memDto, @ModelAttribute("review") ReviewDto reviewDto, @PathVariable int rv_no, Model m) {
@@ -125,17 +166,26 @@ public class ReserveController {
 		return "reviewContent";
 	}
 	
-	@GetMapping("reviewWrite")
-	public String reviewWriteForm(@ModelAttribute("user")MemberDto memDto, @ModelAttribute("review")ReviewDto reviewDto, @ModelAttribute("camping") CampingDto campDto, Model m) {
+//	@GetMapping("reviewWrite")
+//	public String reviewWriteForm(Model m) {
+//		List<CampingDto> r = rservice2.selectC_name();
+//		m.addAttribute("campList",r);
+//		return "/reviewWrite";
+//	}
+	
+	@GetMapping("reviewWrite/{c_no}")
+	public String reviewWriteForm2(@PathVariable int c_no,Model m) {
 		List<CampingDto> r = rservice2.selectC_name();
 		m.addAttribute("campList",r);
-		return "reviewWrite";
+		int gg = rservice1.selCamNO(c_no);
+		m.addAttribute("gg",gg);
+		return "/reviewWrite";
 	}
 	
-	@PostMapping("reviewWrite")
+	@PostMapping("/reviewWrite")
 	public String reviewWrite(ReviewDto rv_dto) {
 		rservice.reviewWrite(rv_dto);
-		return "redirect:review";
+		return "/main";
 	}
 	
 	@GetMapping("/review/{c_no}")

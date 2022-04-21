@@ -69,18 +69,19 @@ input:invalid {
 		</ul>
 	</nav>
 	<hr>
-
-<form method="post" id="reviewWriteForm" action="reviewWrite"> <!-- enctype="multipart/form-data" -->
-
-<select name="c_no">
+<form method="post" id="reviewWriteForm" action="/reviewWrite">
+<input type="hidden" name="c_no" value="${gg }"/>
+<%-- <select name="c_no">
 		<c:forEach items="${campList }" var="campList">
 		<option value="${campList.c_no }" >${campList.c_name }</option> 
 		</c:forEach>
-</select>
+</select> --%>
+
 <table>
 		<tr>
 			<td class="lightgray">제목</td>
 			<td><input type="text" name="rv_title"/></td>
+			
 		</tr>
 		<tr>
 			<td class="lightgray">작성자</td>
