@@ -83,7 +83,8 @@
 <c:forEach items="${loveStatus }" var="loveStatus">
 <fieldset>
 	<p>캠핑장이름 : ${loveStatus.c_name }</p>
-	<p><%-- <a href="/roomInfo/${loveStatus.c_no }">상세보기</a> --%></p>
+	<p><a href="/roomInfo/${loveStatus.c_no }">상세보기</a></p>
+	<!-- <button id="" type="button"></button> -->
 	<button id="${loveStatus.id }" value="${loveStatus.c_no }" class="loveBtn" type="button">♥</button>
 	</fieldset>
 </c:forEach>
