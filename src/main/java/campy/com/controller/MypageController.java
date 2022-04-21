@@ -53,10 +53,6 @@ public class MypageController {
 		return "/qna";
 	}
 
-	/*
-	 * @RequestMapping("/ask") public String ask() { return "/ask"; }
-	 */
-
 	@RequestMapping("/memUpdateCheck")
 	public String memUpdateCheck() {
 		return "/memUpdateCheck";
