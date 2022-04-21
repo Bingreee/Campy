@@ -120,7 +120,7 @@
 	 <p><a href="#" id="${rStatus.reserve_no }">예약 취소</a></p> 
 </c:if>
 <c:if test="${today <= end_date2 }">
-	<p><a href="reviewWrite">리뷰 작성</a></p>
+	<p><a href="reviewInfo/${rStatus.c_no }">리뷰 작성</a></p>
 </c:if>
 
 </c:forEach>
