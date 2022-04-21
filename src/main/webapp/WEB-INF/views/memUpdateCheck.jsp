@@ -94,40 +94,49 @@
 	</nav>
 
 
-	<form:form action="memUpdateChecker" method="post" modelAttribute="mypage_pwchecker">
+	<form:form action="memUpdate" method="post" modelAttribute="mypage_pwchecker">
 		
 		<div class="correction">
 		<h3>나의 정보 수정</h3>
 		<div class="outer" style ="text-align:center">
 			<div class="inner">
 				<span class="absolute"> 고객님의 비밀번호를 다시 한 번 입력해주세요.<br> 
-				<input type="password" name="pw" size="15"><br>
+				<input id="btn" type="password" name="pw" size="15"><br>
 				</span>
-
+		
 			</div>
 		</div>
 		
 		<div id="okay">
 			
-			<!-- <button type="button" onclick="location.href='/memUpdateChecker';"> 확인 </button> -->
-			<!-- <button type="button"> 확인 </button> -->
-			<input type="submit">
+			<!-- <button type="button" onclick="location.href='/memUpdateChecker';"> 확인 </button> 
+			<button type="button"> 확인 </button>  -->
+			
+			<input id="pw" type="submit">
+			
+			
 			
   		</div>
 	</div>
-		
-		
+
 	</form:form>
 
-	
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+				<script>
+					$(function(){
+						$("#pw").click(function(){
+							let pw = $("#btn").val();
+							if("${user.pw}" != pw) {
+								alert("비밀번호가 틀렸습니다.");
+								return false;
+							
+							}else{
+								return "memUpdate";
+							}
+						})
+					})
+				
+				</script> 
 
-
-	
-	<div>
-		
-	
-	
-	</div>
-	
 </body>
 </html>

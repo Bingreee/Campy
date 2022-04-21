@@ -123,7 +123,7 @@ public class QnaController {
 		return "askContent";
 	}
 
-	@GetMapping("/updateForm/{qa_no}")
+	@GetMapping("/updateForm/{qa_no}") 
 	public String updateForm(@PathVariable int qa_no, Model m) {
 		QaDto dto = qservice.qaOne(qa_no);
 		m.addAttribute("dto", dto);

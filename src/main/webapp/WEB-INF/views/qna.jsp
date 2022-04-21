@@ -5,6 +5,9 @@
 <html>
 <head>
 <title>qna</title>
+<!-- 부트스트랩 css 사용 head안에 적용--> 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
 html, body {
     margin: 0;
@@ -132,6 +135,7 @@ html, body {
 <main class="main">
  <h2 style="text-align:center">Q&A</h2>
  <h3 style="text-align:lite">자주 묻는 질문</h3>
+
  <hr>
  
  	<section>
@@ -185,8 +189,9 @@ html, body {
  		</div>
  		
  		
- 		 <a href="/ask"><h3>문의사항 목록 이동</h3></a> 
- 		
+ 		<!--  <a href="/ask" ><h3>문의사항 목록 이동</h3></a> -->
+ 		<button type="button" class="btn btn-link btn-lg" ><a href="/ask" >문의사항 목록 이동</button>
+ 		 
  	</section>
 
  	
@@ -203,6 +208,9 @@ html, body {
 </footer>
 
 </div>
+<!-- 부트스트랩 js 사용 body안에 적용--> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 </body>
 </html>
