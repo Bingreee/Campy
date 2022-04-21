@@ -235,7 +235,7 @@
 			var html = "";
 			for(let i=0; i<data.length; i++){
 				html += '<tr>';
-				html += "<td> <a href='/room/"+data[i].c_no+"'>"+data[i].c_name+"</a> </td>";
+				html += "<td> <a href='/roomInfo/"+data[i].c_no+"'>"+data[i].c_name+"</a> </td>";
 				html += '</tr>';
 			}
 			$("#table1").html(html);
