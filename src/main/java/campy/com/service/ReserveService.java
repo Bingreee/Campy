@@ -30,6 +30,10 @@ public class ReserveService {
 		return rdao.deleteReserve(dto);
 	}
 	
+	public List<CampAndReserveDto> adminReserve() {
+		return rdao.adminReserve();
+	}
+	
 	public int countReview() {
 		return rdao.countReview();
 	}
