@@ -15,6 +15,10 @@
 	delete from reserve where reserve_no = #{reserve_no}
 </delete>
 
+<select id="adminReserve" resultType="campy.com.dto.CampAndReserveDto">
+	select * from reserve,camping where reserve.c_no = camping.c_no order by reserve_date desc
+</select>
+
 <!-- 위는 예약 아래는 리뷰 -->
 
 <select id="countReview" resultType="int">
