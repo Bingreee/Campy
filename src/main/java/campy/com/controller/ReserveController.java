@@ -88,6 +88,13 @@ public class ReserveController {
 		return ""+i;
 	}
 	
+	@GetMapping("/allReserve")
+	public String adminReserve(Model m) {
+		List<CampAndReserveDto> adminR = rservice.adminReserve();
+		m.addAttribute("adminR",adminR);
+		return "adminReserve";
+	}
+	
 //	@GetMapping("/review")
 //	public String review(@RequestParam(name="p", defaultValue="1") int page,@PathVariable int c_no, Model m) {
 //		int review = rservice1.selCamNO(c_no);
