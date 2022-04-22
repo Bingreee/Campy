@@ -16,41 +16,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import campy.com.dao.QnaDao;
 import campy.com.dto.MemberDto;
-import campy.com.dto.QaDto;
-import campy.com.dto.Qa_CommDto;
-import campy.com.service.Qa_CommService;
-import campy.com.service.QnaService;
+import campy.com.dto.NoticeDto;
+import campy.com.service.NoticeService;
 
 @SessionAttributes("user")
 @Controller
-public class QnaController {
+public class NoticeController {
 
 	@Autowired
-	QnaService qservice;
-	
-	@Autowired
-	Qa_CommService cservice;
-	
+	NoticeService service;
+
 	@ModelAttribute("user")
 	public MemberDto getDto() {
 		return new MemberDto();
 	}
 
-	@RequestMapping("/ask")
-	public String ask(@RequestParam(name = "p", defaultValue = "1") int page, Model m) {
-		// 글이 있는지 체크
-		int count = qservice.count();
+	@RequestMapping("/noticeList")
+	public String noticeList(@RequestParam(name = "p", defaultValue = "1") int page, Model m) {
+		int count = service.count();
 		if (count > 0) {
 
 			int perPage = 5; // 한 페이지에 보일 글의 갯수
 			int startRow = (page - 1) * perPage + 1;
 			int endRow = page * perPage;
 
-			List<QaDto> qaList = qservice.qaList(startRow, endRow);
-			m.addAttribute("qaList", qaList);
-
+			List<NoticeDto> noList = service.noList(startRow, endRow);
+			m.addAttribute("nList", noList);
 			int pageNum = 5;
 			int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); // 전체 페이지 수
 
@@ -66,32 +58,20 @@ public class QnaController {
 
 		}
 		m.addAttribute("count", count);
-		return "ask";
-
+		return "/noticeList";
 	}
 
-	@GetMapping("/askWrite")
-	public String writeForm(@ModelAttribute("user") MemberDto dto) {
-		return "askWrite";
-	}
-
-	@PostMapping("/askWrite")
-	public String askWrite(QaDto dto) {
-		qservice.insert(dto);
-		return "redirect:ask";// 글목록
-	}
-
-	@GetMapping("/search")
+	@GetMapping("/noticeSearch")
 	public String search(int searchn, String search, @RequestParam(name = "p", defaultValue = "1") int page, Model m) {
-		int count = qservice.countSearch(searchn, search);
+		int count = service.countSearch(searchn, search);
 		if (count > 0) {
 
 			int perPage = 5; // 한 페이지에 보일 글의 갯수
 			int startRow = (page - 1) * perPage + 1;
 			int endRow = page * perPage;
 
-			List<QaDto> qaList = qservice.qaListSearch(searchn, search, startRow, endRow);
-			m.addAttribute("qaList", qaList);
+			List<NoticeDto> noticeList = service.noticeListSearch(searchn, search, startRow, endRow);
+			m.addAttribute("nList", noticeList);
 
 			int pageNum = 5;
 			int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); // 전체 페이지 수
@@ -111,36 +91,49 @@ public class QnaController {
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("search", search);
 
-		return "search";
+		return "noticeSearch";
 	}
 
-	@GetMapping("/askContent/{qa_no}")
-	public String askContent(@PathVariable int qa_no, Model m) {
-		QaDto dto = qservice.qaOne(qa_no);
+	@GetMapping("/noticeWrite")
+	public String writeForm(@ModelAttribute("user") MemberDto dto) {
+		return "noticeWrite";
+	}
+
+	@PostMapping("/noticeWrite")
+	public String noticeWrite(NoticeDto dto) {
+		service.insert(dto);
+		return "redirect:noticeList";
+	}
+
+	@GetMapping("/noticeContent/{no}")
+	public String noticeContent(@PathVariable int no, Model m) {
+		NoticeDto dto = service.noticeOne(no);
 		m.addAttribute("dto", dto);
-		List<Qa_CommDto> cList = cservice.selectComm(qa_no);
-		m.addAttribute("cList", cList);
-		return "askContent";
+		return "noticeContent";
 	}
 
-	@GetMapping("/updateForm/{qa_no}") 
-	public String updateForm(@PathVariable int qa_no, Model m) {
-		QaDto dto = qservice.qaOne(qa_no);
+	@GetMapping("/update/{no}")
+	public String noticeUpdateForm(@PathVariable int no, Model m) {
+		NoticeDto dto = service.noticeOne(no);
 		m.addAttribute("dto", dto);
-		return "updateForm";
+		return "noticeUpdateForm";
 	}
 
-	@RequestMapping("/update")
-	public String update(QaDto dto) {
-		qservice.updateQa(dto);
-		return "redirect:ask";
+	@PutMapping("/update")
+	public String update(NoticeDto dto) {
+		service.updateNotice(dto);
+		return "redirect:noticeList";
 	}
 
-	@DeleteMapping("/delete")
+	@DeleteMapping("/noticeList/delete")
 	@ResponseBody
-	public String delete(int qa_no) {
-		int i = qservice.deleteQa(qa_no);
+	public String delete(int not_no) {
+		int i = service.deleteNotice(not_no);
 		return "" + i;
 	}
 
+	//update,search,미완성 
+	
+	
+	
 }

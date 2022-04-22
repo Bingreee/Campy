@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -23,6 +24,8 @@ import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
 import campy.com.dto.R_PhotoDto;
 import campy.com.dto.ReserveDto;
+import campy.com.dto.ReviewDto;
+import campy.com.service.ReserveService;
 import campy.com.service.RoomService1;
 import campy.com.service.RoomService2;
 
@@ -30,6 +33,8 @@ import campy.com.service.RoomService2;
 @Controller
 public class RoomController1 {
 	
+	@Autowired
+	ReserveService rservice;
 	@Autowired
 	RoomService1 rservice1;
 	@Autowired
@@ -87,36 +92,5 @@ public class RoomController1 {
 		return list_all;
 	}
 	
-	@GetMapping("reviewInfo/{c_no}")
-	 public String selCamNO(@PathVariable int c_no,Model m) { 
-		 int review = rservice1.selCamNO(c_no);
-		 m.addAttribute("review",review); 
-		 return "review"; 
-	  }	
-	
-	@RequestMapping("/fullCalenderPage")
-	public String fullCalenderPage() {
-		return "fullCalenderPage";
-	}
-	
-	@RequestMapping("/fullCalender")
-	@ResponseBody
-	public List<Map<String, Object>> selCalender() {
-		List<ReserveDto> calenderList = rservice1.selCalender();
-	     
-        JSONObject jsonObj = new JSONObject();
-        JSONArray jsonArr = new JSONArray();
- 
-        HashMap<String, Object> hash = new HashMap<>();
- 
-        for (int i = 0; i < calenderList.size(); i++) {
-            hash.put("title", calenderList.get(i).getMem_name()+"  "+calenderList.get(i).getC_no()+"  "+calenderList.get(i).getR_no());
-            hash.put("start", calenderList.get(i).getStart_date());
-            hash.put("end", calenderList.get(i).getEnd_date());
- 
-            jsonObj = new JSONObject(hash);
-            jsonArr.add(jsonObj);
-        } 
-        return jsonArr;
-	}
+
 }

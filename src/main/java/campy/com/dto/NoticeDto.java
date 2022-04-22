@@ -7,11 +7,11 @@ import lombok.Data;
 @Data
 public class NoticeDto {
 
-	private int number;
-	private String title;
+	private int not_no;
+	private String not_title;
 	private String id;
-	private Date date;
-	private String content;
-	private String file;
+	private Date not_date;
+	private String not_content;
+	private String not_file;
 	
 }

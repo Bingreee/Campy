@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="campy.com.dao.NoticeDao">
+  
+  <insert id="insert" parameterType="campy.com.dto.NoticeDto">
+  	insert into notice(not_no,id,not_title,not_content,not_date)values(notice_seq.nextval,#{id},#{not_title},#{not_content},sysdate)
+  </insert>
+  
+  <select id="count" resultType="int">
+  	select count(*) from notice
+  </select>
+  
+  <select id="noticeOne" parameterType="int" resultType="campy.com.dto.NoticeDto">
+  	select * from notice where not_no = #{not_no}
+  </select>
+  
+  <select id="noList" parameterType="map" resultType="campy.com.dto.NoticeDto">
+  	<![CDATA[
+		select * from
+		(select not_no,not_title,id,not_date, not_content, not_file,rownum r
+		from (select * from notice order by not_no desc)
+		order by not_no desc)where r >= #{start} AND r <= #{end}
+ 		]]>
+  </select>
+  <select id="countSearch" resultType="int" parameterType="map">
+		select count(*) from notice 
+		<where>
+			<choose>
+				<when test="searchn == 0">
+				not_title  like '%'||#{search}||'%' </when>
+				<when test="searchn == 1"> not_content  like '%'||#{search}||'%'</when>
+				<when test="searchn == 2"> id  like '%'||#{search}||'%' </when>
+			</choose>
+		</where> 
+</select>
+  
+  <select id="noticeListSearch" parameterType="map" resultType="campy.com.dto.NoticeDto">
+		
+		select * from
+		(select not_no,not_title,id,not_date, not_content, not_file,rownum r
+		from (select * from notice order by not_no desc) 
+		<where>
+			<choose>
+				<when test="searchn == 0">
+				not_title like '%'||#{search}||'%'</when>
+				<when test="searchn == 1"> not_content like '%'||#{search}||'%' </when>
+				<when test="searchn == 2"> id like '%'||#{search}||'%' </when>
+			</choose>
+		</where> 
+		order by not_no desc 
+		
+		) where r >= #{start} AND r &lt;= #{end}
+ 		
+</select>
+  <update id="updateNotice" parameterType="campy.com.dto.NoticeDto">
+  		update notice set not_title = #{not_title} , not_content = #{not_content} where not_no = #{not_no}
+  </update>
+  
+  <delete id="deleteNotice" parameterType="int">
+  		delete from notice where not_no = #{not_no}
+  </delete>
+  
+  </mapper>

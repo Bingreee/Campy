@@ -41,13 +41,6 @@
 	</nav>
 	<hr>
 	
-	
-	
-	
-	
-	
-	
-	<%-- <form:form action="mainSearch" method="post" modelAttribute="mainSearchInfo"> --%>
 	<form>
 	캠핑장 둘러보기
 	<table border="1" cellpadding="0" cellspacing="0">				
@@ -117,25 +110,6 @@
 	
 	</form>
 
-	<%-- <c:choose>
-		
-		<c:when test="${mainSearchInfoResult == '[]'}">
-			<h4>검색 결과가 없습니다.</h4>
-		</c:when>
-
-		<c:otherwise>
-			
-			<c:forEach items="${mainSearchInfoResult}" var="result">
-					<img src="../../CampPhoto/${result.c_photo}" width="100px">
-					<input type="button" value="Room페이지로" id='${result.c_no}'>
-					<br>
-			</c:forEach>
-		</c:otherwise>
-
-	</c:choose> --%>
-	<!-- ajax로 바꾸기 -->
-	<!-- location href으로 보내고 pathvariable로 값 받고 -->
-	
 	<table id="table1">
 			<tr>
 				<td>검색 결과값은 여기에 나옵니다</td>
@@ -149,9 +123,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-/* 	$(function(){
-		
-	}); */
+
 	
 	$(document).on('click',"#mainSearchButton",function(){
 		if(document.getElementById("swim").checked==true){
@@ -200,9 +172,6 @@
 		let pet = $(".pet").val();
 		
 		console.log("확인!");
-		
-		/* let mainUrl = "/mainSearch?c_name="+c_name+"&c_address="+c_address+"&maxno="+maxno+"&place="+place+"&swim="+swim+"&pick="+pick+"&elec="+elec+"&wifi="+wifi+"&snack="+snack+"&pet="+pet; */
-		
 		console.log(c_name, c_address, maxno, place, swim, pick, elec, wifi, snack, pet);
 		
 		$.ajax({
@@ -230,15 +199,23 @@
 			    console.log(error)
 			}
 		}).done(function(data){
+			$("#table1").empty(); 
+			/* 	console.log(data); */
 			
-		/* 	console.log(data); */
-			var html = "";
 			for(let i=0; i<data.length; i++){
-				html += '<tr>';
-				html += "<td> <a href='/roomInfo/"+data[i].c_no+"'>"+data[i].c_name+"</a> </td>";
-				html += '</tr>';
+				var htmlText = "";
+				var htmlImg ="";
+				htmlText += '<tr>';
+				htmlText += "<td> <a href='/roomInfo/"+data[i].c_no+"'>"+data[i].c_name+"</a> </td>";
+				htmlText += '</tr>';
+				htmlImg += '<tr>';
+				htmlImg += '<td>'
+				htmlImg += "<img src='../../CampPhoto/Camping/"+data[i].c_no+".jpg' />";
+				htmlImg += '</td>';
+				htmlImg += '</tr>'; 
+				$("#table1").append(htmlText);
+				$("#table1").append(htmlImg); 
 			}
-			$("#table1").html(html);
 		})	
 	});
 	

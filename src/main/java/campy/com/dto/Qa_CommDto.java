@@ -11,4 +11,5 @@ public class Qa_CommDto {
 	private Date qa_comm_date;
 	private String qa_comm_content;
 	private int qa_comm;
+	private String id;
 }

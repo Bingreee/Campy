@@ -21,8 +21,8 @@ public class Qa_CommService {
 	public int insertComm(Qa_CommDto dto) {
 		return cdao.insertComm(dto);
 	}
-	public int deleteComm(int qa_no) {
-		return cdao.deleteComm(qa_no);
+	public int deleteComm(int qa_comm) {
+		return cdao.deleteComm(qa_comm);
 	}
 
 }

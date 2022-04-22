@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="campy.com.dao.MypageDao">
 
+	<update parameterType="campy.com.dto.MemberDto" id="updateMem">
+		update member set pw = #{pw}, mem_tel = #{mem_tel} where id = #{id}
+	</update>
+
+	<delete parameterType="String" id="deleteMem"> 
+		delete from member where id = #{id} 
+	</delete>
+	
 </mapper>

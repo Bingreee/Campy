@@ -26,9 +26,9 @@ public class Qa_CommController {
 		return i+"";
 	}
 	
-	@DeleteMapping("deleteComm/{qa_no}")
-	public String deleteComm(@PathVariable int qa_no) {
-		int i = cservice.deleteComm(qa_no);
+	@DeleteMapping("/deleteComm/{qa_comm}")
+	public String deleteComm(@PathVariable int qa_comm) {
+		int i = cservice.deleteComm(qa_comm);
 		return i+"";
 	}
 	

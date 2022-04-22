@@ -64,7 +64,7 @@
 </style>
 </head>
 <body>
-	memUpdate 페이지입니다
+
 	<h1> Campy </h1>
 
 	<nav>
@@ -92,22 +92,35 @@
 			<button type="button" class="sideButton" onclick="location.href='ask' ">공지사항</button>
 	</nav>
 
-	<form action="memUpdate" method="POST" id="memUpdate">
+
+
+<%-- 
+	<form action="update" method="POST" id="memUpdate">
         <div id="wrapper">
-            <div class="title">회원 가입 정보 입력</div>
+            <div class="title"><h3>${user.id}님의 정보를 수정합니다.</h3></div>
             <label>아이디 : </label> <input type="text" name="id" id="id" value=${user.id} readonly>
      		<br>
 
-            <label>비밀번호 : </label><input type="password" name="pw" id="pw"><br>
+            <label>변경할 비밀번호 : </label><input type="password" name="pw" id="pw"><br>
             <div class="pw regex"></div>
 
-            <label>비밀번호확인 : </label><input type="password" id="repw"><br>
+            <label>전화번호 : </label><input type="text" id="repw" value=${user.mem_tel} ><br>
             <div class="repw regex"></div>
 
-
-            <input type="button" name="signup" value="수정" id="memUpdateButton">
+           <input type="button" name="signup" value="수정" id="memUpdateButton">
         </div>
+	</form> --%>
+<h3>${user.id}님의 정보를 수정합니다.</h3>
+<form action="update" method="post" id="memUpdate">
+<input type="hidden" name="_method" value="put">
+	<table>
+		<tr><td>id</td><td>${user.id}
+				</td></tr>
+		<tr><td>pw</td><td><input name="pw" type="pw" id="pw" value="${user.pw}"></td></tr>
+		<tr><td>mem_tel</td><td><input name="mem_tel" id="mem_tel" value="${user.mem_tel}"></td></tr>
+	
+		<tr><td><input type="submit" value="수정" id="memUpdate"></td></tr>
+	</table>
 </form>
-
 </body>
 </html> 

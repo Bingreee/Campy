@@ -76,4 +76,17 @@ public class CampingController {
 		System.out.println(mainSearchInfoResult+"mainSearch메서드 In Controller");
 		return mainSearchInfoResult;
 	}
+	
+	@RequestMapping("/campCreate")
+	public String campCreate() {
+		return "/campCreate";
+	}
+	
+	@RequestMapping("/campCreateInfo")
+	public String campCreateInfo(CampingDto dto) {
+		System.out.println("campCreateInfo 진입");
+		System.out.println(dto);
+		service.campCreateInfo(dto);
+		return "/main";
+	}
 }
