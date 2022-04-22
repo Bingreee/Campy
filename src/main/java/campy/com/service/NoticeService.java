@@ -34,18 +34,18 @@ public class NoticeService {
 	public int count() {
 		return dao.count();
 	}
-	public List<NoticeDto> noticeListSearch(int searchn, String search,int start, int end){
+	public List<NoticeDto> noticeListSearch(int noticesearchn, String noticesearch,int start, int end){
 		Map<String,Object> m = new HashMap<String, Object>();
-		m.put("searchn",searchn);
-		m.put("search", search);
+		m.put("noticesearchn",noticesearchn);
+		m.put("noticesearch", noticesearch);
 		m.put("start", start);
 		m.put("end", end);
 		return dao.noticeListSearch(m);
 	}
-	public int countSearch(int searchn, String search) {
+	public int countSearch(int noticesearchn, String noticesearch) {
 		Map<String,Object> m = new HashMap<String, Object>();
-		m.put("searchn",searchn);
-		m.put("search", search);
+		m.put("noticesearchn",noticesearchn);
+		m.put("noticesearch", noticesearch);
 		return dao.countSearch(m);
 	}
 	

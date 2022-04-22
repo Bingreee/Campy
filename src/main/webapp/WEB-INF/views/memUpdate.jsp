@@ -111,7 +111,7 @@
         </div>
 	</form> --%>
 <h3>${user.id}님의 정보를 수정합니다.</h3>
-<form action="update" method="post" id="memUpdate">
+<form action="/memUpdate" method="post" id="memUpdate">
 <input type="hidden" name="_method" value="put">
 	<table>
 		<tr><td>id</td><td>${user.id}
@@ -119,8 +119,20 @@
 		<tr><td>pw</td><td><input name="pw" type="pw" id="pw" value="${user.pw}"></td></tr>
 		<tr><td>mem_tel</td><td><input name="mem_tel" id="mem_tel" value="${user.mem_tel}"></td></tr>
 	
-		<tr><td><input type="submit" value="수정" id="memUpdate"></td></tr>
+		<tr><td><input type="submit" value="수정" id="update"></td></tr>
+		
 	</table>
 </form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(function(){
+		$("#update").click(function(){
+			alert("수정완료");
+			
+		})
+		
+	})
+		
+</script>
 </body>
 </html> 

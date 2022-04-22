@@ -62,15 +62,15 @@ public class NoticeController {
 	}
 
 	@GetMapping("/noticeSearch")
-	public String search(int searchn, String search, @RequestParam(name = "p", defaultValue = "1") int page, Model m) {
-		int count = service.countSearch(searchn, search);
+	public String noticeSearch(int noticesearchn, String noticesearch, @RequestParam(name = "p", defaultValue = "1") int page, Model m) {
+		int count = service.countSearch(noticesearchn, noticesearch);
 		if (count > 0) {
 
 			int perPage = 5; // 한 페이지에 보일 글의 갯수
 			int startRow = (page - 1) * perPage + 1;
 			int endRow = page * perPage;
 
-			List<NoticeDto> noticeList = service.noticeListSearch(searchn, search, startRow, endRow);
+			List<NoticeDto> noticeList = service.noticeListSearch(noticesearchn, noticesearch, startRow, endRow);
 			m.addAttribute("nList", noticeList);
 
 			int pageNum = 5;
@@ -88,10 +88,10 @@ public class NoticeController {
 
 		}
 		m.addAttribute("count", count);
-		m.addAttribute("searchn", searchn);
-		m.addAttribute("search", search);
+		m.addAttribute("noticesearchn", noticesearchn);
+		m.addAttribute("noticesearch", noticesearch);
 
-		return "noticeSearch";
+		return "/noticeSearch";
 	}
 
 	@GetMapping("/noticeWrite")
@@ -112,15 +112,15 @@ public class NoticeController {
 		return "noticeContent";
 	}
 
-	@GetMapping("/update/{no}")
+	@GetMapping("/noticeUpdateForm/{no}")
 	public String noticeUpdateForm(@PathVariable int no, Model m) {
 		NoticeDto dto = service.noticeOne(no);
 		m.addAttribute("dto", dto);
 		return "noticeUpdateForm";
 	}
 
-	@PutMapping("/update")
-	public String update(NoticeDto dto) {
+	@RequestMapping("/noticeUpdateForm")
+	public String noticeUpdateForm(NoticeDto dto) {
 		service.updateNotice(dto);
 		return "redirect:noticeList";
 	}
@@ -132,7 +132,6 @@ public class NoticeController {
 		return "" + i;
 	}
 
-	//update,search,미완성 
 	
 	
 	

@@ -35,7 +35,7 @@ a {
 </head>
 <body>
 	<div id="center">
-		<h1>${search}로 검색한 결과입니다.</h1>
+				<h1>${search}로 검색한 문의사항입니다.</h1>
 		
 		<div align="right">
 			<a href="/main">main</a><a href="askWrite">새글 등록</a>

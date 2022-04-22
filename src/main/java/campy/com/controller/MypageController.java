@@ -56,27 +56,17 @@ public class MypageController {
 	@RequestMapping("/memUpdateCheck")
 	public String memUpdateCheck() {
 		return "/memUpdateCheck";
-	}
+	}//비밀번호 확인
 
 	@RequestMapping("/memUpdate")
-	public String memUpdate(@ModelAttribute("user") MemberDto dto) {
+	public String memUpdates(@ModelAttribute("user") MemberDto dto) {
 		Service.updateMem(dto);
 		return "/memUpdate";
 	}
 
-	/*
-	 * @GetMapping("/update") public String memUpdate(@ModelAttribute("user")
-	 * MemberDto dto) { return "/memUpdate"; }
-	 * 
-	 * @PutMapping("/update") public String update(@ModelAttribute("user") MemberDto
-	 * dto) { Service.updateMem(dto); return "redirect:/mypage"; }
-	 */
-
-	/*
-	 * @RequestMapping("/memUpdate") public String
-	 * memUpdateChecker(@ModelAttribute("user") MemberDto dto, @RequestParam String
-	 * pw) { System.out.println(dto.getPw() + "," + pw); if (dto.getPw() == pw) {
-	 * return "/memUpdate"; } else { return "/memUpdate"; } }
-	 */
+	@GetMapping("/memUpdate")
+	public String memUpdate(@ModelAttribute("user") MemberDto dto) {
+		return "/mypage";
+	}
 
 }
