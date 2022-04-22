@@ -19,6 +19,7 @@ import campy.com.dto.MemberDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.RoomDto;
 import campy.com.service.LoveService;
+import campy.com.service.RoomService1;
 import campy.com.service.RoomService2;
 
 @SessionAttributes({"reserve","camping","user"})
@@ -27,6 +28,8 @@ public class RoomController2 {
 
 	@Autowired
 	RoomService2 rservice2;
+	@Autowired
+	RoomService1 rservice1;
 	
 	
 	@ModelAttribute("reserve")
@@ -84,9 +87,11 @@ public class RoomController2 {
 	
 	
 	  @GetMapping("/roomInfo/{c_no}") 
-	  public String roomInfo(@PathVariable int c_no,Model m) { 
+	  public String roomInfo(@PathVariable int c_no, ReserveDto dto, Model m) { 
 		 int room = rservice2.selectRoomNo(c_no);
+		 List<ReserveDto> listReserve = rservice1.chkDateList(dto);
 		 m.addAttribute("room",room); 
+		 m.addAttribute("chkDateList",listReserve);
 		 return "room"; 
 	  }
 	  

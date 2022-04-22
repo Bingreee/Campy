@@ -35,4 +35,16 @@ public class RoomService1 {
 	public int selCamNO(int c_no) {
 		return rdao1.selCamNO(c_no);
 	}
+	
+	public int chkDate(ReserveDto dto) {
+		return rdao1.chkDate(dto);
+	}
+	
+	public List<ReserveDto> chkDateList(ReserveDto dto) {
+		return rdao1.chkDateList(dto);
+	}
+	
+	public List<ReserveDto> selCalender() {
+		return rdao1.selCalender();
+	}
 }

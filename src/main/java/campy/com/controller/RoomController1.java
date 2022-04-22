@@ -1,6 +1,8 @@
 package campy.com.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray; //JSON배열 사용
+
 
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
@@ -87,5 +92,31 @@ public class RoomController1 {
 		 int review = rservice1.selCamNO(c_no);
 		 m.addAttribute("review",review); 
 		 return "review"; 
-	  }
+	  }	
+	
+	@RequestMapping("/fullCalenderPage")
+	public String fullCalenderPage() {
+		return "fullCalenderPage";
+	}
+	
+	@RequestMapping("/fullCalender")
+	@ResponseBody
+	public List<Map<String, Object>> selCalender() {
+		List<ReserveDto> calenderList = rservice1.selCalender();
+	     
+        JSONObject jsonObj = new JSONObject();
+        JSONArray jsonArr = new JSONArray();
+ 
+        HashMap<String, Object> hash = new HashMap<>();
+ 
+        for (int i = 0; i < calenderList.size(); i++) {
+            hash.put("title", calenderList.get(i).getMem_name()+"  "+calenderList.get(i).getC_no()+"  "+calenderList.get(i).getR_no());
+            hash.put("start", calenderList.get(i).getStart_date());
+            hash.put("end", calenderList.get(i).getEnd_date());
+ 
+            jsonObj = new JSONObject(hash);
+            jsonArr.add(jsonObj);
+        } 
+        return jsonArr;
+	}
 }

@@ -16,9 +16,7 @@ public class ReserveDto {
 	private Date reserve_date;
 	private String mem_tel;
 	private int c_price;
-	@DateTimeFormat(pattern = "yyyymmdd")
-	private Date start_date;
-	@DateTimeFormat(pattern = "yyyymmdd")
-	private Date end_date;
+	private String start_date;
+	private String end_date;
 	private int reserve_no;
 }
