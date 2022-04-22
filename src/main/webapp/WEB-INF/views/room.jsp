@@ -71,7 +71,6 @@
 </head>
 <body>
 <h1> Campy </h1>
-
 	<nav>
 		<ul>
 			<c:if test="${user.id == null }">
@@ -103,7 +102,6 @@
 		<!-- value는 c_no, 출력은 c_name -->
 	</select>
 		<p>${room }</p>
-	
 	<h4>날짜선택</h4>
 	<input id="selectDate" class="form-control linkedCalendars"/><br><br>
 	<span id="setting" class="input-group-text calendar-icon">
@@ -121,7 +119,6 @@
 	<h4 class="roomList">객실 목록</h4>
 	<div id="roomInfo"></div>
 	<button id="cc">버튼</button>
-
 	<%-- 전체 객실 가져오기
 	<c:forEach items="${room}" var="room">
 		<div class="roomListDetail">${room.c_no } / ${room.r_no} / ${room.r_content }

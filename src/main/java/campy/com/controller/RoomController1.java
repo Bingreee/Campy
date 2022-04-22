@@ -1,6 +1,8 @@
 package campy.com.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray; //JSON배열 사용
+
 
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
@@ -87,5 +92,5 @@ public class RoomController1 {
 		return list_all;
 	}
 	
-	
+
 }
