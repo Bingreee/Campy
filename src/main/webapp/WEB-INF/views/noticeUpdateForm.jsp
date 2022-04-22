@@ -6,27 +6,27 @@
 <head>
 <title>Insert title here</title>
 <style>
-	.orange{background-color: orange; width: 50px;}
+	.silver{background-color: silver; width: 50px;}
 	table{border-collapse : collapse; width: 800px;}
 </style>
 </head>
 <body>
 <h1>공지사항 수정</h1>
-<form method="post" id="noticeUpdateForm" action="/update" >
+<form method="post" id="updateform" action="/noticeUpdateForm" >
 <input type="hidden" name="_method" value="put">
 <table border="1">
 		<tr>	
-			<td class="orange">제목</td>
-			<td><input name="title" value="${dto.not_title }"/>
-				<input name="no" value="${dto.not_no}" type="hidden"> 
+			<td class="silver">제목</td>
+			<td><input name="not_title" value="${dto.not_title }"/>
+				<input name="not_no" value="${dto.not_no}" type="hidden"> 
 			</td>
 		</tr>
 		<tr>
-			<td class="orange">작성자</td>
+			<td class="silver">작성자</td>
 			<td><input name="id" value="${dto.id}" readonly></td>
 		</tr>
 		<tr>
-			<td class="orange">내용</td>
+			<td class="silver">내용</td>
 			<td><div id="smarteditor">
         	<textarea name="not_content" id="editorTxt" 
                   rows="20" cols="10" 
@@ -62,7 +62,7 @@
       
       $("#save").click(function(){
     	  oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
-    	  $("#noticeUpdateForm").submit();
+    	  $("#updateform").submit();
       });
       
     })

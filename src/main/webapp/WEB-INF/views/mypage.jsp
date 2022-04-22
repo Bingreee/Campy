@@ -63,7 +63,7 @@
 			<button type="button" class="sideButton" onclick="location.href='memLove' ">찜한상품</button>
 			<button type="button" class="sideButton" onclick="location.href='reserveStatus' ">예약현황</button>
 			<button type="button" class="sideButton" onclick="location.href='qna' ">Q&A</button>
-			<button type="button" class="sideButton" onclick="location.href='ask' ">공지사항</button>
+			<button type="button" class="sideButton" onclick="location.href='noticeList' ">공지사항</button>
 			
 		</ul>
 	</nav>
@@ -71,7 +71,7 @@
 	
 	${user.mem_name}님의 페이지
 	
-	<form action = "memUpdateCheck" method = "get" id="privateInfo">
+	<form action = "/memUpdateCheck" method = "post" id="privateInfo">
 	<table>
 		<tr> <td>이름</td><td><textarea readonly> ${user.mem_name} </textarea> </td> </tr>
 		<tr> <td>이메일</td><td><textarea readonly> ${user.roadAddress} </textarea></td> </tr>
@@ -79,7 +79,7 @@
 		<tr> <td><input type="submit" value="수정" id="fix" ></td> </tr>
 	</table>
 	</form>
-	
+	 
 	
 </body>
 </html>

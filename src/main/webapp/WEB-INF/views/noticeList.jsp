@@ -20,7 +20,7 @@ table {
 
 th {
 	border: 1px solid black;
-	background-color: orange;
+	background-color: silver;
 	width: 150px;
 }
 td{
@@ -79,18 +79,17 @@ a {
 		<c:if test="${count == 0 }">
 	아직 입력한 글이 없습니다.
 </c:if>
-
-	</div>
-		<div id="search" align="center">
-<form action="search">
-<select name="searchn">
+<div id="noticeSearch" align="center">
+<form action="/noticeSearch">
+<select name="noticesearchn">
 <option value="0">제목</option>
 <option value="1">내용</option>
 <option value="2">작성자</option>
 </select>
-<input type="text" name="search" size="15" maxlength="50" /> 
+<input type="text" name="noticesearch" size="15" maxlength="50" /> 
 <input type="submit" value="검색" />
 </form>	
-</div>
+	</div>
+	</div>
 </body>
 </html>
