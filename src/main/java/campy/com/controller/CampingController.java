@@ -10,14 +10,19 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import campy.com.dto.CampCreateDto;
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
+import campy.com.dto.ReserveDto;
+import campy.com.dto.RoomDto;
 import campy.com.service.CampingService;
+import campy.com.service.RoomService2;
 
 @SessionAttributes({"user","mainSearchInfoResult"})
 @Controller
@@ -25,6 +30,9 @@ public class CampingController {
 	
 	@Autowired
 	CampingService service;
+	
+	@Autowired
+	RoomService2 rservice2;
 	
 	@ModelAttribute("user")
 	public MemberDto getDto() {
@@ -82,11 +90,40 @@ public class CampingController {
 		return "/campCreate";
 	}
 	
+	@RequestMapping("/campShowAll")
+	public String campShowAll() {
+		return "campShowAll";
+	}
+	
+	@RequestMapping("/campRevise/{c_no}")
+	public String campRevise(@PathVariable int c_no, Model m) {
+		CampingDto ReviseCamp = service.campFinder(c_no);
+		m.addAttribute("ReviseCamp", ReviseCamp);
+		
+		List<RoomDto> ReviseRoom = service.roomFinder(c_no);
+		m.addAttribute("ReviseRoom", ReviseRoom);
+	
+		return "/campRevise";
+	}
+	
+	@RequestMapping("/campReviseInfo")
+	public String campReviseInfo(CampCreateDto dto) {
+		System.out.println("campReviseInfo 진입");
+		System.out.println(dto);
+		System.out.println(service.campReviseInfo(dto));
+		return "/main";
+	}
+	
 	@RequestMapping("/campCreateInfo")
-	public String campCreateInfo(CampingDto dto) {
+	public String campCreateInfo(CampCreateDto dto) {
 		System.out.println("campCreateInfo 진입");
 		System.out.println(dto);
 		service.campCreateInfo(dto);
 		return "/main";
+	}
+	
+	@ModelAttribute("campList")
+	public List<CampingDto> campList(){
+		return rservice2.selectC_name();
 	}
 }
