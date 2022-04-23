@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import campy.com.dto.CampAndReserveDto;
 import campy.com.dto.R_PhotoDto;
 import campy.com.dto.ReserveDto;
 
@@ -17,5 +18,5 @@ public interface RoomDao1 {
 	int selCamNO(int c_no);
 	int chkDate(ReserveDto dto);
 	List<ReserveDto> chkDateList(ReserveDto dto);
-	List<ReserveDto> selCalender();
+	List<CampAndReserveDto> selCalender();
 }

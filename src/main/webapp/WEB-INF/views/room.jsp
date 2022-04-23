@@ -134,6 +134,7 @@
 
 $('.linkedCalendars').daterangepicker({
 	linkedCalendars: false,
+	minDate: new Date(),
 	"locale":{
 	"format": "YYYY-MM-DD",
 	"separator": " ~ ",
@@ -247,8 +248,9 @@ $('.linkedCalendars').daterangepicker({
 					type:"post",
 					data:{"c_no":c_no,"r_no":r_no,"c_price":c_price,"start_date":start_date,"end_date":end_date},
 					dataType:"text"
-				}).done(function(date){
-					location.href="reserveStatus";
+				}).done(function(data){
+					console.log(data);
+					location.href="/reserveStatus";
 				})
 			}
 		})
