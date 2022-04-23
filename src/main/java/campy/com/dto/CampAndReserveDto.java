@@ -41,4 +41,5 @@ public class CampAndReserveDto {
 	//@DateTimeFormat(pattern = "yyyymmdd")
 	private Date end_date;
 	private int reserve_no;
+	private Date end_date2;
 }

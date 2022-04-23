@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray; //JSON배열 사용
 
-
+import campy.com.dto.CampAndReserveDto;
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
 import campy.com.dto.R_PhotoDto;
@@ -91,6 +91,31 @@ public class RoomController1 {
 		String list_all = gson.toJson(ListAllReserve);
 		return list_all;
 	}
+
+	@RequestMapping("/fullCalenderPage")
+	public String fullCalenderPage() {
+		return "fullCalenderPage";
+	}
 	
+	@RequestMapping("/fullCalender")
+	@ResponseBody
+	public List<Map<String, Object>> selCalender() {
+		List<CampAndReserveDto> calenderList = rservice1.selCalender();
+
+        JSONObject jsonObj = new JSONObject();
+        JSONArray jsonArr = new JSONArray();
+
+        HashMap<String, Object> hash = new HashMap<>();
+
+        for (int i = 0; i < calenderList.size(); i++) {
+            hash.put("title", calenderList.get(i).getC_name()+"   "+calenderList.get(i).getMem_name()+"  "+calenderList.get(i).getC_no()+"  "+calenderList.get(i).getR_no());
+            hash.put("start", calenderList.get(i).getStart_date());
+            hash.put("end", calenderList.get(i).getEnd_date2());
+
+            jsonObj = new JSONObject(hash);
+            jsonArr.add(jsonObj);
+        } 
+        return jsonArr;
+	}
 
 }
