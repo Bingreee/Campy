@@ -14,4 +14,5 @@ public interface LoginDao {
 	String idCheck(String id);
 	String findId(String mem_tel);
 	int updatePw(Map<String, String> map);
+	MemberDto loginById(String id);
 }

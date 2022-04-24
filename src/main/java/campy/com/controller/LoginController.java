@@ -30,6 +30,7 @@ public class LoginController {
 	@Autowired
 	LoginService service;
 	
+	
 	@ModelAttribute("user")
 	public MemberDto getDto() {
 		return new MemberDto();

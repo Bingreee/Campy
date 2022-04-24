@@ -35,6 +35,9 @@
 	.rightButton{
 		width : 100px;
 	}
+	#adminOnly{
+		display : none;
+	}
 	
 </style>
 
@@ -64,7 +67,7 @@
 			<button type="button" class="sideButton" onclick="location.href='reserveStatus' ">예약현황</button>
 			<button type="button" class="sideButton" onclick="location.href='qna' ">Q&A</button>
 			<button type="button" class="sideButton" onclick="location.href='noticeList' ">공지사항</button>
-			
+			<button type="button" id="adminOnly" onclick="location.href='adminPage'">관리자</button>
 		</ul>
 	</nav>
 	
@@ -80,6 +83,14 @@
 	</table>
 	</form>
 	 
-	
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	if("${user.id}" == "admin"){
+		$("#adminOnly").show();
+		
+	}
+
+
+</script>
 </body>
 </html>
