@@ -24,6 +24,10 @@
 <body>
 <h1>관리자 페이지입니다</h1>
 <input type="button" value="예약현황" id="showReserve">
+<a href="/adminReserve">예약 현황 보러가기 링크</a>
+<form action="logout" method="get">
+		<input type="submit" value="로그아웃"></input>
+</form>
 <table>
 	<tr><th>예약번호</th><th>고객명</th><th>예약일</th><th>객실</th><th>요금</th></tr>
 	<tr>

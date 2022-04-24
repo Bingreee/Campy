@@ -1,4 +1,4 @@
-package campy.com.controller;
+package campy.com.intercepter;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ public class SecurityController {
 //	@GetMapping("/member")
 //	public String forMember() {
 //		System.out.println("member요청");
-//		return "main";
+//		return "member";
 //	}
 //	
 //	@GetMapping("/admin")
@@ -24,15 +24,15 @@ public class SecurityController {
 //		return "adminPage";
 //	}
 //	
-//	@GetMapping("/campyLogin")
-//	public String campyLogin() {
-//		System.out.println("campyLogin 요청");
-//		return "login";
+//	@GetMapping("/loginFormTest") 
+//	public String loginFormTest() {
+//		System.out.println("loginFormTest 폼 요청");
+//		return "loginFormTest";
 //	}
 //	
 //	@GetMapping("/loginSuccess")
 //	public String loginSuccess() {
 //		System.out.println("로그인 성공");
-//		return "main";
+//		return "loginSuccess";
 //	}
 }

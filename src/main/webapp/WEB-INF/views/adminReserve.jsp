@@ -64,11 +64,11 @@
 	
 	<nav id="AdminSide">
 		<ul>
-			<button type="button" class="sideButton" onclick="location.href='mypage' ">개인정보</button>
-			<button type="button" class="sideButton" onclick="location.href='memLove' ">찜한상품</button>
-			<button type="button" class="sideButton" onclick="location.href='reserveStatus' ">예약현황</button>
+			<button type="button" class="sideButton" onclick="location.href='adminReserve' ">전체 예약 리스트</button>
+			<button type="button" class="sideButton" onclick="location.href='fullCalenderPage' ">FUll CALENDER</button>
+			<button type="button" class="sideButton" onclick="location.href='campCreate' ">캠핑장 등록</button>
 			<button type="button" class="sideButton" onclick="location.href='qna' ">Q&A</button>
-			<button type="button" class="sideButton" onclick="location.href='ask' ">공지사항</button>
+			<button type="button" class="sideButton" onclick="location.href='noticeList' ">공지사항</button>
 			
 		</ul>
 	</nav>
