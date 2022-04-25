@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 
+import campy.com.dto.CampAndReserveDto;
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.RoomDto;
 import campy.com.service.LoveService;
+import campy.com.service.ReserveService;
 import campy.com.service.RoomService1;
 import campy.com.service.RoomService2;
 
@@ -30,6 +32,8 @@ public class RoomController2 {
 	RoomService2 rservice2;
 	@Autowired
 	RoomService1 rservice1;
+	@Autowired
+	ReserveService rservice;
 	
 	
 	@ModelAttribute("reserve")
@@ -93,6 +97,13 @@ public class RoomController2 {
 		 m.addAttribute("room",room); 
 		 m.addAttribute("chkDateList",listReserve);
 		 return "room"; 
+	  }
+	  
+	  @GetMapping("/adminReserve")
+	  public String adminReserve(Model m) {
+		  List<CampAndReserveDto> g = rservice.adminReserve();
+		  m.addAttribute("adminR",g);
+		  return "adminReserve";
 	  }
 	  
 }

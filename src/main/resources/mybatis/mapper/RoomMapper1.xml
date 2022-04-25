@@ -5,7 +5,7 @@
 <mapper namespace="campy.com.dao.RoomDao1">
  
 <insert id="insertReserve" parameterType="campy.com.dto.ReserveDto">
-	insert into reserve values(#{id},#{mem_name},#{c_no},#{r_no},sysdate,#{mem_tel},#{c_price},#{start_date},#{end_date},seq_reserve.nextval)
+	insert into reserve values(#{id},#{mem_name},#{c_no},#{r_no},sysdate,#{mem_tel},#{c_price},#{start_date},#{end_date},seq_reserve.nextval,to_date(#{end_date}, 'yy/mm/dd')+1)
 </insert>
 
 <select id="selRoomPho" resultType="campy.com.dto.R_PhotoDto" parameterType="map">
@@ -30,8 +30,10 @@
 	(#{start_date} not between start_date and end_date or #{end_date} not between start_date and end_date)
 </select>
 
-<select id="selCalender" resultType="campy.com.dto.ReserveDto">
-	 select mem_name, c_no, r_no, start_date, end_date from reserve 
+<select id="selCalender" resultType="campy.com.dto.CampAndReserveDto">
+	select camping.c_name, reserve.mem_name, reserve.c_no, reserve.r_no, reserve.start_date, reserve.end_date2 
+	from reserve, camping 
+	where reserve.c_no=camping.c_no
 </select>
 
 </mapper>

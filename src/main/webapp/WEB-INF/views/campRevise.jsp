@@ -1,19 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>캠핑장 등록 페이지</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<h2> 캠핑장 등록 </h2>
-	
-	<form:form action="campCreateInfo" method="POST" id="campCreateForm">
+	<form:form action="/campReviseInfo" method="POST" id="campReviseForm">
         <div id="campingInformation">
             <div class="title"><h4>캠핑장 정보 입력</h4></div>
+            <input type="hidden" name = "c_no" value=${ReviseCamp.c_no }>
             
-            <label> 캠핑장 이름 </label><input type="text" name="c_name" id="c_name"><br>
+            <label> 캠핑장 이름 </label><input type="text" name="c_name" id="c_name" value=${ReviseCamp.c_name } readonly><br>
             
             <label> 캠핑장 주소 </label><input type="text" name="c_address" id="c_address"><br>
             
@@ -54,93 +54,46 @@
  			
             </div>
             
-            <div id = roomInformation1>
-            	<div class="title"><h4>객실 정보 입력</h4></div>
-            	
-            	<label> 객실 번호 </label><input type="text" name="r_no1" id="r_no1"><br>
-            	
-            	<label> 객실 테마 </label><input type="text" name="theme1" id="theme1"><br>
-            	
-            	<label> 최대 인원 </label>
-            	<select name="r_maxno1" id="r_maxno1">
-    			<option value="0">인원선택</option>
-    			<option value="1">1</option>
-    			<option value="2">2</option>
-    			<option value="3">3</option>
-    			<option value="4">4</option>
-    			<option value="5">5</option>
-    			<option value="6">6</option>
-    			<option value="7">7</option>
-    			<option value="8">8</option>
-				</select><br>
-            	
-            	<label> 객실 설명 </label><textarea name="r_content1" id="r_content1" rows=4></textarea><br>
-            	
-            	<label> 객실 가격 </label><input type="number" name="c_price1" id="c_price1"><br>
-            </div>
-            
-            <div id = roomInformation2>
-            	<div class="title"><h4>객실 정보 입력</h4></div>
-            	
-            	<label> 객실 번호 </label><input type="text" name="r_no2" id="r_no2"><br>
-            	
-            	<label> 객실 테마 </label><input type="text" name="theme2" id="theme2"><br>
-            	
-            	<label> 최대 인원 </label>
-				<select name="r_maxno2" id="r_maxno2">
-    			<option value="0">인원선택</option>
-    			<option value="1">1</option>
-    			<option value="2">2</option>
-    			<option value="3">3</option>
-    			<option value="4">4</option>
-    			<option value="5">5</option>
-    			<option value="6">6</option>
-    			<option value="7">7</option>
-    			<option value="8">8</option>
-				</select><br>
-            	
-            	<label> 객실 설명 </label><textarea name="r_content2" id="r_content2" rows=4></textarea><br>
-            	
-            	<label> 객실 가격 </label><input type="number" name="c_price2" id="c_price2"><br>
-            </div>
-            
-            <div id = roomInformation3>
-            	<div class="title"><h4>객실 정보 입력</h4></div>
-            	
-            	<label> 객실 번호 </label><input type="text" name="r_no3" id="r_no3"><br>
-            	
-            	<label> 객실 테마 </label><input type="text" name="theme3" id="theme3"><br>
-            	
-            	<label> 최대 인원 </label>
-				<select name="r_maxno3" id="r_maxno3">
-    			<option value="0">인원선택</option>
-    			<option value="1">1</option>
-    			<option value="2">2</option>
-    			<option value="3">3</option>
-    			<option value="4">4</option>
-    			<option value="5">5</option>
-    			<option value="6">6</option>
-    			<option value="7">7</option>
-    			<option value="8">8</option>
-				</select><br>
-            	
-            	<label> 객실 설명 </label><textarea name="r_content3" id="r_content3" rows=4></textarea><br>
-            	
-            	<label> 객실 가격 </label><input type="number" name="c_price3" id="c_price3"><br>
-            </div>
-            
-                 <input type="submit" name="campCreateButton" value="캠핑장 신규등록" id="campCreateButton">
-            
-	</form:form>
-	
-	
 
-	
+            <c:forEach items="${ReviseRoom }" var="ReviseRoom" varStatus="status">
+            	
+			
+				<div class="title"><h4>객실 정보 입력</h4></div>
+            	
+            	<label> 객실 번호 </label><input type="text" name="r_no${status.count}" id="r_no${status.count} " value=${ReviseRoom.r_no } readonly><br>
+            	
+            	<label> 객실 테마 </label><input type="text" name="theme${status.count}" id="theme${status.count}"><br>
+            	
+            	<label> 최대 인원 </label>
+            	<select name="r_maxno${status.count}" id="r_maxno${status.count}">
+    			<option value="0">인원선택</option>
+    			<option value="1">1</option>
+    			<option value="2">2</option>
+    			<option value="3">3</option>
+    			<option value="4">4</option>
+    			<option value="5">5</option>
+    			<option value="6">6</option>
+    			<option value="7">7</option>
+    			<option value="8">8</option>
+				</select><br>
+            	
+            	<label> 객실 설명 </label><textarea name="r_content${status.count}" id="r_content${status.count}" rows=4></textarea><br>
+            	
+            	<label> 객실 가격 </label><input type="number" name="c_price${status.count}" id="c_price${status.count}"><br>
+            	
+			
+				
+			</c:forEach>
+   			
+   			
+   			 <input type="submit" name="campReviseButton" value="캠핑장 수정버튼" id="campReviseButton">
+	</form:form>
 </body>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).on('click',"#campCreateButton",function(){
+$(document).on('click',"#campReviseButton",function(){
 	if(document.getElementById("swim").checked==true){
 		document.getElementById("swim").value='t';
 	}else if(document.getElementById("swim").checked!=true){
@@ -173,6 +126,5 @@ $(document).on('click',"#campCreateButton",function(){
 	}
 });
 </script>
-
 
 </html>

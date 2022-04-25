@@ -50,5 +50,6 @@ public class LoginService {
 		map.put("pw",pw);
 		return dao.updatePw(map);
 	}
+	
 
 }

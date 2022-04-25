@@ -1,6 +1,7 @@
 package campy.com.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -29,6 +30,7 @@ public class LoginController {
 	@Autowired
 	LoginService service;
 	
+	
 	@ModelAttribute("user")
 	public MemberDto getDto() {
 		return new MemberDto();
@@ -36,26 +38,26 @@ public class LoginController {
 	
 	@GetMapping("/login")
 	public String login() {
-		return "login";
+		return "campyLogin";
 	}
 	
 	@PostMapping("/memLogin")
 	public String memLogin (@ModelAttribute("command") @Valid MemberDto dto, BindingResult error, Model m) {
 		
 		if(error.hasErrors()) {
-			return "login";
+			return "campyLogin";
 		}
 		
 		MemberDto resultDto = service.memLogin(dto);
 		if(resultDto == null) {
 			error.reject("nocode", "아이디나 비밀번호가 틀렸습니다.");
-			return "login";
+			return "campyLogin";
 		}else {
 			m.addAttribute("user", resultDto);
 		}
 		return "redirect:/main";
 	}
-	
+
 	@GetMapping("/logout")
 	public String logout(SessionStatus status) {
 		status.setComplete();
@@ -82,7 +84,7 @@ public class LoginController {
 	@PostMapping("/insert")
 	public String insert(MemberDto dto) {
 		service.insertMem(dto);
-		return "redirect:login";
+		return "redirect:campyLogin";
 	}
 	
 	@GetMapping("/snsJoin")
@@ -115,7 +117,7 @@ public class LoginController {
 	@PostMapping("/updatePw")
 	public String updatePw(String id, String pw) {
 		service.updatePw(id, pw);
-		return "login";
+		return "campyLogin";
 	}
 	
 	@GetMapping("/adminPage")

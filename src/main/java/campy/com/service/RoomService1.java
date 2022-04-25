@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import campy.com.dao.RoomDao1;
+import campy.com.dto.CampAndReserveDto;
 import campy.com.dto.R_PhotoDto;
 import campy.com.dto.ReserveDto;
 
@@ -44,7 +45,7 @@ public class RoomService1 {
 		return rdao1.chkDateList(dto);
 	}
 	
-	public List<ReserveDto> selCalender() {
+	public List<CampAndReserveDto> selCalender() {
 		return rdao1.selCalender();
 	}
 }
