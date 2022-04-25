@@ -48,4 +48,8 @@ public class RoomService1 {
 	public List<CampAndReserveDto> selCalender() {
 		return rdao1.selCalender();
 	}
+	
+	public List<ReserveDto> selR_no(int c_no) {
+		return rdao1.selR_no(c_no);
+	}
 }
