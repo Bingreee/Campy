@@ -21,19 +21,27 @@
 </select>
 
 <select id="chkDate" resultType="int" parameterType="campy.com.dto.ReserveDto">
+	<![CDATA[
 	select count(*) from reserve where c_no=#{c_no} and r_no=#{r_no} and
-	(#{start_date} between start_date and end_date or #{end_date} between start_date and end_date)
+	#{start_date} < end_date and #{end_date} > start_date
+	]]>
 </select>
 
 <select id="chkDateList" resultType="campy.com.dto.ReserveDto" parameterType="campy.com.dto.ReserveDto">
-	select * from reserve where not c_no=#{c_no} and not r_no=#{r_no} and
-	(#{start_date} not between start_date and end_date or #{end_date} not between start_date and end_date)
+	<![CDATA[
+	select * from reserve where c_no=#{c_no} and r_no=#{r_no} and
+	#{start_date} < end_date and #{end_date} > start_date
+	]]>
 </select>
 
 <select id="selCalender" resultType="campy.com.dto.CampAndReserveDto">
 	select camping.c_name, reserve.mem_name, reserve.c_no, reserve.r_no, reserve.start_date, reserve.end_date2 
 	from reserve, camping 
 	where reserve.c_no=camping.c_no
+</select>
+
+<select id="selR_no" resultType="campy.com.dto.ReserveDto" parameterType="int">
+	select r_no from reserve where c_no=#{c_no}
 </select>
 
 </mapper>

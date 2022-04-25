@@ -64,6 +64,12 @@ public class LoginController {
 		return "redirect:/main";
 	}
 	
+	@GetMapping("/roomInfo/logout")
+	public String logout2(SessionStatus status) {
+		status.setComplete();
+		return "redirect:/main";
+	}
+	
 	@GetMapping("/joinSelect")
 	public String joinSelect() {
 		return "joinSelect";
