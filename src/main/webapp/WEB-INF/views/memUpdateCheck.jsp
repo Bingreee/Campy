@@ -83,8 +83,6 @@
 	</nav>
 	<hr>
 	
-	<jsp:include page=""></jsp:include>
-	
 	<nav id="MypageSide">
 			<button type="button" class="sideButton" onclick="location.href='mypage' ">개인정보</button>
 			<button type="button" class="sideButton" onclick="location.href='memLove' ">찜한상품</button>
