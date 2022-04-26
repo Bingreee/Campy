@@ -70,15 +70,6 @@ td{
 		<div align="right">
 			<a href="/reviewWrite/${review }" id="reviewWrite">리뷰 등록</a>
 		</div>
-		
-	<%-- <select onfocus="this.selectedIndex = -1;">
-		<c:forEach items="${campList }" var="campList">
-		<c:if test="${review == campList.c_no }">
-			<p value="${campList.c_no }" class="aa">${campList.c_name }</p> 
-		</c:if>
-		</c:forEach>
-		<!-- value는 c_no, 출력은 c_name -->
-	</select> --%>
 	
 	<p>${review }</p>
 	
@@ -94,15 +85,6 @@ td{
 			
 			</table>
 	
-				<%-- <c:forEach items="${reviewList}" var="review">
-				<tr>
-					<td>${review.rv_no }</td>
-					<td><a href ="reviewContent/${review.rv_no}">${review.rv_title}</a></td>
-					<td>${review.id }</td>
-					<td><fmt:formatDate value="${review.rv_date }" dateStyle="short"/> </td>
-				</tr>
-				</c:forEach> --%>
-			<!-- </table> -->
 			<div id="page">
 				<c:if test="${begin > pageNum }">
 					<a href="list?p=${begin-1 }">[이전]</a>
@@ -122,7 +104,7 @@ td{
 
 	</div>
 	
-	<div id="search" align="center">
+	<!-- <div id="search" align="center">
 		<form action="search">
 			<select name="searchn">
 				<option value="0">제목</option>
@@ -132,7 +114,7 @@ td{
 			<input type="text" name="search" size="15" maxlength="50" />
 			<input type="submit" value="검색" />
 		</form>
-	</div>
+	</div> -->
 	
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
