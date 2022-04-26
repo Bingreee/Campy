@@ -47,7 +47,7 @@
 		position: absolute;
 	}
 	
-	.thumbnail, .roomPhoto{
+	.thumbnail101, .thumbnail102, .thumbnail103, .roomPhoto{
 		position: relative;
 		right:200px;
 		width:150px;
@@ -66,7 +66,7 @@
 	.roomDetail, #lovechk, .roomContent{
 		display:none;
 	}
-	
+
 </style>
 </head>
 <body>
@@ -118,7 +118,7 @@
 	<input type="button" value="리뷰 확인하러가기" onclick="location.href='/reviewInfo/${room}'">
 	<h4 class="roomList">객실 목록</h4>
 	<div id="roomInfo"></div>
-	<button id="cc">버튼</button>
+	
 	<%-- 전체 객실 가져오기
 	<c:forEach items="${room}" var="room">
 		<div class="roomListDetail">${room.c_no } / ${room.r_no} / ${room.r_content }
@@ -133,8 +133,10 @@
 <script type="text/javascript">
 
 $('.linkedCalendars').daterangepicker({
+	endDate: new Date(new Date().setDate(new Date().getDate()+1)),
 	linkedCalendars: false,
 	minDate: new Date(),
+	
 	"locale":{
 	"format": "YYYY-MM-DD",
 	"separator": " ~ ",
@@ -146,7 +148,7 @@ $('.linkedCalendars').daterangepicker({
 	"daysOfWeek": ["일","월", "화", "수", "목", "금", "토"],
 	"monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"] },
 	}, function (start, end, label) {
-	console.log('선택된 날짜: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+	//console.log('선택된 날짜: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
 	});//dateRangePicker
 	
 	function count(type)  {
@@ -175,18 +177,20 @@ $('.linkedCalendars').daterangepicker({
 		}
 	
 	$(function(){
-
+		
 			let c_no = $(".bb").val();
 			$.ajax({
 				url : "/room/"+c_no,
 				type : "get",
 				dataType : "json"
 			}).done(function(data){
-				console.log(data);
+				//console.log(data);
 				$("#roomInfo").empty();
 				for(let i=0; i<data.length; i++){
-					let img = $("<img class='thumbnail'>").attr({'src': '../../CampPhoto/'+data[i].r_photo});
+					let img = $("<img class='thumbnail"+data[i].r_no+"'>").attr({'src': '../../CampPhoto/'+data[i].r_photo});
+					//let src = "../../CampPhoto/"+data[i].r_photo+""
 					let str = "<div id='"+data[i].r_no+"'>객실번호 :"+data[i].r_no+"<br>"+
+								//"<img class='thumbnail' src='"+src+"'>"
 								"캠핑 종류 : "+data[i].theme+"<br>" +
 								"최대 인원 : "+data[i].r_maxno+"<br>"+
 								"객실 소개 : "+data[i].r_content+"<br>"+
@@ -195,9 +199,29 @@ $('.linkedCalendars').daterangepicker({
 								"<input type='button' id='"+data[i].r_no+"' class='detail' value='상세정보'>"+
 								"<div class='roomDetail'></div>"+
 								"<div class='roomContent'>"+data[i].r_content+"</div><br><br>";
+								
 					$("#roomInfo").append(img);			
 					$("#roomInfo").append(str);	
+					
+			/* 		let r_no = data[i].r_no
+					let date = $("#selectDate").val();
+					let start_date = date.substr(0,10);
+					let end_date = date.substr(13);
+					console.log(r_no);
+					$.ajax({
+						url:"/chkDateList",
+						data:{"c_no":c_no,"r_no":r_no,"start_date":start_date,"end_date":end_date},
+						dataType:"json"
+					}).done(function(data){
+						console.log(data);
+						for(let i = 0; i <data.length; i++) {
+							console.log(data[i].r_no);
+							$("#"+data[i].r_no+"").hide();
+							$(".thumbnail"+data[i].r_no+"").hide();
+						}
+					}) */
 				}
+				
 				$.ajax({url : "/checkLove",
 					type : "get",
 					data : {"c_no" :c_no},
@@ -249,7 +273,7 @@ $('.linkedCalendars').daterangepicker({
 					data:{"c_no":c_no,"r_no":r_no,"c_price":c_price,"start_date":start_date,"end_date":end_date},
 					dataType:"text"
 				}).done(function(data){
-					console.log(data);
+					//console.log(data);
 					location.href="/reserveStatus";
 				})
 			}
@@ -278,7 +302,7 @@ $('.linkedCalendars').daterangepicker({
 					data:{"c_no" :c_no,"r_no":r_no},
 					dataType:"json"
 				}).done(function(data){
-					console.log(data);
+					//console.log(data);
 					$(".roomDetail").empty();
 					for(let i=0; i<data.length; i++) {
 						let img = $("<img class='roomPhoto'>").attr({'src': '../../CampPhoto/'+data[i].pho_address});
@@ -315,6 +339,45 @@ $('.linkedCalendars').daterangepicker({
 			})
 			
 		})
+		
+		$(".linkedCalendars").on('apply.daterangepicker',function(){
+			$(".thumbnail101").show();
+			$(".thumbnail102").show();
+			$(".thumbnail103").show();
+			$("#101").show();
+			$("#102").show();
+			$("#103").show();
+			let c_no = $(".bb").val();
+			$.ajax({
+				url : "/room/"+c_no,
+				type : "get",
+				dataType : "json"
+			}).done(function(data){
+				for(let i=0; i<data.length; i++){
+					
+					let r_no = data[i].r_no
+					let date = $("#selectDate").val();
+					let start_date = date.substr(0,10);
+					let end_date = date.substr(13);
+					$.ajax({
+						url:"/chkDateList",
+						data:{"c_no":c_no,"r_no":r_no,"start_date":start_date,"end_date":end_date},
+						dataType:"json"
+					}).done(function(data){
+						console.log(data);
+						
+						for(let i = 0; i <data.length; i++) {
+							console.log(data[i].r_no);
+							$("#"+data[i].r_no+"").hide();
+							$(".thumbnail"+data[i].r_no+"").hide();
+							
+						}
+					})
+				}
+			})					
+			
+		})
+		
 		
 	});//ready
 </script>

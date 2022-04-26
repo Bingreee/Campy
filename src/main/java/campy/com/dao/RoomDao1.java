@@ -19,4 +19,5 @@ public interface RoomDao1 {
 	int chkDate(ReserveDto dto);
 	List<ReserveDto> chkDateList(ReserveDto dto);
 	List<CampAndReserveDto> selCalender();
+	List<ReserveDto> selR_no(int c_no);
 }
