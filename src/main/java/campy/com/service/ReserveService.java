@@ -38,10 +38,11 @@ public class ReserveService {
 		return rdao.countReview();
 	}
 	
-	public List<ReviewDto> reviewList(int start, int end) {
+	public List<ReviewDto> reviewList(int start, int end, int c_no) {
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("start", start);
 		m.put("end", end);
+		m.put("c_no", c_no);
 		return rdao.reviewList(m);
 	}
 	
@@ -67,21 +68,21 @@ public class ReserveService {
 		return rdao.reviewUpdate(rv_dto);
 	}
 	
-	public int reviewSearchCount(int searchn, String search) {
-		System.out.println(searchn+search);
-		Map<String, Object> m = new HashMap<String, Object>();
-		m.put("searchn", searchn);
-		m.put("search", search);
-		return rdao.reviewSearchCount(m);
-	}
-	
-	public List<ReviewDto> reviewSearch(int searchn, String search, int start, int end){
-		Map<String, Object> m = new HashMap<String, Object>();
-		m.put("searchn", searchn);
-		m.put("search", search);
-		m.put("start", start);
-		m.put("end", end);
-		
-		return rdao.reviewSearch(m);
-	}
+//	public int reviewSearchCount(int searchn, String search) {
+//		System.out.println(searchn+search);
+//		Map<String, Object> m = new HashMap<String, Object>();
+//		m.put("searchn", searchn);
+//		m.put("search", search);
+//		return rdao.reviewSearchCount(m);
+//	}
+//	
+//	public List<ReviewDto> reviewSearch(int searchn, String search, int start, int end){
+//		Map<String, Object> m = new HashMap<String, Object>();
+//		m.put("searchn", searchn);
+//		m.put("search", search);
+//		m.put("start", start);
+//		m.put("end", end);
+//		
+//		return rdao.reviewSearch(m);
+//	}
 }

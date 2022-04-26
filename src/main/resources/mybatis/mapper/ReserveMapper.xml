@@ -27,8 +27,8 @@
   
 <select id="reviewList" parameterType="map" resultType="campy.com.dto.ReviewDto">
 	<![CDATA[
-		select * from (select r.*, rownum r 
-		from (select * from review order by rv_date desc) r order by rv_date desc) 
+		select * from (select rv_no,rv_title,id,rv_date,rv_content,c_no,rate, rownum r 
+		from (select * from review where c_no = #{c_no} order by rv_date desc) r order by rv_date desc) 
 		where r >= #{start} AND r <=#{end}
 	]]>
 </select>
@@ -55,7 +55,7 @@
 	update review set rv_title=#{rv_title}, rv_content=#{rv_content},rate=#{rate} where rv_no=#{rv_no}
 </update>
 
-<select id="reviewSearchCount" resultType="int" parameterType="map">
+<!-- <select id="reviewSearchCount" resultType="int" parameterType="map">
 	select count(*) from review 
 	<where>
 		<choose>
@@ -81,5 +81,5 @@
 		order by rv_date desc 
 		
 		) where r &gt;= #{start} AND r &lt;= #{end}
-</select>
+</select> -->
 </mapper>

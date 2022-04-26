@@ -5,79 +5,56 @@
 <html>
 <head>
 <title>리뷰 작성</title>
-<style>
-	h1 {
-  		display: inline-block;
-	}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
-	nav {
-  		display: inline-block;
-  		float : right;
-	}
-	
-	.rightButton{
-		width : 100px;
-	}
-	
-	#center {
-	width: 700px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-table {
-	border: 1px solid black;
-	width: 700px;
-	border-collapse: collapse;
-}
-
-th {border: 1px solid black;
-	background-color: white;
-	width: 150px;
-}
-td{border: 1px solid black;}
-a {
-	margin: 10px auto;
-}
-
-#page {
-	text-align: center;
-}
-
-.lightgray{background-color: lightgray; width: 50px;}
-
-table{border-collapse : collapse; width: 800px;}
-	
-input:invalid {
-  border: 3px solid red;/* 별점에 pattern 넣으면 사용가능  */
-}
-</style>
 </head>
 <body>
-<h1> Campy </h1>
-<nav>
-		<ul>
-			<%-- <c:if test="${user.id == null }">
-				<button type="button" onclick="location.href='login' " class="rightButton">로그인</button><br>
-				<button type="button" onclick="location.href='join' " class="rightButton">회원가입</button>
-		<!-- 		<a href="login">로그인</a><br>
-				<a href="join">회원가입</a> -->
-			</c:if>
-			<c:if test="${user.id != null }">
-				${user.id}
-			</c:if> --%>
-		</ul>
-	</nav>
-	<hr>
-<form method="post" id="reviewWriteForm" action="/reviewWrite">
-<input type="hidden" name="c_no" value="${gg }"/>
-<%-- <select name="c_no">
-		<c:forEach items="${campList }" var="campList">
-		<option value="${campList.c_no }" >${campList.c_name }</option> 
-		</c:forEach>
-</select> --%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-<table>
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/main" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4" href="/main">Campy</span>
+      </a>
+
+      <ul class="nav nav-pills">
+      	<c:if test="${user.id != null }">
+       		<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			${user.id }님
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
+    				<li><a class="dropdown-item" href="/qa">Q&A</a></li>
+    				<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
+  				</ul>
+			</div>
+        	<li class="nav-item"><a href="#" class="nav-link">Log out</a></li>
+        </c:if>
+        <c:if test="${user.id == null }">
+        	<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  					<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+				</svg>
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/login">로그인</a></li>
+    				<li><a class="dropdown-item" href="/joinSelect">회원가입</a></li>
+  				</ul>
+			</div>
+        </c:if>
+      </ul>
+</header>
+
+
+	
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+	<h4>'${campName }' 리뷰 작성</h4>
+	<form method="post" id="reviewWriteForm" action="/reviewWrite">
+	<input type="hidden" name="c_no" id="c_no" value="${gg }"/>
+
+	<table>
 		<tr>
 			<td class="lightgray">제목</td>
 			<td><input type="text" name="rv_title"/></td>
@@ -90,8 +67,8 @@ input:invalid {
 		<tr>
 			<td class="lightgray">내용</td>
 			<td><div id="smarteditor">
-			<textarea name="rv_content" id="editorTxt" cols="40" rows="10" placeholder="내용을 입력해주세요"
-                  style="width: 700px"></textarea>
+			<textarea name="rv_content" id="editorTxt"  placeholder="내용을 입력해주세요"
+                  style="width: 100px"></textarea>
 			</div></td>
 		</tr>
 		<tr>
@@ -107,7 +84,7 @@ input:invalid {
 	</table>
 
 </form>
-
+</main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
@@ -130,10 +107,11 @@ smartEditor = function() {
 	  smartEditor() 
 	  
       $("#rv_save").click(function(){
+    	  let c_no = $("#c_no").val;
     	  oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
     	  $("#reviewWriteForm").submit();
-      });
-      
+      })
+      return "/reviewInfo/"+c_no;
     })
 		
 </script>
