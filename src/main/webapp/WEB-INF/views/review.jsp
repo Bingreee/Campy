@@ -5,87 +5,63 @@
 <html>
 <head>
 <title>리뷰 목록</title>
-<style>
-	h1 {
-  		display: inline-block;
-	}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
-	nav {
-  		display: inline-block;
-  		float : right;
-	}
-	
-	.rightButton{
-		width : 100px;
-	}
-	
-	#center {
-	width: 700px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-table {
-	border: 1px solid black;
-	width: 700px;
-	border-collapse: collapse;
-}
-
-th {border: 1px solid black;
-	background-color: white;
-	width: 150px;
-}
-td{border: 1px solid black;}
-a {
-	margin: 10px auto;
-}
-
-#page {
-	text-align: center;
-}
-
-td{
-	width : 233.3px;
-}
-</style>
 </head>
 <body>
-<h1> Campy </h1>
-<nav>
-		<ul>
-			<c:if test="${user.id == null }">
-				<button type="button" onclick="location.href='/login' " class="rightButton">로그인</button><br>
-				<button type="button" onclick="location.href='/join' " class="rightButton">회원가입</button>
-		<!-- 		<a href="login">로그인</a><br>
-				<a href="join">회원가입</a> -->
-			</c:if>
-			<c:if test="${user.id != null }">
-				${user.id}
-			</c:if>
-		</ul>
-	</nav>
-	<hr>
-	<div id="center">
-		<h3>Review</h3>
-		<div align="right">
-			<a href="/reviewWrite/${review }" id="reviewWrite">리뷰 등록</a>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4" href="/main">Campy</span>
+      </a>
+
+      <ul class="nav nav-pills">
+       <div class="dropdown">
+  		<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    		${user.id }님
+  		</a>
+  			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    			<li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
+    			<li><a class="dropdown-item" href="/qa">Q&A</a></li>
+    			<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
+  			</ul>
 		</div>
-	
-	<p>${review }</p>
-	
+        <li class="nav-item"><a href="#" class="nav-link">Log out</a></li>
+      </ul>
+</header>
+
+
+	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+	<h3>${campName }</h3>
 	<c:if test="${countReview != 0 }">
-			<table >
-				<tr>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-				</tr>
-			</table>
-			<table id="table1">
-			
-			</table>
-	
-			<div id="page">
+		<table class="table caption-top">
+			<div style="text-align : right">
+  			<a href="/reviewWrite/${review }" id="reviewWrite">리뷰 등록</a>
+  			</div>
+  			<thead>
+    		<tr>
+      			<th scope="col">제목</th>
+      			<th scope="col">작성자</th>
+      			<th scope="col">작성일</th>
+      			<th scope="col">별점</th>
+    		</tr>
+  			</thead>
+  			<tbody>
+    			<c:forEach items="${reviewOne }" var="reviewOne">
+    				<tr>
+					<td> <a href="/reviewContent/${reviewOne.rv_no }">${reviewOne.rv_title }</a> </td>
+					<td>${reviewOne.id }</td>
+					<td>${reviewOne.rv_date }</td>
+					<td>${reviewOne.rate } / 5</td>
+					</tr>
+    			</c:forEach>
+  			</tbody>
+		</table>
+		
+		<center>
+		<div id="page" >
 				<c:if test="${begin > pageNum }">
 					<a href="list?p=${begin-1 }">[이전]</a>
 				</c:if>
@@ -95,16 +71,19 @@ td{
 				<c:if test="${end < totalPages }">
 					<a href="list?p=${end+1}">[다음]</a>
 				</c:if>
-			</div>
-
-		</c:if>
-		<c:if test="${count == 0 }">
-	아직 입력한 글이 없습니다.
-</c:if>
-
-	</div>
+		</div>
+		</center>
+	</c:if>
+	<c:if test="${count == 0 }">
+		아직 입력한 글이 없습니다.
+	</c:if>
+			
 	
-	<!-- <div id="search" align="center">
+	
+	</main>	
+	
+	<!-- 검색
+	<div id="search" align="center">
 		<form action="search">
 			<select name="searchn">
 				<option value="0">제목</option>
@@ -119,28 +98,29 @@ td{
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-$(function(){
-	/* $("select").click(function(){ */
+/* $(function(){
+	 $("select").click(function(){ 
 		let c_no = ${review};
 		$.ajax({
-			url : "/review/"+c_no,
+			url : "/reviewInfo/"+c_no,
 			type : "get",
 			dataType : "json",
 			async : false
 		}).done(function(data){
-			//console.log(data);
+			//console.log(data[1].rv_no);
 			$("td").empty();
 			var html = "";
 			for(let i=0; i<data.length; i++){
 				html += '<tr>';
 				html += "<td> <a href='/reviewContent/"+data[i].rv_no+"'>"+data[i].rv_title+"</a> </td>";
-				html += '<td>'+data[i].id+'</td>';
-				html += '<td>'+data[i].rv_date+'</td>';
+				html += "<td>"+data[i].id+"</td>";
+				html += "<td>"+data[i].rv_date+"</td>";
+				html += "<td>"+data[i].rate+"/ 5"+"</td>";
 				html += '</tr>';
 				
 			}
-			$("#table1").html(html);
-		 })
+			$(".table1").html(html);
+		 }) */
 		
 	/* }); */
 	/* $('#reviewWrite').click(function(){
