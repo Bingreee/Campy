@@ -10,108 +10,156 @@
 <html>
 <head>
 <title>예약 현황</title>
-<style>
-	#MypageSide {
-		float : left;
-		height : 100px;
-		width : 300px;
-	}
-	
-	h1 {
-  		display: inline-block;
-	}
-
-	nav {
-  		display: inline-block;
-  		float : right;
-	}
-	
-	.sideButton{
-		float : left;
-		width : 150px;
-		margin : 30px;
-	}
-	
-	#fix{
-		clear : both;
-		width : 300px; 
-	}
-	
-	.rightButton{
-		width : 100px;
-	}
-	.detail {
-		position : relative;
-		left :600px;
-		right : 100px;
-		padding : 2px;
-	}
-	fieldset{
-		float:right;
-		width:70%;
-	}
-	
-</style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<!-- <link rel="stylesheet" href="/resources/bootstrap.css">-->
 
 </head>
 <body>
-	<h1> Campy </h1>
-	
-	<nav>
-		<ul>
-			<c:if test="${user.id == null }">
-				<button type="button" onclick="location.href='login' " class="rightButton">로그인</button><br>
-				<button type="button" onclick="location.href='join' " class="rightButton">회원가입</button>
-		<!-- 		<a href="login">로그인</a><br>
-				<a href="join">회원가입</a> -->
-			</c:if>
-			<c:if test="${user.id != null }">
-				${user.id}
-			</c:if>
-		</ul>
-	</nav>
-	<hr>
-	
-	<nav id="MypageSide">
-		<ul>
-			<button type="button" class="sideButton" onclick="location.href='mypage' ">개인정보</button>
-			<button type="button" class="sideButton" onclick="location.href='memLove' ">찜한상품</button>
-			<button type="button" class="sideButton" onclick="location.href='reserveStatus' ">예약현황</button>
-			<button type="button" class="sideButton" onclick="location.href='qna' ">Q&A</button>
-			<button type="button" class="sideButton" onclick="location.href='ask' ">공지사항</button>
-			
-		</ul>
-	</nav>
-	<jsp:useBean id="now" class="java.util.Date" />
-	
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-	<h3>예약 내역</h3>
+<%-- <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" style="height:70px">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/main">Campy</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+    <a class="nav-link px-3" href="/mypage" style="display:inline-block;">${user.id }님</a>
+    <a class="nav-link px-3" href="#" style="display:inline-block;">Sign out</a>
+    </div>
+  </div>
+</header> --%>
 
-<ul>
-<c:forEach items="${rStatus}" var="rStatus">
-<c:if test="${user.id == rStatus.id}">
-<fieldset>
-	<li>캠핑장이름 : ${rStatus.c_name}</li>
-	<span><p id="reserveDetail"><a href="/reserveDetail/${rStatus.reserve_no }">상세보기</a> </p></span>
-	<span id="apple"></span>
-	<li>예약날짜 :
-	<fmt:formatDate value="${rStatus.reserve_date }" pattern="yyyy-MM-dd" var="reserve_date" />
-	<fmt:formatDate value="${rStatus.reserve_date }" pattern="E" var="reserve_E"/>
-	${reserve_date }(${reserve_E }) </li>
-	<li>캠핑장 이용 날짜 :
-		<fmt:formatDate value="${rStatus.start_date }" pattern="yyyy-MM-dd" var="start_date"/>
-		<fmt:formatDate value="${rStatus.start_date }" pattern="E" var="start_E"/>
-		<fmt:formatDate value="${rStatus.end_date }" pattern="yyyy-MM-dd" var="end_date"/>
-		<fmt:formatDate value="${rStatus.end_date }" pattern="E" var="end_E"/>
-		${start_date}(${start_E }) ~ ${end_date }(${end_E })
-		</li>
- 	<li>예약자명 : ${rStatus.mem_name }</li>
- 	</fieldset>
- 	</c:if>
-	</c:forEach>
-</ul>
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4" href="/main">Campy</span>
+      </a>
 
-<c:forEach items="${rStatus}" var="rStatus">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/mypage" class="nav-link">${user.id }님</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Log out</a></li>
+      </ul>
+    </header>
+	
+    <%-- <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link active" aria-current="page">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+          개인정보
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+          찜한 상품
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+          예약 현황
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+          Q&A
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+          공지사항
+        </a>
+      </li>
+    </ul>
+    <hr>
+  </div>
+	<jsp:useBean id="now" class="java.util.Date" /> --%>
+	<div class="container-fluid">
+	<div class="row">
+	<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/mypage">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              마이 페이지
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/memLove">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+              찜한 캠핑장
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reserveStatus">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+              내 예약 확인
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="qna">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              Q&A
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="noticeList">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              공지사항
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="noticeList">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              Integrations
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+	
+	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+	<c:forEach items="${rStatus}" var="rStatus">
+	<c:if test="${user.id == rStatus.id}">
+		<div  width="820" height="345" style="display: block; height: 230px; width: 800px;float:right">
+  			<a href="/reserveDetail/${rStatus.reserve_no }" class="list-group-item list-group-item-action " > <!-- aria-current="true" -->
+    			<div class="d-flex w-100 justify-content-between">
+     			<img src='../../CampPhoto/Camping/${rStatus.c_no}.jpg' style="width : 100px" "margin : 10px"/>
+      			<h5 class="mb-1">${rStatus.c_name}</h5>
+     			<small>3 days ago</small>
+    			</div>
+    			<p class="mb-1" style="text-align : center">
+    			<fmt:formatDate value="${rStatus.start_date }" pattern="yyyy-MM-dd" var="start_date"/>
+				<fmt:formatDate value="${rStatus.start_date }" pattern="E" var="start_E"/>
+				<fmt:formatDate value="${rStatus.end_date }" pattern="yyyy-MM-dd" var="end_date"/>
+				<fmt:formatDate value="${rStatus.end_date }" pattern="E" var="end_E"/>
+				${start_date}(${start_E }) ~ ${end_date }(${end_E })
+    			</p>
+  			</a>
+  
+		</div>
+	</c:if>
+</c:forEach>
+</main>
+</div>
+</div>
+
+
+
+
+
+<%-- <c:forEach items="${rStatus}" var="rStatus">
 <fmt:formatDate value="${rStatus.end_date }" var="end_date2" pattern="yyyyMMdd"/>
 <fmt:parseNumber value="${end_date2/(1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
 <fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
@@ -123,7 +171,7 @@
 	<p><a href="reviewInfo/${rStatus.c_no }">리뷰 작성</a></p>
 </c:if>
 
-</c:forEach>
+</c:forEach> --%>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
