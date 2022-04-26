@@ -4,8 +4,10 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 <title>캠핑 객실 검색</title>
 <style>
+
 	h1 {
   		display: inline-block;
 	}
@@ -19,40 +21,8 @@
 		width : 100px;
 	}
 	
-	.v-line{
-	 	border-left: thin solid #000;
- 		height:100%;
- 		left: 40%;
- 		position: absolute;
-	}
-	
-	.roomList{
-		display : inline;
-		position : relative;
-		left : 800px;
-		border-top : 10px;
-		background-color: #BBDEFB;
-        margin: 10px 20px;
-        padding: 10px 20px;
-	}
-
-	#roomInfo{
-		position : relative;
-		left : 1000px;
-		display : block;
-		margin-top : 50px;
-	}
-	
 	#setting{
 		position: absolute;
-	}
-	
-	.thumbnail101, .thumbnail102, .thumbnail103, .roomPhoto{
-		position: relative;
-		right:200px;
-		width:150px;
-		height:150px;
-		border-radius: 10%;
 	}
 	
 	.loveBtn {
@@ -63,10 +33,19 @@
 		cursor: pointer;
 	}
 	
-	.roomDetail, #lovechk, .roomContent{
+	.roomDetail, .roomContent{
 		display:none;
 	}
-
+	
+	.thumbnail{
+		width: 500px;
+	}
+	
+	.roomPhoto{
+		width: 200px;
+		height: 200px;
+	}
+	
 </style>
 </head>
 <body>
@@ -99,9 +78,7 @@
 		</c:if>
 		</c:forEach>
 		
-		<!-- value는 c_no, 출력은 c_name -->
 	</select>
-		<p>${room }</p>
 	<h4>날짜선택</h4>
 	<input id="selectDate" class="form-control linkedCalendars"/><br><br>
 	<span id="setting" class="input-group-text calendar-icon">
@@ -130,6 +107,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
 <script type="text/javascript">
 
 $('.linkedCalendars').daterangepicker({
@@ -187,10 +165,10 @@ $('.linkedCalendars').daterangepicker({
 				//console.log(data);
 				$("#roomInfo").empty();
 				for(let i=0; i<data.length; i++){
-					let img = $("<img class='thumbnail"+data[i].r_no+"'>").attr({'src': '../../CampPhoto/'+data[i].r_photo});
-					//let src = "../../CampPhoto/"+data[i].r_photo+""
-					let str = "<div id='"+data[i].r_no+"'>객실번호 :"+data[i].r_no+"<br>"+
-								//"<img class='thumbnail' src='"+src+"'>"
+					//let img = $("<img class='thumbnail"+data[i].r_no+"'>").attr({'src': '../../CampPhoto/'+data[i].r_photo});
+					let src = "../../CampPhoto/"+data[i].r_photo+""
+					let str = "<div id='"+data[i].r_no+"'><img class='thumbnail' src='"+src+"'><br>"+
+								"객실번호 :"+data[i].r_no+"<br>"+
 								"캠핑 종류 : "+data[i].theme+"<br>" +
 								"최대 인원 : "+data[i].r_maxno+"<br>"+
 								"객실 소개 : "+data[i].r_content+"<br>"+
@@ -200,26 +178,9 @@ $('.linkedCalendars').daterangepicker({
 								"<div class='roomDetail'></div>"+
 								"<div class='roomContent'>"+data[i].r_content+"</div><br><br>";
 								
-					$("#roomInfo").append(img);			
+					//$("#roomInfo").append(img);			
 					$("#roomInfo").append(str);	
 					
-			/* 		let r_no = data[i].r_no
-					let date = $("#selectDate").val();
-					let start_date = date.substr(0,10);
-					let end_date = date.substr(13);
-					console.log(r_no);
-					$.ajax({
-						url:"/chkDateList",
-						data:{"c_no":c_no,"r_no":r_no,"start_date":start_date,"end_date":end_date},
-						dataType:"json"
-					}).done(function(data){
-						console.log(data);
-						for(let i = 0; i <data.length; i++) {
-							console.log(data[i].r_no);
-							$("#"+data[i].r_no+"").hide();
-							$(".thumbnail"+data[i].r_no+"").hide();
-						}
-					}) */
 				}
 				
 				$.ajax({url : "/checkLove",
@@ -234,7 +195,6 @@ $('.linkedCalendars').daterangepicker({
 						}	
 					})
 				
-			 
 		}); 
 		
 		$(document).on('click',".reservation",function(){
@@ -305,8 +265,9 @@ $('.linkedCalendars').daterangepicker({
 					//console.log(data);
 					$(".roomDetail").empty();
 					for(let i=0; i<data.length; i++) {
-						let img = $("<img class='roomPhoto'>").attr({'src': '../../CampPhoto/'+data[i].pho_address});
-						$(".roomDetail").append(img);
+						//let img = $("<img class='roomPhoto'>").attr({'src': '../../CampPhoto/'+data[i].pho_address});
+						let src = "../../CampPhoto/"+data[i].pho_address+""
+						$(".roomDetail").append("<img class='roomPhoto' src='"+src+"'>");
 					} 
 				})
 				
@@ -321,7 +282,7 @@ $('.linkedCalendars').daterangepicker({
 					url:"/deleteLove",
 					data:{"c_no":c_no},
 					dataType:"text"
-				}).done(function(date){
+				}).done(function(data){
 					alert("찜 목록에서 삭제되었습니다.");
 					$("#lovebtn").val("♡");
 				})
@@ -377,7 +338,6 @@ $('.linkedCalendars').daterangepicker({
 			})					
 			
 		})
-		
 		
 	});//ready
 </script>
