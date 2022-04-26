@@ -147,7 +147,7 @@ public class ReserveController {
 			int startRow = (page - 1) * perPage + 1; //시작 글번호
 			int endRow = page * perPage;			//끝 글번호
 			
-			List<ReviewDto> reviewList = rservice.reviewList(startRow, endRow);
+			List<ReviewDto> reviewList = rservice.reviewList(startRow, endRow,c_no);
 			m.addAttribute("reviewList",reviewList);
 			
 			int pageNum = 5;
@@ -175,17 +175,11 @@ public class ReserveController {
 		return "reviewContent";
 	}
 	
-//	@GetMapping("reviewWrite")
-//	public String reviewWriteForm(Model m) {
-//		List<CampingDto> r = rservice2.selectC_name();
-//		m.addAttribute("campList",r);
-//		return "/reviewWrite";
-//	}
 	
 	@GetMapping("reviewWrite/{c_no}")
 	public String reviewWriteForm2(@PathVariable int c_no,Model m) {
-		List<CampingDto> r = rservice2.selectC_name();
-		m.addAttribute("campList",r);
+		String r = rservice2.selectC_nameOne(c_no);
+		m.addAttribute("campName",r);
 		int gg = rservice1.selCamNO(c_no);
 		m.addAttribute("gg",gg);
 		return "/reviewWrite";
@@ -228,38 +222,38 @@ public class ReserveController {
 		return "redirect:/review";
 	}
 	
-	@GetMapping("/review/search")
-	public String reviewSearch(int searchn, String search,@RequestParam(name="p", defaultValue = "1") int page,@ModelAttribute("user") MemberDto memDto, Model m) {
-		int count = rservice.reviewSearchCount(searchn,search);
-		if(count > 0) {
-		
-		int perPage = 10; // 한 페이지에 보일 글의 갯수
-		int startRow = (page - 1) * perPage + 1;
-		int endRow = page * perPage;
-		
-		List<ReviewDto> reviewList = rservice.reviewSearch(searchn,search,startRow, endRow);
-		m.addAttribute("rSearch", reviewList);
-
-		int pageNum = 5;
-		int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); //전체 페이지 수
-		
-		int begin = (page - 1) / pageNum * pageNum + 1;
-		int end = begin + pageNum -1;
-		if(end > totalPages) {
-			end = totalPages;
-		}
-		 m.addAttribute("begin", begin);
-		 m.addAttribute("end", end);
-		 m.addAttribute("pageNum", pageNum);
-		 m.addAttribute("totalPages", totalPages);
-		
-		}
-		m.addAttribute("count", count);
-		m.addAttribute("searchn", searchn);
-		m.addAttribute("search", search);
-		
-		return "review/reviewSearch";
-	}
+//	@GetMapping("/review/search")
+//	public String reviewSearch(int searchn, String search,@RequestParam(name="p", defaultValue = "1") int page,@ModelAttribute("user") MemberDto memDto, Model m) {
+//		int count = rservice.reviewSearchCount(searchn,search);
+//		if(count > 0) {
+//		
+//		int perPage = 10; // 한 페이지에 보일 글의 갯수
+//		int startRow = (page - 1) * perPage + 1;
+//		int endRow = page * perPage;
+//		
+//		List<ReviewDto> reviewList = rservice.reviewSearch(searchn,search,startRow, endRow);
+//		m.addAttribute("rSearch", reviewList);
+//
+//		int pageNum = 5;
+//		int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); //전체 페이지 수
+//		
+//		int begin = (page - 1) / pageNum * pageNum + 1;
+//		int end = begin + pageNum -1;
+//		if(end > totalPages) {
+//			end = totalPages;
+//		}
+//		 m.addAttribute("begin", begin);
+//		 m.addAttribute("end", end);
+//		 m.addAttribute("pageNum", pageNum);
+//		 m.addAttribute("totalPages", totalPages);
+//		
+//		}
+//		m.addAttribute("count", count);
+//		m.addAttribute("searchn", searchn);
+//		m.addAttribute("search", search);
+//		
+//		return "review/reviewSearch";
+//	}
 
 	
 	

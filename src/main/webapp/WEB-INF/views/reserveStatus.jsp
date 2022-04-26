@@ -30,7 +30,7 @@
   </div>
 </header> --%>
 
-<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom" style="position:sticky;top:0px; z-index: 10;background-color:white;">
       <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
         <span class="fs-4" href="/main">Campy</span>
@@ -54,7 +54,7 @@
     
 <div class="container-fluid">
 <div class="row">
-	<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+	<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="position:sticky;top:100px;height:500px;">
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
@@ -98,10 +98,12 @@
     </nav>
 	
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-
+	<h3 style="margin: 20px 170px">
+	<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+	내 예약 확인</h3>
 	<c:forEach items="${rStatus}" var="rStatus">
 	<c:if test="${user.id == rStatus.id}">
-		<div  width="820" height="345" style="display: block; height: 230px; width: 800px;float:right">
+		<div  width="700" height="200" style="display: block; height: 150px; width: 700px;float:center; margin-left:170px">
   			<a href="/reserveDetail/${rStatus.reserve_no }" class="list-group-item list-group-item-action " > <!-- aria-current="true" -->
     			<div class="d-flex w-100 justify-content-between">
      			<img src='../../CampPhoto/Camping/${rStatus.c_no}.jpg' style="width : 100px" "margin : 10px"/>
