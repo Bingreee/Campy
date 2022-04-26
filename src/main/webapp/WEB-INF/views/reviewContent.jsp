@@ -62,13 +62,14 @@ a {
 	</nav>
 	<hr>
 
+
 <h3>${rdto.rv_title}</h3>
-<table border="1">
-	<tr><td>제목</td><td>${rdto.rv_title}</td>
-	<tr><td>등록일</td><td>${rdto.rv_date }<%-- <fmt:formatDate value="${rdto.rv_date }" dateStyle="long"/> --%></td>
-	<tr><td>작성자</td><td>${rdto.id}</td>
-	<tr><td>내용</td><td>${rdto.rv_content}</td>
-	<tr><td>별점</td><td>${rdto.rate }</td>
+ <table border="1">
+	<tr><th>제목</th><td>${rdto.rv_title}</td>
+	<tr><th>등록일</th><td>${rdto.rv_date }</td>
+	<tr><th>작성자</th><td>${rdto.id}</td>
+	<tr><th>내용</th><td>${rdto.rv_content}</td>
+	<tr><th>별점</th><td>${rdto.rate }</td>
 	<tr><td colspan="2" align="right">
 	<c:if test="${ user.id == rdto.id }">
 	<a href="/review/update/${rdto.rv_no}">글 수정 </a>

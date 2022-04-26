@@ -134,8 +134,10 @@ public class ReserveController {
 	 public String reviewList(@RequestParam(name="p", defaultValue="1") int page,@PathVariable int c_no, Model m) { 
 		int review = rservice1.selCamNO(c_no);
 		 m.addAttribute("review",review); 
-		List<CampingDto> r = rservice2.selectC_name();
-		m.addAttribute("campList",r);
+		String c_name = rservice2.selectC_nameOne(c_no);
+		m.addAttribute("campName",c_name);
+		List<ReviewDto> reviewOne = rservice.reviewOne(c_no);
+		m.addAttribute("reviewOne",reviewOne);
 		
 		//글이 있는지 체크
 		int countReview = rservice.countReview();
@@ -166,9 +168,10 @@ public class ReserveController {
 		}
 	
 	@GetMapping("/reviewContent/{rv_no}")
-	public String reviewContent(@ModelAttribute("user") MemberDto memDto, @ModelAttribute("review") ReviewDto reviewDto, @PathVariable int rv_no, Model m) {
-		ReviewDto rdto = rservice.reviewContent(rv_no);
-		m.addAttribute("rdto",rdto);
+	public String reviewContent(@PathVariable int rv_no, Model m) {
+		ReviewDto reviewDto = rservice.reviewContent(rv_no);
+		System.out.println(reviewDto);
+		m.addAttribute("rdto",reviewDto);
 		return "reviewContent";
 	}
 	

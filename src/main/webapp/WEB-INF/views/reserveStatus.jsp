@@ -37,54 +37,23 @@
       </a>
 
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="/mypage" class="nav-link">${user.id }님</a></li>
+       <div class="dropdown">
+  		<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    		${user.id }님
+  		</a>
+  			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    			<li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
+    			<li><a class="dropdown-item" href="/qa">Q&A</a></li>
+    			<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
+  			</ul>
+		</div>
         <li class="nav-item"><a href="#" class="nav-link">Log out</a></li>
       </ul>
-    </header>
+</header>
 	
-    <%-- <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-          개인정보
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-          찜한 상품
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-          예약 현황
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-          Q&A
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-          공지사항
-        </a>
-      </li>
-    </ul>
-    <hr>
-  </div>
-	<jsp:useBean id="now" class="java.util.Date" /> --%>
-	<div class="container-fluid">
-	<div class="row">
+    
+<div class="container-fluid">
+<div class="row">
 	<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
@@ -150,8 +119,8 @@
   
 		</div>
 	</c:if>
-</c:forEach>
-</main>
+	</c:forEach>
+	</main>
 </div>
 </div>
 

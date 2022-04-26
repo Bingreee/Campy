@@ -27,6 +27,10 @@ public class RoomService2 {
 		return rdao2.selectC_name();
 	}
 	
+	public String selectC_nameOne(int c_no) {
+		return rdao2.selectC_nameOne(c_no);
+	}
+	
 	public List<RoomDto> selectRoom(int c_no){
 		return rdao2.selectRoom(c_no);
 	}
