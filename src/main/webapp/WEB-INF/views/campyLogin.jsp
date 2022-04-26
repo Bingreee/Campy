@@ -2,14 +2,23 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, height=device-height, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
+	
 <style>
 #con {
 	width:500px;
 	margin:auto;
 }
+
 header {
 	display: flex;
 	justify-content: center;
+	margin-top: 150px;
+	margin-bottom: 50px;
 }
 
 form {
@@ -24,7 +33,7 @@ form {
 .input-box>input {
 	background: transparent;
 	border: none;
-	border-bottom: solid 1px #ccc;
+	border-bottom: solid 1px #88C6E5;
 	padding: 20px 0px 5px 0px;
 	font-size: 14pt;
 	width: 100%;
@@ -59,27 +68,31 @@ input:focus, input:not(:placeholder-shown) {
 }
 
 #loginbtn {
-	background-color: #8aa1a1;
+	background: linear-gradient(to left, rgb(41, 123, 255), rgb(51, 203, 255));
 	border: none;
 	color: white;
-	border-radius: 5px;
-	width: 45%;
+	border-radius: 8px;
+	width: 220px;
 	height: 35px;
 	font-size: 14pt;
 	margin-top: 100px;
-	margin-left: 270px;
+	margin-left: 32px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 600;
 }
 
 #joinbtn {
-	background-color: #8aa1a1;
+	background: linear-gradient(to left, rgb(41, 123, 255), rgb(51, 203, 255));
 	border: none;
 	color: white;
-	border-radius: 5px;
-	width: 225px;
+	border-radius: 8px;
+	width: 220px;
 	height: 35px;
 	font-size: 14pt;
 	margin-rigth: 20px;
 	margin-bottom: 300px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 600;
 }
 
 #forgot {
@@ -96,16 +109,14 @@ input:focus, input:not(:placeholder-shown) {
 
 a {
 	text-decoration-line: none;
+	text-align: center;
 	color:rgb(164, 164, 164);
 }
 </style>
-<head>
-<meta name="viewport"
-	content="width=device-width, height=device-height, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
 </head>
 <body>
 	<header>
-		<h2>Login</h2>
+		<h1>Campy</h1>
 	</header>
 	<div id="con">
 	<form:form action="memLogin" method="post" modelAttribute="command">
@@ -119,9 +130,9 @@ a {
 		<div id="forgot"><a href="/find_Id_Form">아이디 찾기</a></div>
 		<div id="forgot"><a href="/find_Pw_Form">비밀번호 찾기</a></div>
 			<form:errors id="errors" element="div"/>
+		<input type="button" id="joinbtn" onclick="location.href='join'" value="회원가입">
 		<input id="loginbtn" type="submit" value="로그인">
 	</form:form>
-	<button id="joinbtn" onclick="location.href='joinSelect'">회원가입</button>
 	</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
