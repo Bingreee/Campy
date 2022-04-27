@@ -47,19 +47,19 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="reserveStatus">
+            <a class="nav-link" href="/reserveStatus">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
               내 예약 확인
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="qna">
+            <a class="nav-link" href="/qna">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
               Q&A
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="noticeList">
+            <a class="nav-link" href="/noticeList">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
               공지사항
             </a>
@@ -78,7 +78,7 @@
 	
 	<h4>이용정보</h4>
 	<img src='../../CampPhoto/Camping/${rStatus.c_no}.jpg' style="width : 300px" "margin : 10px"/>
-	<p style="font-family :'Black Han Sans', sans-serif; " id="c_name"> ${rStatus.c_name } </p>
+	<p style="font-family :'Black Han Sans', sans-serif; font-size:30px " id="c_name"> ${rStatus.c_name }&nbsp;-&nbsp;${rStatus.r_no }호 </p>
 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
   		<path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
   		<path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
@@ -89,6 +89,19 @@
 		<fmt:formatDate value="${rStatus.end_date }" pattern="yyyy-MM-dd" var="end_date"/>
 		<fmt:formatDate value="${rStatus.end_date }" pattern="E" var="end_E"/>
 		${start_date}(${start_E }) ~ ${end_date }(${end_E })<br>
+		<p class="mb-1" style="text-align : center; margin-left:130px">
+    			<fmt:formatDate value="${rStatus.end_date }" var="end_date2" pattern="yyyyMMdd"/>
+					<fmt:parseNumber value="${end_date2/(1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
+					<fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
+					<fmt:parseNumber value="${today/(1000*60*60*24)}" integerOnly="true" var="todayDate" scope="request"/>
+					<c:if test="${today > end_date2 }">
+						 <a href="#" id="${rStatus.reserve_no }">예약 취소</a> 
+					</c:if>
+					<c:if test="${today <= end_date2 }">
+						<a href="reviewInfo/${rStatus.c_no }">리뷰 작성</a>
+					</c:if>
+    			</p>
+		
 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
   		<path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
   		<path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>

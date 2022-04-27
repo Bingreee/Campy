@@ -29,7 +29,7 @@
     				<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
   				</ul>
 			</div>
-        	<li class="nav-item"><a href="#" class="nav-link">Log out</a></li>
+        	<li class="nav-item"><a href="/logout" class="nav-link">Log out</a></li>
         </c:if>
         <c:if test="${user.id == null }">
         	<div class="dropdown">
@@ -54,7 +54,7 @@
 	<form method="post" id="reviewWriteForm" action="/reviewWrite">
 	<input type="hidden" name="c_no" id="c_no" value="${gg }"/>
 
-	<table>
+	<table style="width:1000px">
 		<tr>
 			<td class="lightgray">제목</td>
 			<td><input type="text" name="rv_title"/></td>
@@ -76,18 +76,16 @@
 			<td><input type="number" min="0.5" max="5.0" step="0.5" name="rate" id="rate"></td>
 			<!-- <td><input type="text" pattern = "[0-9]+(.[0-9]+)?" name="rate" id="rate"></td> -->
 		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="button" id="rv_save" value="후기 등록"> 
-			</td>
-		</tr>
-	</table>
-
+		</table>
+		
+			<center>
+			<input type="button" id="rv_save" value="후기 등록"> 
+			</center>
 </form>
 </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript">
+<script>
 
 let oEditors = []
 
@@ -101,17 +99,16 @@ smartEditor = function() {
   })
 } 
 
-
 	$(document).ready(function() {
       
 	  smartEditor() 
-	  
+	  	  
       $("#rv_save").click(function(){
     	  let c_no = $("#c_no").val;
     	  oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
     	  $("#reviewWriteForm").submit();
+
       })
-      return "/reviewInfo/"+c_no;
     })
 		
 </script>

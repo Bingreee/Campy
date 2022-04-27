@@ -34,8 +34,8 @@ public class ReserveService {
 		return rdao.adminReserve();
 	}
 	
-	public int countReview() {
-		return rdao.countReview();
+	public int countReview(int c_no) {
+		return rdao.countReview(c_no);
 	}
 	
 	public List<ReviewDto> reviewList(int start, int end, int c_no) {
@@ -66,6 +66,10 @@ public class ReserveService {
 	
 	public int reviewUpdate(ReviewDto rv_dto) {
 		return rdao.reviewUpdate(rv_dto);
+	}
+	
+	public double avgRate(int c_no) {
+		return rdao.avgRate(c_no);
 	}
 	
 //	public int reviewSearchCount(int searchn, String search) {

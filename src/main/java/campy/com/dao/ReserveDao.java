@@ -16,13 +16,14 @@ public interface ReserveDao {
 	CampAndReserveDto reserveDetail(int reserve_no);
 	int deleteReserve(ReserveDto dto);
 	List<CampAndReserveDto> adminReserve();
-	int countReview(); //리뷰 개수
+	int countReview(int c_no); //리뷰 개수
 	List<ReviewDto> reviewList(Map<String, Object>m); //리뷰 리스트
 	ReviewDto reviewContent(int rv_no); //리뷰 내용 확인
 	int reviewWrite(ReviewDto rv_dto); //리뷰 작성
 	List<ReviewDto> reviewOne(int c_no); //캠핑장 마다의 리뷰
 	int reviewDelete(int rv_no);//리뷰 삭제
 	int reviewUpdate(ReviewDto rv_dto);//리뷰 수정
+	double avgRate(int c_no);
 //	int reviewSearchCount(Map<String, Object> m);//검색 글 개수
 //	List<ReviewDto> reviewSearch(Map<String, Object> m);//리뷰 검색 리스트
 }

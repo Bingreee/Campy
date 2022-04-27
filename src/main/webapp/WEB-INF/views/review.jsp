@@ -12,7 +12,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
 <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <a href="/main" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
         <span class="fs-4" href="/main">Campy</span>
       </a>
@@ -29,7 +29,7 @@
     				<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
   				</ul>
 			</div>
-        	<li class="nav-item"><a href="#" class="nav-link">Log out</a></li>
+        	<li class="nav-item"><a href="/logout" class="nav-link">Log out</a></li>
         </c:if>
         <c:if test="${user.id == null }">
         	<div class="dropdown">
@@ -49,7 +49,7 @@
 
 
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-	<h3>${campName }</h3>
+	<h3>${campName } (${rate } / 5점)</h3>
 	<c:if test="${countReview != 0 }">
 		<table class="table caption-top">
 			<div style="text-align : right">
@@ -78,19 +78,22 @@
 		<center>
 		<div id="page" >
 				<c:if test="${begin > pageNum }">
-					<a href="list?p=${begin-1 }">[이전]</a>
+					<a href="/reviewInfo/${review }?p=${begin-1 }">[이전]</a>
 				</c:if>
 				<c:forEach begin="${begin }" end="${end}" var="i">
-					<a href="list?p=${i}">${i}</a>
+					<a href="/reviewInfo/${review }?p=${i}">${i}</a>
 				</c:forEach>
 				<c:if test="${end < totalPages }">
-					<a href="list?p=${end+1}">[다음]</a>
+					<a href="/reviewInfo/${review }?p=${end+1}">[다음]</a>
 				</c:if>
 		</div>
 		</center>
 	</c:if>
-	<c:if test="${count == 0 }">
-		아직 입력한 글이 없습니다.
+	<c:if test="${countReview == 0 }">
+		<p>아직 입력한 글이 없습니다.</p>
+		<div style="text-align : center">
+  			<a href="/reviewWrite/${review }" id="reviewWrite">리뷰 등록</a>
+  			</div>
 	</c:if>
 			
 	
