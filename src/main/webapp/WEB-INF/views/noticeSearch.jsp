@@ -1,10 +1,16 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Insert title here</title>
+<!-- 부트스트랩 css 사용 head안에 적용-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
 <style>
 #center {
 	width: 700px;
@@ -18,12 +24,19 @@ table {
 	border-collapse: collapse;
 }
 
-th {border: 1px solid black;
+th {
+	border: 1px solid black;
 	background-color: silver;
 	width: 150px;
 }
-td{border: 1px solid black;}
+
+td {
+	border: 1px solid black;
+}
+
 a {
+	text-decoration-line: none;
+	color: #1ea1f7;
 	margin: 10px auto;
 }
 
@@ -34,42 +47,49 @@ a {
 </head>
 <body>
 	<div id="center">
-		<h1>${noticesearch}로 검색한 공지사항입니다.</h1>
-		
+		<h1>${noticesearch}로검색한 공지사항입니다.</h1>
+
 		<div align="right">
 			<a href="/main">main</a> <a href="noticeWrite">새글 등록</a>
 		</div>
 
 		<c:if test="${count != 0 }">
-			<table>
-				<tr>
-					<th>번호</th>
-					<th>작성자</th>
-					<th>제목</th>
-					<th>작성일</th>
-				</tr>
+			<table class="table table-hover">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col">번호</th>
+						<th scope="col">작성자</th>
+						<th scope="col">제목</th>
+						<th scope="col">작성일</th>
+						
+					</tr>
+				</thead>
 				<c:forEach items="${nList}" var="notice">
 					<tr>
-						
+
 						<td>${notice.not_no}</td>
 						<td>${notice.id }</td>
-						<td><a href ="noticeContent/${notice.not_no}">${notice.not_title}</a></td>
-						
-						<td><fmt:formatDate value="${notice.not_date }" dateStyle="short"/> </td>
+						<td><a href="noticeContent/${notice.not_no}">${notice.not_title}</a></td>
+
+						<td><fmt:formatDate value="${notice.not_date }"
+								dateStyle="short" /></td>
 					</tr>
 				</c:forEach>
 			</table>
-			
-			
+
+
 			<div id="page">
 				<c:if test="${begin > pageNum }">
-					<a href="noticeSearch?p=${begin-1}&noticesearch=${noticesearch}&noticesearchn=${noticesearchn}">[이전]</a>
+					<a
+						href="noticeSearch?p=${begin-1}&noticesearch=${noticesearch}&noticesearchn=${noticesearchn}">[이전]</a>
 				</c:if>
 				<c:forEach begin="${begin }" end="${end}" var="i">
-					<a href="noticeSearch?p=${i}&noticesearch=${noticesearch}&noticesearchn=${noticesearchn}">${i}</a>
+					<a
+						href="noticeSearch?p=${i}&noticesearch=${noticesearch}&noticesearchn=${noticesearchn}">${i}</a>
 				</c:forEach>
 				<c:if test="${end < totalPages }">
-					<a href="noticeSearch?p=${end+1}&noticesearch=${noticesearch}&noticesearchn=${noticesearchn}">[다음]</a>
+					<a
+						href="noticeSearch?p=${end+1}&noticesearch=${noticesearch}&noticesearchn=${noticesearchn}">[다음]</a>
 				</c:if>
 			</div>
 
@@ -77,17 +97,21 @@ a {
 		<c:if test="${count == 0 }">
 	검색 조건에 맞는 글이 없습니다.
 </c:if>
-<div id="noticeSearch" align="center">
-<form action="noticeSearch">
-<select name="noticesearchn">
-<option value="0">제목</option>
-<option value="1">내용</option>
-<option value="2">작성자</option>
-</select>
-<input type="text" name="noticesearch" size="15" maxlength="50" /> 
-<input type="submit" value="검색" />
-</form>	
+		<div id="noticeSearch" align="center">
+			<form action="noticeSearch">
+				<select name="noticesearchn">
+					<option value="0">제목</option>
+					<option value="1">내용</option>
+					<option value="2">작성자</option>
+				</select> <input type="text" name="noticesearch" size="15" maxlength="50" />
+				<input type="submit" value="검색" />
+			</form>
+		</div>
 	</div>
-	</div>
+	<!-- 부트스트랩 js 사용 body안에 적용-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
 </body>
 </html>

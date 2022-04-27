@@ -10,66 +10,73 @@
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
 table.type02 {
-  border-collapse: separate;
-  border-spacing: 0;
-  text-align: left;
-  line-height: 1.5;
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  margin : 20px 10px;
+	border-collapse: separate;
+	border-spacing: 0;
+	text-align: left;
+	line-height: 1.5;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	margin: 20px 10px;
 }
+
 table.type02 th {
-  width: 150px;
-  padding: 10px;
-  font-weight: bold;
-  vertical-align: top;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  border-top: 1px solid #fff;
-  border-left: 1px solid #fff;
-  background: #eee;
+	width: 200px;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
+	background: #eee;
 }
+
 table.type02 td {
-  width: 350px;
-  padding: 10px;
-  vertical-align: top;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+	width: 650px;
+	padding: 10px;
+	vertical-align: top;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 }
-  button{ 
-  color:black;
-  
+
+button {
+	color: black;
 }
-button:hover{
-  background:#fff;
-  color:black;
+
+button:hover {
+	background: #fff;
+	color: black;
 }
-button:before,button:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: black;
-  transition:400ms ease all;
+
+button:before, button:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: black;
+	transition: 400ms ease all;
 }
-button:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
+
+button:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
 }
-button:hover:before,button:hover:after{
-  width:100%;
-  transition:800ms ease all;
+
+a {
+	text-decoration-line: none;
+	color: #1ea1f7;
+	margin: 10px auto;
 }
-  
+
 </style>
 </head>
 <body>
-<table border="1">
-	<table class="type02">
+<table border="1" class="type02">
+	
   <tr>
     <th scope="row">제목</th>
     <td>${dto.qa_title}</td>
@@ -87,7 +94,7 @@ button:hover:before,button:hover:after{
     <td><fmt:formatDate value="${dto.qa_date }" dateStyle="long"/></td>
   </tr>
 
-	
+<tr>
 	<td colspan="2" align="right">
 	
 	<c:if test="${ user.id == dto.id }">
@@ -97,7 +104,7 @@ button:hover:before,button:hover:after{
 	<button><a href="../ask">목록 이동</a></button>
 	
 	</td>
-
+</tr>
 </table>
 
 
@@ -113,9 +120,11 @@ button:hover:before,button:hover:after{
 		</div>
 		<hr>
 	</c:forEach>
-	<input name="askContent" id="askContent"><button id="add">등록</button>
+		<div class="input-group mb-3">
+			<input name="askContent" id="askContent" type="text" class="form-control">
+			<button id="add" class="btn btn-outline-secondary">등록</button>
+		</div>
 </div>
-
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

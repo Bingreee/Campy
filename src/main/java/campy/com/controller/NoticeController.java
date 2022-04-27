@@ -37,7 +37,7 @@ public class NoticeController {
 		int count = service.count();
 		if (count > 0) {
 
-			int perPage = 5; // 한 페이지에 보일 글의 갯수
+			int perPage = 8; // 한 페이지에 보일 글의 갯수
 			int startRow = (page - 1) * perPage + 1;
 			int endRow = page * perPage;
 
@@ -66,7 +66,7 @@ public class NoticeController {
 		int count = service.countSearch(noticesearchn, noticesearch);
 		if (count > 0) {
 
-			int perPage = 5; // 한 페이지에 보일 글의 갯수
+			int perPage = 8; // 한 페이지에 보일 글의 갯수
 			int startRow = (page - 1) * perPage + 1;
 			int endRow = page * perPage;
 
