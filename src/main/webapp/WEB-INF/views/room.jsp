@@ -45,7 +45,56 @@
 		width: 200px;
 		height: 200px;
 	}
-	
+
+
+li{ list-style: none; }
+
+#roomInfo{
+  margin: 0 auto;
+  overflow: hidden;
+  float: left;
+}
+
+#roomInfo li{
+  width: 500px; 
+  height: 300px;
+  display: inline;
+}
+
+#roomInfo a{
+  display: block; 
+  overflow: hidden;
+  position: relative; 
+  float: left;
+}
+
+#roomInfo figure{
+  width: 100%; height: 100%;
+}
+#roomInfo figcaption{
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.7);
+
+  position: absolute; 
+  top: 0; left: 0;
+
+  color: #fff; text-align: center;
+  line-height: 200px;
+
+  opacity: 0; 
+
+  transition: 0.3s;
+}
+
+#roomInfo a:hover figcaption, #roomInfo a:focus figcaption{
+  opacity: 1;
+}
+
+.flo{
+	float: right;
+}
+
+
 </style>
 </head>
 <body>
@@ -71,14 +120,12 @@
 	
 	<h4>검색결과</h4>
 		
-	<select id="c_no" name="c_no">
 		<c:forEach items="${campList }" var="campList">
 		<c:if test="${room == campList.c_no }">
 			<option value="${campList.c_no }" selected="${room }" class="bb">${campList.c_name }</option> 
 		</c:if>
 		</c:forEach>
 		
-	</select>
 	<h4>날짜선택</h4>
 	<input id="selectDate" class="form-control linkedCalendars"/><br><br>
 	<span id="setting" class="input-group-text calendar-icon">
@@ -167,16 +214,15 @@ $('.linkedCalendars').daterangepicker({
 				for(let i=0; i<data.length; i++){
 					//let img = $("<img class='thumbnail"+data[i].r_no+"'>").attr({'src': '../../CampPhoto/'+data[i].r_photo});
 					let src = "../../CampPhoto/"+data[i].r_photo+""
-					let str = "<div id='"+data[i].r_no+"'><img class='thumbnail' src='"+src+"'><br>"+
-								"객실번호 :"+data[i].r_no+"<br>"+
-								"캠핑 종류 : "+data[i].theme+"<br>" +
+					let str = "<div id='"+data[i].r_no+"'><ul><li><a><figure><img class='thumbnail' src='"+src+"'><figcaption>"+data[i].r_no+"</figcaption></figure></a>"+
+								"<span class='flo'>객실번호 :"+data[i].r_no+"<br>"+
+								"캠핑 종류 : "+data[i].theme+"<br>"+
 								"최대 인원 : "+data[i].r_maxno+"<br>"+
-								"객실 소개 : "+data[i].r_content+"<br>"+
 								"가격 : <span class='c_price'>"+data[i].c_price+"</span><br>"+
 								"<input type='button' id='"+data[i].r_no+"' class='reservation' value='예약하기'>"+
 								"<input type='button' id='"+data[i].r_no+"' class='detail' value='상세정보'>"+
 								"<div class='roomDetail'></div>"+
-								"<div class='roomContent'>"+data[i].r_content+"</div><br><br>";
+								"<div class='roomContent'>"+data[i].r_content+"</div></span></li></ul></div>";
 								
 					//$("#roomInfo").append(img);			
 					$("#roomInfo").append(str);	
@@ -254,7 +300,7 @@ $('.linkedCalendars').daterangepicker({
 	            $(this).siblings('.roomDetail').slideUp(300);
 	         }
 			
-			  let c_no = $("#c_no").val();
+	          let c_no = $(".bb").val();
 			  let r_no = $(this).attr("id");
 			  
 			  $.ajax({
