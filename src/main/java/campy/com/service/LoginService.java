@@ -40,9 +40,14 @@ public class LoginService {
 			out.println("</script>");
 			out.close();
 			return null;
-		} else {
+		}else {
+			out.println("<script>");
+			out.println("alert('회원님의 아이디는 "+id+" 입니다.);");
+			out.println("return false;");
+			out.println("</script>");
 			return id;
 		}
+	
 	}
 	public int updatePw(String id, String pw) {
 		HashMap<String, String> map = new HashMap<String, String>();

@@ -90,7 +90,7 @@ public class LoginController {
 	@PostMapping("/insert")
 	public String insert(MemberDto dto) {
 		service.insertMem(dto);
-		return "redirect:campyLogin";
+		return "redirect:login";
 	}
 	
 	@GetMapping("/snsJoin")
@@ -106,7 +106,7 @@ public class LoginController {
 	@RequestMapping(value = "/findId", method = RequestMethod.POST)
 	public String find_Pw(HttpServletResponse response, @RequestParam("mem_tel") String mem_tel, Model md) throws Exception{
 		md.addAttribute("id", service.find_id(response, mem_tel));
-		return "find_memId";
+		return "find_Id_Form";
 	}
 	
 	@GetMapping("/find_Pw_Form")
@@ -130,7 +130,11 @@ public class LoginController {
 	public String adminPage() {
 		return "adminPage";
 	}
-
+	
+	@GetMapping("/")
+	public String goToMain() {
+		return "main";
+	}
 }
 
 		
