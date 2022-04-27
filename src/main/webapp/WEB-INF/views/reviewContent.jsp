@@ -49,7 +49,7 @@
 </header>
 
 
-<main>
+<main style="padding-bottom:20px">
 
 <h3 style="margin-left:50px">${rdto.rv_title}</h3>
 	<div style="margin-left:50px">

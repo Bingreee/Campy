@@ -48,9 +48,9 @@
 </header>
 
 
-	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-	<h3>${campName } (${rate } / 5점)</h3>
+	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-bottom:20px">
 	<c:if test="${countReview != 0 }">
+	<h3>${campName } (${rate } / 5점)</h3>
 		<table class="table caption-top">
 			<div style="text-align : right">
   			<a href="/reviewWrite/${review }" id="reviewWrite">리뷰 등록</a>
@@ -90,6 +90,7 @@
 		</center>
 	</c:if>
 	<c:if test="${countReview == 0 }">
+	<h3>${campName }</h3>
 		<p>아직 입력한 글이 없습니다.</p>
 		<div style="text-align : center">
   			<a href="/reviewWrite/${review }" id="reviewWrite">리뷰 등록</a>

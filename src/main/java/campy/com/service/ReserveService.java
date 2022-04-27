@@ -18,6 +18,18 @@ public class ReserveService {
 	@Autowired
 	ReserveDao rdao;
 	
+	public int countReserve(String id) {
+		return rdao.countReserve(id);
+	}
+	
+	public List<CampAndReserveDto> reserveList(int start, int end, String id) {
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("start", start);
+		m.put("end", end);
+		m.put("id", id);
+		return rdao.reserveList(m);
+	}
+	
 	public List<CampAndReserveDto> reserveStatus(String id) {
 		return rdao.reserveStatus(id);
 	}
@@ -68,7 +80,7 @@ public class ReserveService {
 		return rdao.reviewUpdate(rv_dto);
 	}
 	
-	public double avgRate(int c_no) {
+	public Long avgRate(int c_no) {
 		return rdao.avgRate(c_no);
 	}
 	

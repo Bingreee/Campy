@@ -100,81 +100,100 @@
     </nav>
 	
 	
-	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-bottom:20px">
 	<h3 style="margin: 20px 170px">
 	<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
 	내 예약 확인</h3>
-	<c:if test="${rStatus == [] }">
+	<c:if test="${reserveList == [] }">
 		<h4 style="margin: 20px 170px">예약 내역이 없습니다.</h4>
 	</c:if>
-	<c:forEach items="${rStatus}" var="rStatus">
-	<%-- <c:if test="${user.id == rStatus.id}"> --%>
+	<c:if test="${reserveList != [] }">
+	<c:forEach items="${reserveList}" var="rStatus">
 		<nav style="display: block; height: 150px; width: 700px;float:center; margin-left:170px; margin-bottom:100px">
   			<nav class="list-group-item list-group-item-action " > <!-- aria-current="true" -->
+  				<jsp:useBean id="now" class="java.util.Date" />
+  				<fmt:formatDate value="${rStatus.start_date }" pattern="yyyy-MM-dd" var="start_date"/>
+				<fmt:formatDate value="${rStatus.start_date }" pattern="E" var="start_E"/>
+				<fmt:formatDate value="${rStatus.end_date }" pattern="yyyy-MM-dd" var="end_date"/>
+				<fmt:formatDate value="${rStatus.end_date }" pattern="E" var="end_E"/>
+    			<fmt:formatDate value="${rStatus.end_date }" var="end_date2" pattern="yyyyMMdd"/>
+				<fmt:parseNumber value="${end_date2/(1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
+				<fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
+				<fmt:parseNumber value="${today/(1000*60*60*24)}" integerOnly="true" var="todayDate" scope="request"/>
+    			
     			<div class="d-flex w-100 justify-content-between" >
     			<a href="/reserveDetail/${rStatus.reserve_no }" >
      				<img src='../../CampPhoto/Camping/${rStatus.c_no}.jpg' style="width : 200px; margin-top:25px"/>
       			</a>
       				<h5 class="mb-1" style=" margin-right:40px">${rStatus.c_name}</h5>
-     				<small>3 days ago</small>
+     					<c:if test="${today < start_date }">
+     						<small id="small" style="font-weight:bold; font-color:blue">이용 전</small>
+     						</c:if>
+     					<c:if test="${today > start_date }">
+     						<small id="small" style="color:red">이용 완료</small>
+     						</c:if>
     			</div>
     			<p class="mb-1" style="text-align : center; margin-left:130px">
-    			<fmt:formatDate value="${rStatus.start_date }" pattern="yyyy-MM-dd" var="start_date"/>
-				<fmt:formatDate value="${rStatus.start_date }" pattern="E" var="start_E"/>
-				<fmt:formatDate value="${rStatus.end_date }" pattern="yyyy-MM-dd" var="end_date"/>
-				<fmt:formatDate value="${rStatus.end_date }" pattern="E" var="end_E"/>
 				${start_date}(${start_E }) ~ ${end_date }(${end_E })
     			</p>
+
     			<p class="mb-1" style="text-align : center; margin-left:130px">
-    			<fmt:parseDate value="${rStatus.end_date }" var="end_date" pattern="E MM dd HH:mm:ss yyyy "/>
-    			<fmt:formatDate value="${end_date }" var="end_date2" pattern="yyyyMMdd"/>
-				<fmt:parseNumber value="${end_date2/(1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
-				
-				<fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
-				<fmt:parseNumber value="${today/(1000*60*60*24)}" integerOnly="true" var="todayDate" scope="request"/>
-				<c:if test="${today > end_date2 }">
-		 			<a href="#" id="${rStatus.reserve_no }">예약 취소</a> 
-				</c:if>
-				<c:if test="${today <= end_date2 }">
-					<a href="reviewInfo/${rStatus.c_no }">리뷰 작성</a>
-				</c:if>
     			
+					<c:if test="${today < end_date2 }">
+						 <a href="#" id="${rStatus.reserve_no }">예약 취소</a> 
+					</c:if>
+					<c:if test="${today >= end_date2 }">
+						<a href="reviewInfo/${rStatus.c_no }" name="${rStatus.reserve_no }">리뷰 작성</a>
+					</c:if>
     			</p>
   			</nav>
-  
 		</nav>
-	<%-- </c:if> --%>
-	</c:forEach>
 	
+	</c:forEach>
+	</c:if>
+	
+	<center>
+		<div id="page" >
+				<c:if test="${begin > pageNum }">
+					<a href="reserveStatus?p=${begin-1 }">[이전]</a>
+				</c:if>
+				<c:forEach begin="${begin }" end="${end}" var="i">
+					<a href="reserveStatus?p=${i}">${i}</a>
+				</c:forEach>
+				<c:if test="${end < totalPages }">
+					<a href="reserveStatus?p=${end+1}">[다음]</a>
+				</c:if>
+		</div>
+		</center>
 	</main>
 </div>
 </div>
 
-<%-- <c:forEach items="${rStatus}" var="rStatus">
-<fmt:formatDate value="${rStatus.end_date }" var="end_date2" pattern="yyyyMMdd"/>
-<fmt:parseNumber value="${end_date2/(1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
-<fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
-<fmt:parseNumber value="${today/(1000*60*60*24)}" integerOnly="true" var="todayDate" scope="request"/>
-<c:if test="${today > end_date2 }">
-	 <p><a href="#" id="${rStatus.reserve_no }">예약 취소</a></p> 
-</c:if>
-<c:if test="${today <= end_date2 }">
-	<p><a href="reviewInfo/${rStatus.c_no }">리뷰 작성</a></p>
-</c:if>
-
-</c:forEach> --%>
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-
+let today = new Date();
 $(function(){
-	
+	 $.ajax({
+		url : "/reserveStatus",
+		type : "get"
+		dataType : "json"
+	}).done(function(data){
+		for(let i = 0;i<data.length;i++){
+			if(data[i].start_date > today){
+				let rs = "이용 전";
+			} else{
+				let rs = "이용 완료";
+			}
+			$("small #small").append(rs);
+		}
+	})
 	
 	$("a[id]").click(function(){
 		let reserve_no = $(this).attr("id");
-		$.ajax({url:"/deleteReserve", data:"reserve_no="+reserve_no, method:"delete"}
-		).done(function(){
+		$.ajax({url:"/deleteReserve", 
+			data:"reserve_no="+reserve_no, 
+			method:"delete"
+		}).done(function(){
 			location.href="/reserveStatus";
 		})
 		return false;

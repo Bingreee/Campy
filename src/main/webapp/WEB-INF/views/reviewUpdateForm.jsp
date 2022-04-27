@@ -45,7 +45,7 @@
       </ul>
 </header>
 
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-bottom:20px">
 	<h4>리뷰 수정</h4>
 <form method="post" id="reviewUpdateForm" action="/review/update"> 
 <input type="hidden" name="_method" value="put">

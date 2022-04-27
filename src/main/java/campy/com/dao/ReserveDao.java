@@ -12,6 +12,8 @@ import campy.com.dto.ReviewDto;
 @Mapper
 public interface ReserveDao {
 
+	int countReserve(String id);
+	List<CampAndReserveDto> reserveList (Map<String, Object>m);//예약 리스트
 	List<CampAndReserveDto> reserveStatus(String id);//예약 현황
 	CampAndReserveDto reserveDetail(int reserve_no);
 	int deleteReserve(ReserveDto dto);
@@ -23,7 +25,7 @@ public interface ReserveDao {
 	List<ReviewDto> reviewOne(int c_no); //캠핑장 마다의 리뷰
 	int reviewDelete(int rv_no);//리뷰 삭제
 	int reviewUpdate(ReviewDto rv_dto);//리뷰 수정
-	double avgRate(int c_no);
+	Long avgRate(int c_no); //별점 평균
 //	int reviewSearchCount(Map<String, Object> m);//검색 글 개수
 //	List<ReviewDto> reviewSearch(Map<String, Object> m);//리뷰 검색 리스트
 }
