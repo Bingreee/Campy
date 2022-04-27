@@ -1,6 +1,6 @@
-
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -123,40 +123,58 @@ nav {
 a {
 	text-decoration-line: none;
 	color: #1ea1f7;
-	margin: 10px auto;
 }
 </style>
+</head>
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/main" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4" href="/main">Campy</span>
+      </a>
+
+      <ul class="nav nav-pills">
+      	<c:if test="${user.id != null }">
+       		<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			${user.id }님
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
+    				<li><a class="dropdown-item" href="/qna">Q&A</a></li>
+    				<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
+  				</ul>
+			</div>
+        	<li class="nav-item"><a href="/logout" class="nav-link">Log out</a></li>
+        </c:if>
+        <c:if test="${user.id == null }">
+        	<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  					<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+				</svg>
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/login">로그인</a></li>
+    				<li><a class="dropdown-item" href="/joinSelect">회원가입</a></li>
+  				</ul>
+			</div>
+        </c:if>
+      </ul>
+</header>
+
 <body>
 	<div id="body-wrapper">
 		<div id="body-content">
-			<header>
-				<h1>Campy</h1>
-
-				<nav>
-					<ul>
-						<c:if test="${user.id == null }">
-							<button type="button" onclick="location.href='login' "
-								class="rightButton">로그인</button>
-							<br>
-							<button type="button" onclick="location.href='join' "
-								class="rightButton">회원가입</button>
-							<!-- 		<a href="login">로그인</a><br>
-				<a href="join">회원가입</a> -->
-						</c:if>
-						<c:if test="${user.id != null }">
-				${user.id}
-			</c:if>
-					</ul>
-				</nav>
-
-				<hr>
-
-			</header>
 
 			<main class="main">
+			
 				<h2 style="text-align: center">Q&A</h2>
-				<h3 style="text-align: lite">자주 묻는 질문</h3>
-
+				<h3 style="text-align: lite">자주 묻는 질문
+				<button type="button" class="btn btn-link btn-lg" style="float:right">
+						<a href="/ask" >문의사항 목록 이동</a>
+					</button>
+					</h3>
+				
 				<hr>
 
 				<section>
@@ -199,12 +217,6 @@ a {
 
 
 					</div>
-
-
-					<!--  <a href="/ask" ><h3>문의사항 목록 이동</h3></a> -->
-					<button type="button" class="btn btn-link btn-lg">
-						<a href="/ask">문의사항 목록 이동
-					</button>
 
 				</section>
 
