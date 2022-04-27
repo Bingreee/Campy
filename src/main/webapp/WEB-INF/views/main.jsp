@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
@@ -26,6 +27,80 @@
 	
 	.rightButton{
 		width : 100px;
+	}
+	
+	a {
+		text-decoration-line: none;
+		color: #1ea1f7;
+	}
+	
+	*{ padding: 0; margin: 0; }
+li{ list-style: none; }
+
+.gallery{
+  width: 940px; margin: 0 auto;
+  overflow: hidden;
+}
+.gallery h3{
+  width: 100%; height: 50px;
+  line-height: 50px; text-align: center;
+}
+.gallery li{
+ /*  float: left; */
+  width: 600px; height: 400px;
+  margin-right: 20px;
+}
+.gallery li:last-child{ margin-right: 0; }
+
+.gallery a{
+  display: block; /* 영역적용위해 사용 */
+  width: 100%; height: 100%;
+
+  overflow: hidden;
+
+  position: relative; /* absolute의 기본기준은 body로 처리 - 현재 요소로 기준변경 */
+}
+
+.gallery figure{
+  width: 100%; height: 100%;
+}
+.gallery figcaption{
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.7);
+
+  text-align : center;
+  position: absolute; /* 이미지와 겹치게 처리 */
+  top: 0; left: 0;
+
+  color: #fff; text-align: center;
+  line-height: 400px;
+
+  opacity: 0; /* 처음엔 안보이고 */
+
+  transition: 0.3s;
+  
+}
+
+.gallery a:hover figcaption, .gallery a:focus figcaption{
+  /* 마우스를 올리면 보이게 처리 */
+  opacity: 1;
+}
+	
+	.hc {  left:0; right:0; margin-left:auto; margin-right:auto; } /* 가로 중앙 정렬 */ 
+	.vc {  top: 0; bottom:0; margin-top:auto; margin-bottom:auto; } /* 세로 중앙 정렬 */
+
+	
+	#mainSearchButton {
+	background: linear-gradient(to left, rgb(41, 123, 255), rgb(51, 203, 255));
+	border: none;
+	color: white;
+	border-radius: 8px;
+	width: 200px;
+	height: 35px;
+	font-size: 14pt;
+	margin-left: 32px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 600;
 	}
 </style>
 </head>
@@ -135,17 +210,15 @@
 	</form>
 	</nav>
 	
-	<figure id="table1">
-  		<!-- <img src="..." class="figure-img img-fluid rounded" alt="...">
-  		<figcaption class="figure-caption text-end">A caption for the above image.</figcaption> -->
+<!-- 	<figure id="table1">
+  		검색 결과 나오는 곳
+  		
 	</figure>
-	
+	 -->
+	<div class="gallery" id="table1">
+		
+	</div>
 
-<!-- 	<table id="table1">
-			<tr>
-				<td>검색 결과값은 여기에 나옵니다</td>
-			</tr>
-	</table> -->
 	
 	<div> </div>
 
@@ -238,23 +311,20 @@
 			for(let i=0; i<data.length; i++){
 				var htmlText = "";
 				var htmlImg ="";
-			/* 	htmlText += '<tr>';
-				htmlText += "<td> <a href='/roomInfo/"+data[i].c_no+"'>"+data[i].c_name+"</a> </td>";
-				htmlText += '</tr>';
-				htmlImg += '<tr>';
-				htmlImg += '<td>'
-				htmlImg += "<img src='../../CampPhoto/Camping/"+data[i].c_no+".jpg' class="figure-img img-fluid rounded" alt="..." />";
-				htmlImg += '</td>';
-				htmlImg += '</tr>';  */
+				var html = "";
+				
+				html += "<ul><li>";
+				html += "<a href='/roomInfo/"+data[i].c_no+"'>";
+				html += "<figure> <img src='../../CampPhoto/Camping/"+data[i].c_no+".jpg'  width='600' height='400'>";
+				html += "<figcaption class='hc vc'>"+data[i].c_name+"</figcaption>";
+				html += "</figure></a>";
+				html += "</li></ul>";
 				
 				
-				htmlText += "<a href='/roomInfo/"+data[i].c_no+"'>"+data[i].c_name+"</a><br><br>";
-				htmlImg += "<img src='../../CampPhoto/Camping/"+data[i].c_no+".jpg' width='200' />";
-				
-				
-				$("#table1").append(htmlImg); 
-				$("#table1").append(htmlText);
-		/* 		<figcaption class="figure-caption text-end">A caption for the above image.</figcaption> */
+				$("#table1").append(html);
+
+		
+		
 			}
 		})	
 	});
