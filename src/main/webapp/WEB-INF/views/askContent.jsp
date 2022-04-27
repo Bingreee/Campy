@@ -9,122 +9,103 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
-table.type02 {
-	border-collapse: separate;
-	border-spacing: 0;
-	text-align: left;
-	line-height: 1.5;
-	border-top: 1px solid #ccc;
-	border-left: 1px solid #ccc;
-	margin: 20px 10px;
-}
 
-table.type02 th {
-	width: 200px;
-	padding: 10px;
-	font-weight: bold;
-	vertical-align: top;
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	border-top: 1px solid #fff;
-	border-left: 1px solid #fff;
-	background: #eee;
-}
-
-table.type02 td {
-	width: 650px;
-	padding: 10px;
-	vertical-align: top;
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-}
-
-button {
-	color: black;
-}
-
-button:hover {
-	background: #fff;
-	color: black;
-}
-
-button:before, button:after {
-	content: '';
-	position: absolute;
-	top: 0;
-	right: 0;
-	height: 2px;
-	width: 0;
-	background: black;
-	transition: 400ms ease all;
-}
-
-button:after {
-	right: inherit;
-	top: inherit;
-	left: 0;
-	bottom: 0;
-}
 
 a {
 	text-decoration-line: none;
 	color: #1ea1f7;
-	margin: 10px auto;
 }
+
+
 
 </style>
 </head>
 <body>
-<table border="1" class="type02">
-	
-  <tr>
-    <th scope="row">제목</th>
-    <td>${dto.qa_title}</td>
-  </tr>
-  <tr>
-    <th scope="row">작성자</th>
-    <td>${dto.id}</td>
-  </tr>
-  <tr>
-    <th scope="row">내용</th>
-    <td>${dto.qa_content}</td>
-  </tr>
-<tr>
-    <th scope="row">등록일</th>
-    <td><fmt:formatDate value="${dto.qa_date }" dateStyle="long"/></td>
-  </tr>
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/main" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4" href="/main">Campy</span>
+      </a>
 
-<tr>
-	<td colspan="2" align="right">
-	
-	<c:if test="${ user.id == dto.id }">
-	<button><a href="/updateForm/${dto.qa_no}">글 수정 </a> </button>
-	<button><a id="${dto.qa_no}" href="#">글 삭제</a></button>
+      <ul class="nav nav-pills">
+      	<c:if test="${user.id != null }">
+       		<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			${user.id }님
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
+    				<li><a class="dropdown-item" href="/qna">Q&A</a></li>
+    				<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
+  				</ul>
+			</div>
+        	<li class="nav-item"><a href="/logout" class="nav-link">Log out</a></li>
+        </c:if>
+        <c:if test="${user.id == null }">
+        	<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  					<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+				</svg>
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/login">로그인</a></li>
+    				<li><a class="dropdown-item" href="/joinSelect">회원가입</a></li>
+  				</ul>
+			</div>
+        </c:if>
+      </ul>
+</header>
+
+
+<h3 style="margin-left:50px">${dto.qa_title}</h3>
+	<div style="margin-left:50px">
+	<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  		<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+	</svg>
+	<span style="font-size: x-large">${dto.id}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="opacity:0.5">${dto.qa_date }</span>
+ 	</div>
+ 	<hr class="my-4">
+ 	<div style="margin-left:50px; width:70%">${dto.qa_content}</div>
+ 	
+ 	<div style="text-align : right">
+ 	<c:if test="${ user.id == dto.id }">
+ 	<hr class="my-4">
+		<a href="/updateForm/${dto.qa_no}" style="margin-left:50px">글 수정 </a>
+		<a id="${dto.qa_no}" href="#" style="margin-left:50px">글 삭제</a>
+		
 	</c:if>
-	<button><a href="../ask">목록 이동</a></button>
-	
-	</td>
-</tr>
-</table>
+	<a href="../ask" style="margin-left:50px">목록 이동</a>
+	</div>
+
+
+
+
 
 
 <div>
 	<c:forEach items="${cList}" var="Qa_CommDto">
-		<div>${Qa_CommDto.id} / <fmt:formatDate value="${Qa_CommDto.qa_comm_date }" dateStyle="short"/></div>
-		<div>${Qa_CommDto.qa_comm_content} 
 		
+		<div>
+		아이디 : ${Qa_CommDto.id} / 내용 : ${Qa_CommDto.qa_comm_content}
+			
 		 <c:if test="${Qa_CommDto.id == user.id }">
-		<button class="dbtn" id="${Qa_CommDto.qa_comm}">삭제</button>
+		<button class="dbtn btn btn-outline-secondary" id="${Qa_CommDto.qa_comm}">삭제</button>
 		</c:if> 
-		
 		</div>
+	
 		<hr>
+		
 	</c:forEach>
-		<div class="input-group mb-3">
-			<input name="askContent" id="askContent" type="text" class="form-control">
+		
+		<div style= "text-align : right">
+			<input name="askContent" id="askContent" type="text" >
 			<button id="add" class="btn btn-outline-secondary">등록</button>
 		</div>
 </div>
+
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
