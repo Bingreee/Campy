@@ -7,6 +7,12 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
+a {
+	text-decoration-line: none;
+	color: #1ea1f7;
+	margin: 10px auto;
+}
+
 	.silver{background-color: silver; width: 50px;}
 	table{border-collapse : collapse; width: 800px;}
 </style>
