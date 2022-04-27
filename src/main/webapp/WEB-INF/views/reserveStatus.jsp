@@ -17,37 +17,39 @@
 <body>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-<%-- <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" style="height:70px">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/main">Campy</a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-    <a class="nav-link px-3" href="/mypage" style="display:inline-block;">${user.id }님</a>
-    <a class="nav-link px-3" href="#" style="display:inline-block;">Sign out</a>
-    </div>
-  </div>
-</header> --%>
-
 <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom" style="position:sticky;top:0px; z-index: 10;background-color:white;">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <a href="/main" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
         <span class="fs-4" href="/main">Campy</span>
       </a>
 
       <ul class="nav nav-pills">
-       <div class="dropdown">
-  		<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    		${user.id }님
-  		</a>
-  			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    			<li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
-    			<li><a class="dropdown-item" href="/qa">Q&A</a></li>
-    			<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
-  			</ul>
-		</div>
-        <li class="nav-item"><a href="#" class="nav-link">Log out</a></li>
+      	<c:if test="${user.id != null }">
+       		<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			${user.id }님
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
+    				<li><a class="dropdown-item" href="/qa">Q&A</a></li>
+    				<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
+  				</ul>
+			</div>
+        	<li class="nav-item"><a href="/logout" class="nav-link">Log out</a></li>
+        </c:if>
+        <c:if test="${user.id == null }">
+        	<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  					<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+				</svg>
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/login">로그인</a></li>
+    				<li><a class="dropdown-item" href="/joinSelect">회원가입</a></li>
+  				</ul>
+			</div>
+        </c:if>
       </ul>
 </header>
 	
@@ -97,63 +99,94 @@
       </div>
     </nav>
 	
-	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+	
+	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-bottom:20px">
 	<h3 style="margin: 20px 170px">
 	<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
 	내 예약 확인</h3>
-	<c:forEach items="${rStatus}" var="rStatus">
-	<c:if test="${user.id == rStatus.id}">
-		<div  width="700" height="200" style="display: block; height: 150px; width: 700px;float:center; margin-left:170px">
-  			<a href="/reserveDetail/${rStatus.reserve_no }" class="list-group-item list-group-item-action " > <!-- aria-current="true" -->
-    			<div class="d-flex w-100 justify-content-between">
-     			<img src='../../CampPhoto/Camping/${rStatus.c_no}.jpg' style="width : 100px" "margin : 10px"/>
-      			<h5 class="mb-1">${rStatus.c_name}</h5>
-     			<small>3 days ago</small>
-    			</div>
-    			<p class="mb-1" style="text-align : center">
-    			<fmt:formatDate value="${rStatus.start_date }" pattern="yyyy-MM-dd" var="start_date"/>
+	<c:if test="${reserveList == [] }">
+		<h4 style="margin: 20px 170px">예약 내역이 없습니다.</h4>
+	</c:if>
+	<c:if test="${reserveList != [] }">
+	<c:forEach items="${reserveList}" var="rStatus">
+		<nav style="display: block; height: 150px; width: 700px;float:center; margin-left:170px; margin-bottom:100px">
+  			<nav class="list-group-item list-group-item-action " > <!-- aria-current="true" -->
+  				<jsp:useBean id="now" class="java.util.Date" />
+  				<fmt:formatDate value="${rStatus.start_date }" pattern="yyyy-MM-dd" var="start_date"/>
 				<fmt:formatDate value="${rStatus.start_date }" pattern="E" var="start_E"/>
 				<fmt:formatDate value="${rStatus.end_date }" pattern="yyyy-MM-dd" var="end_date"/>
 				<fmt:formatDate value="${rStatus.end_date }" pattern="E" var="end_E"/>
+    			<fmt:formatDate value="${rStatus.end_date }" var="end_date2" pattern="yyyyMMdd"/>
+				<fmt:parseNumber value="${end_date2/(1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
+				<fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
+				<fmt:parseNumber value="${today/(1000*60*60*24)}" integerOnly="true" var="todayDate" scope="request"/>
+    			
+    			<div class="d-flex w-100 justify-content-between" >
+    			<a href="/reserveDetail/${rStatus.reserve_no }" >
+     				<img src='../../CampPhoto/Camping/${rStatus.c_no}.jpg' style="width : 200px; margin-top:25px"/>
+      			</a>
+      				<h5 class="mb-1" style=" margin-right:40px;margin-top:25px; position:relative">${rStatus.c_name}</h5>
+     					<c:if test="${today < start_date }">
+     						<small id="small" style="font-weight:bold; font-color:blue">이용 전</small>
+     						</c:if>
+     					<c:if test="${today > start_date }">
+     						<small id="small" style="font-weight:bold;color:red;margin-right:40px;margin-top:25px;">이용 완료</small>
+     						</c:if>
+     						
+    			</div>
+    			<p class="mb-1" style="text-align : center; margin-left:130px;">
 				${start_date}(${start_E }) ~ ${end_date }(${end_E })
     			</p>
-  			</a>
-  
-		</div>
-	</c:if>
+    			<p class="mb-1" style="text-align : center; margin-left:130px">
+					<c:if test="${today < end_date2 }">
+						 <a href="#" id="${rStatus.reserve_no }">예약 취소</a> 
+					</c:if>
+					<c:if test="${today >= end_date2 }">
+					<center>
+					<form action="reviewWrite/${rStatus.c_no }" id="goReview" method="get"> 
+						<input type="hidden" name="reserve_no" id="reserve_no" value="${rStatus.reserve_no }"/>
+						<input type="button" class="goReview" value="리뷰 작성"/>
+					</form>
+					</center>
+					</c:if>
+    			</p>
+  			</nav>
+		</nav>
+	
 	</c:forEach>
+	</c:if>
+	
+	<center>
+		<div id="page" >
+				<c:if test="${begin > pageNum }">
+					<a href="reserveStatus?p=${begin-1 }">[이전]</a>
+				</c:if>
+				<c:forEach begin="${begin }" end="${end}" var="i">
+					<a href="reserveStatus?p=${i}">${i}</a>
+				</c:forEach>
+				<c:if test="${end < totalPages }">
+					<a href="reserveStatus?p=${end+1}">[다음]</a>
+				</c:if>
+		</div>
+		</center>
 	</main>
 </div>
 </div>
 
-
-
-
-
-<%-- <c:forEach items="${rStatus}" var="rStatus">
-<fmt:formatDate value="${rStatus.end_date }" var="end_date2" pattern="yyyyMMdd"/>
-<fmt:parseNumber value="${end_date2/(1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
-<fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
-<fmt:parseNumber value="${today/(1000*60*60*24)}" integerOnly="true" var="todayDate" scope="request"/>
-<c:if test="${today > end_date2 }">
-	 <p><a href="#" id="${rStatus.reserve_no }">예약 취소</a></p> 
-</c:if>
-<c:if test="${today <= end_date2 }">
-	<p><a href="reviewInfo/${rStatus.c_no }">리뷰 작성</a></p>
-</c:if>
-
-</c:forEach> --%>
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	
+	 $(".goReview").click(function(){
+   	  $("#goReview").submit();
+
+     })
 	
 	$("a[id]").click(function(){
 		let reserve_no = $(this).attr("id");
-		$.ajax({url:"/deleteReserve", data:"reserve_no="+reserve_no, method:"delete"}
-		).done(function(){
+		$.ajax({url:"/deleteReserve", 
+			data:"reserve_no="+reserve_no, 
+			method:"delete"
+		}).done(function(){
 			location.href="/reserveStatus";
 		})
 		return false;
@@ -161,9 +194,6 @@ $(function(){
 })//ready
 		
 	
-
-
-
 </script>
 </body>
 </html>
