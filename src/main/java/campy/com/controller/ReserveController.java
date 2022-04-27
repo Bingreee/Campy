@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import campy.com.dto.CampAndReserveDto;
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
+import campy.com.dto.ReserveAndReviewDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.ReviewDto;
 import campy.com.service.ReserveService;
@@ -202,13 +203,32 @@ public class ReserveController {
 	
 	
 	@GetMapping("reviewWrite/{c_no}")
-	public String reviewWriteForm2(@PathVariable int c_no,Model m) {
-		String r = rservice2.selectC_nameOne(c_no);
-		m.addAttribute("campName",r);
-		int gg = rservice1.selCamNO(c_no);
-		m.addAttribute("gg",gg);
-		return "/reviewWrite";
+	public String reviewWriteForm2(@PathVariable int c_no,int reserve_no,Model m) {
+		System.out.println(reserve_no);
+		int chkReserve = rservice.chkReserve(reserve_no);
+		
+		System.out.println("chkReserve : "+chkReserve);
+		if(chkReserve == 0) {
+			String r = rservice2.selectC_nameOne(c_no);
+			m.addAttribute("campName",r);
+			int gg = rservice1.selCamNO(c_no);
+			m.addAttribute("gg",gg);
+			m.addAttribute("reserve_no",reserve_no);
+			return "/reviewWrite";
+		}else {
+			return "redirect:/reserveStatus";
+		}
 	}
+	
+//	@GetMapping("/reviewWrite")
+//	public String reviewWrite2(@RequestParam int reserve_no,Model m) {
+//		ReviewDto chkReserve = rservice.chkReserve(reserve_no);
+//		if(chkReserve == null) {
+//			return "/reviewWrite";
+//		}else {
+//			return "redirect:/";
+//		}
+//	}
 	
 	@PostMapping("/reviewWrite")
 	public String reviewWrite(ReviewDto rv_dto) {

@@ -125,25 +125,29 @@
     			<a href="/reserveDetail/${rStatus.reserve_no }" >
      				<img src='../../CampPhoto/Camping/${rStatus.c_no}.jpg' style="width : 200px; margin-top:25px"/>
       			</a>
-      				<h5 class="mb-1" style=" margin-right:40px">${rStatus.c_name}</h5>
+      				<h5 class="mb-1" style=" margin-right:40px;margin-top:25px; position:relative">${rStatus.c_name}</h5>
      					<c:if test="${today < start_date }">
      						<small id="small" style="font-weight:bold; font-color:blue">이용 전</small>
      						</c:if>
      					<c:if test="${today > start_date }">
-     						<small id="small" style="color:red">이용 완료</small>
+     						<small id="small" style="font-weight:bold;color:red;margin-right:40px;margin-top:25px;">이용 완료</small>
      						</c:if>
+     						
     			</div>
-    			<p class="mb-1" style="text-align : center; margin-left:130px">
+    			<p class="mb-1" style="text-align : center; margin-left:130px;">
 				${start_date}(${start_E }) ~ ${end_date }(${end_E })
     			</p>
-
     			<p class="mb-1" style="text-align : center; margin-left:130px">
-    			
 					<c:if test="${today < end_date2 }">
 						 <a href="#" id="${rStatus.reserve_no }">예약 취소</a> 
 					</c:if>
 					<c:if test="${today >= end_date2 }">
-						<a href="reviewInfo/${rStatus.c_no }" name="${rStatus.reserve_no }">리뷰 작성</a>
+					<center>
+					<form action="reviewWrite/${rStatus.c_no }" id="goReview" method="get"> 
+						<input type="hidden" name="reserve_no" id="reserve_no" value="${rStatus.reserve_no }"/>
+						<input type="button" class="goReview" value="리뷰 작성"/>
+					</form>
+					</center>
 					</c:if>
     			</p>
   			</nav>
@@ -171,22 +175,11 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-let today = new Date();
 $(function(){
-	 $.ajax({
-		url : "/reserveStatus",
-		type : "get"
-		dataType : "json"
-	}).done(function(data){
-		for(let i = 0;i<data.length;i++){
-			if(data[i].start_date > today){
-				let rs = "이용 전";
-			} else{
-				let rs = "이용 완료";
-			}
-			$("small #small").append(rs);
-		}
-	})
+	 $(".goReview").click(function(){
+   	  $("#goReview").submit();
+
+     })
 	
 	$("a[id]").click(function(){
 		let reserve_no = $(this).attr("id");

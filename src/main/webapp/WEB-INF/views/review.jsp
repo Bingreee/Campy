@@ -52,9 +52,10 @@
 	<c:if test="${countReview != 0 }">
 	<h3>${campName } (${rate } / 5점)</h3>
 		<table class="table caption-top">
-			<div style="text-align : right">
+			<%-- <div style="text-align : right">
   			<a href="/reviewWrite/${review }" id="reviewWrite">리뷰 등록</a>
-  			</div>
+  			</div> --%>
+  			
   			<thead>
     		<tr>
       			<th scope="col">제목</th>
@@ -93,7 +94,7 @@
 	<h3>${campName }</h3>
 		<p>아직 입력한 글이 없습니다.</p>
 		<div style="text-align : center">
-  			<a href="/reviewWrite/${review }" id="reviewWrite">리뷰 등록</a>
+  			<%-- <a href="/reviewWrite/${review }" id="reviewWrite">리뷰 등록</a> --%>
   			</div>
 	</c:if>
 			

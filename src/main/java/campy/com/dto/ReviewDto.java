@@ -15,4 +15,5 @@ public class ReviewDto {
 	private int c_no;
 	private double rate;
 	private String rv_photo;
+	private int reserve_no;
 }

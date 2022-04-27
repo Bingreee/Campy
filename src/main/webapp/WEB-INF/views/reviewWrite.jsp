@@ -53,6 +53,7 @@
 	<h4>'${campName }' 리뷰 작성</h4>
 	<form method="post" id="reviewWriteForm" action="/reviewWrite">
 	<input type="hidden" name="c_no" id="c_no" value="${gg }"/>
+	<input type="hidden" name="reserve_no" id="reserve_no" value="${reserve_no }"/>
 
 	<table style="width:1000px">
 		<tr>
@@ -104,7 +105,7 @@ smartEditor = function() {
 	  smartEditor() 
 	  	  
       $("#rv_save").click(function(){
-    	  let c_no = $("#c_no").val;
+    	  /* let c_no = $("#c_no").val; */
     	  oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
     	  $("#reviewWriteForm").submit();
 

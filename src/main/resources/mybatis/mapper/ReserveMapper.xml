@@ -32,6 +32,10 @@
 	select * from reserve,camping where reserve.c_no = camping.c_no order by reserve_date desc
 </select>
 
+<select id="chkReserve" parameterType="int" resultType="int">
+	select count(*) from review where reserve_no = #{reserve_no}
+</select>
+
 <!-- 위는 예약 아래는 리뷰 -->
 
 <select id="countReview" parameterType="int" resultType="int">
@@ -56,8 +60,8 @@
 </select> <!-- 캠핑장 선택에 따른 리뷰 보여주기 -->
 
 <insert id="reviewWrite" parameterType="campy.com.dto.ReviewDto">
-	insert into review(rv_no, rv_title, id, rv_date, rv_content, c_no, rate)
-	values(seq_review.nextval, #{rv_title}, #{id}, sysdate, #{rv_content},#{c_no}, #{rate} )
+	insert into review(rv_no, rv_title, id, rv_date, rv_content, c_no, rate,reserve_no)
+	values(seq_review.nextval, #{rv_title}, #{id}, sysdate, #{rv_content},#{c_no}, #{rate},#{reserve_no} )
 </insert>
 
 <delete id="reviewDelete" parameterType="int">
