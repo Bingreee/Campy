@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import campy.com.dto.CampAndReserveDto;
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
+import campy.com.dto.ReserveAndReviewDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.ReviewDto;
 import campy.com.service.ReserveService;
@@ -63,14 +64,37 @@ public class ReserveController {
 	public CampAndReserveDto cArDto() {
 		return new CampAndReserveDto();
 	}
-	
-	
+		
 	 @GetMapping("/reserveStatus")
-	 public String reserveStatus(@ModelAttribute("user") MemberDto dto, Model m) {
-		 List<CampAndReserveDto> rStatus = rservice.reserveStatus(dto.getId());
-		 System.out.println("rStatus"+rStatus);
+	 public String reserveStatus(@RequestParam(name="p", defaultValue="1") int page,@ModelAttribute("user") MemberDto dto, Model m) {
+//		 List<CampAndReserveDto> rStatus = rservice.reserveStatus(dto.getId());
+//		 System.out.println("rStatus"+rStatus);
+//		 m.addAttribute("rStatus",rStatus);
 		 
-		 m.addAttribute("rStatus",rStatus);
+		 int countReserve = rservice.countReserve(dto.getId());
+			if(countReserve> 0) {
+				
+				int perPage = 5; // 한 페이지에 보일 글의 갯수
+				int startRow = (page - 1) * perPage + 1; //시작 글번호
+				int endRow = page * perPage;			//끝 글번호
+				
+				List<CampAndReserveDto> reserveList = rservice.reserveList(startRow, endRow,dto.getId());
+				m.addAttribute("reserveList",reserveList);
+				
+				int pageNum = 5;
+				int totalPages = countReserve / perPage + (countReserve % perPage > 0 ? 1 : 0); //전체 페이지 수
+				
+				int begin = (page - 1) / pageNum * pageNum + 1;
+				int end = begin + pageNum -1;
+				if(end > totalPages) {
+					end = totalPages;
+				}
+				 m.addAttribute("begin", begin);
+				 m.addAttribute("end", end);
+				 m.addAttribute("pageNum", pageNum);
+				 m.addAttribute("totalPages", totalPages);
+			}
+				m.addAttribute("countReserve",countReserve);
 		 return "reserveStatus";
 	}
 	 
@@ -138,9 +162,11 @@ public class ReserveController {
 		m.addAttribute("campName",c_name);
 		List<ReviewDto> reviewOne = rservice.reviewOne(c_no);
 		m.addAttribute("reviewOne",reviewOne);
+		Long rate = rservice.avgRate(c_no);
+		m.addAttribute("rate",rate);
 		
 		//글이 있는지 체크
-		int countReview = rservice.countReview();
+		int countReview = rservice.countReview(c_no);
 		if(countReview> 0) {
 			
 			int perPage = 10; // 한 페이지에 보일 글의 갯수
@@ -177,18 +203,38 @@ public class ReserveController {
 	
 	
 	@GetMapping("reviewWrite/{c_no}")
-	public String reviewWriteForm2(@PathVariable int c_no,Model m) {
-		String r = rservice2.selectC_nameOne(c_no);
-		m.addAttribute("campName",r);
-		int gg = rservice1.selCamNO(c_no);
-		m.addAttribute("gg",gg);
-		return "/reviewWrite";
+	public String reviewWriteForm2(@PathVariable int c_no,int reserve_no,Model m) {
+		System.out.println(reserve_no);
+		int chkReserve = rservice.chkReserve(reserve_no);
+		
+		System.out.println("chkReserve : "+chkReserve);
+		if(chkReserve == 0) {
+			String r = rservice2.selectC_nameOne(c_no);
+			m.addAttribute("campName",r);
+			int gg = rservice1.selCamNO(c_no);
+			m.addAttribute("gg",gg);
+			m.addAttribute("reserve_no",reserve_no);
+			return "/reviewWrite";
+		}else {
+			return "redirect:/reserveStatus";
+		}
 	}
+	
+//	@GetMapping("/reviewWrite")
+//	public String reviewWrite2(@RequestParam int reserve_no,Model m) {
+//		ReviewDto chkReserve = rservice.chkReserve(reserve_no);
+//		if(chkReserve == null) {
+//			return "/reviewWrite";
+//		}else {
+//			return "redirect:/";
+//		}
+//	}
 	
 	@PostMapping("/reviewWrite")
 	public String reviewWrite(ReviewDto rv_dto) {
 		rservice.reviewWrite(rv_dto);
-		return "/main";
+		int c_no = rv_dto.getC_no();
+		return "redirect:/reviewInfo/"+c_no;
 	}
 	
 	@GetMapping("/review/{c_no}")
@@ -221,39 +267,6 @@ public class ReserveController {
 		rservice.reviewUpdate(rv_dto);
 		return "redirect:/review";
 	}
-	
-//	@GetMapping("/review/search")
-//	public String reviewSearch(int searchn, String search,@RequestParam(name="p", defaultValue = "1") int page,@ModelAttribute("user") MemberDto memDto, Model m) {
-//		int count = rservice.reviewSearchCount(searchn,search);
-//		if(count > 0) {
-//		
-//		int perPage = 10; // 한 페이지에 보일 글의 갯수
-//		int startRow = (page - 1) * perPage + 1;
-//		int endRow = page * perPage;
-//		
-//		List<ReviewDto> reviewList = rservice.reviewSearch(searchn,search,startRow, endRow);
-//		m.addAttribute("rSearch", reviewList);
-//
-//		int pageNum = 5;
-//		int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); //전체 페이지 수
-//		
-//		int begin = (page - 1) / pageNum * pageNum + 1;
-//		int end = begin + pageNum -1;
-//		if(end > totalPages) {
-//			end = totalPages;
-//		}
-//		 m.addAttribute("begin", begin);
-//		 m.addAttribute("end", end);
-//		 m.addAttribute("pageNum", pageNum);
-//		 m.addAttribute("totalPages", totalPages);
-//		
-//		}
-//		m.addAttribute("count", count);
-//		m.addAttribute("searchn", searchn);
-//		m.addAttribute("search", search);
-//		
-//		return "review/reviewSearch";
-//	}
 
 	
 	

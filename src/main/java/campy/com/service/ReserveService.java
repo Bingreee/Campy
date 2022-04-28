@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import campy.com.dao.ReserveDao;
 import campy.com.dto.CampAndReserveDto;
+import campy.com.dto.ReserveAndReviewDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.ReviewDto;
 
@@ -17,6 +18,18 @@ public class ReserveService {
 
 	@Autowired
 	ReserveDao rdao;
+	
+	public int countReserve(String id) {
+		return rdao.countReserve(id);
+	}
+	
+	public List<CampAndReserveDto> reserveList(int start, int end, String id) {
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("start", start);
+		m.put("end", end);
+		m.put("id", id);
+		return rdao.reserveList(m);
+	}
 	
 	public List<CampAndReserveDto> reserveStatus(String id) {
 		return rdao.reserveStatus(id);
@@ -34,8 +47,8 @@ public class ReserveService {
 		return rdao.adminReserve();
 	}
 	
-	public int countReview() {
-		return rdao.countReview();
+	public int countReview(int c_no) {
+		return rdao.countReview(c_no);
 	}
 	
 	public List<ReviewDto> reviewList(int start, int end, int c_no) {
@@ -66,6 +79,14 @@ public class ReserveService {
 	
 	public int reviewUpdate(ReviewDto rv_dto) {
 		return rdao.reviewUpdate(rv_dto);
+	}
+	
+	public Long avgRate(int c_no) {
+		return rdao.avgRate(c_no);
+	}
+	
+	public int chkReserve(int reserve_no) {
+		return rdao.chkReserve(reserve_no);
 	}
 	
 //	public int reviewSearchCount(int searchn, String search) {

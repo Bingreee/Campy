@@ -3,9 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="campy.com.dao.ReserveDao">
-<select id="reserveStatus" parameterType="string" resultType="campy.com.dto.CampAndReserveDto" > 
-	select * from reserve,camping where reserve.c_no = camping.c_no and id = #{id}
-</select> 
+<select id="countReserve" parameterType="String" resultType="int">
+	select count(*) from reserve where id=#{id}
+</select>
+
+<select id="reserveList" parameterType="map" resultType="campy.com.dto.CampAndReserveDto">
+	<![CDATA[
+		select * from (select r.*, rownum r 
+		from (select * from reserve where id = #{id} order by reserve_date desc) r 
+		order by reserve_date desc) r2 ,camping 
+		where r2.c_no=camping.c_no and r >= #{start} AND r <=#{end} order by reserve_date desc
+	]]>
+</select>
+
+<!-- <select id="reserveStatus" parameterType="string" resultType="campy.com.dto.CampAndReserveDto" > 
+	select * from reserve,camping where reserve.c_no = camping.c_no and id = #{id} order by reserve_date desc
+</select>  -->
 
 <select id="reserveDetail" parameterType="int" resultType="campy.com.dto.CampAndReserveDto">
 	select * from reserve, camping where reserve.c_no = camping.c_no and reserve_no=#{reserve_no}
@@ -19,10 +32,14 @@
 	select * from reserve,camping where reserve.c_no = camping.c_no order by reserve_date desc
 </select>
 
+<select id="chkReserve" parameterType="int" resultType="int">
+	select count(*) from review where reserve_no = #{reserve_no}
+</select>
+
 <!-- 위는 예약 아래는 리뷰 -->
 
-<select id="countReview" resultType="int">
-	select count(*) from review
+<select id="countReview" parameterType="int" resultType="int">
+	select count(*) from review where c_no = #{c_no}
 </select>
   
 <select id="reviewList" parameterType="map" resultType="campy.com.dto.ReviewDto">
@@ -43,8 +60,8 @@
 </select> <!-- 캠핑장 선택에 따른 리뷰 보여주기 -->
 
 <insert id="reviewWrite" parameterType="campy.com.dto.ReviewDto">
-	insert into review(rv_no, rv_title, id, rv_date, rv_content, c_no, rate)
-	values(seq_review.nextval, #{rv_title}, #{id}, sysdate, #{rv_content},#{c_no}, #{rate} )
+	insert into review(rv_no, rv_title, id, rv_date, rv_content, c_no, rate,reserve_no)
+	values(seq_review.nextval, #{rv_title}, #{id}, sysdate, #{rv_content},#{c_no}, #{rate},#{reserve_no} )
 </insert>
 
 <delete id="reviewDelete" parameterType="int">
@@ -55,31 +72,8 @@
 	update review set rv_title=#{rv_title}, rv_content=#{rv_content},rate=#{rate} where rv_no=#{rv_no}
 </update>
 
-<!-- <select id="reviewSearchCount" resultType="int" parameterType="map">
-	select count(*) from review 
-	<where>
-		<choose>
-			<when test="searchn == 0"> rv_title like '%' || #{search} || '%'</when>
-			<when test="searchn == 1">rv_content like '%'|| #{search} || '%'</when>
-			<when test="searchn == 2"> id  like '%'||#{search}||'%' </when>
-		</choose>
-	</where>
+<select id="avgRate" parameterType="int" resultType="Long">
+	select trunc(AVG(NVL(rate,0)),1) from review where c_no = #{c_no}
 </select>
 
-<select id="reviewSearch" parameterType="map" resultType="campy.com.dto.ReviewDto">
-	select * from
-		(select rv_no, id,rv_title, rv_date, rv_content, rownum r
-		from (select * from review order by rv_date desc) 
-		<where>
-			<choose>
-				<when test="searchn == 0">
-				rv_title like '%'||#{search}||'%'</when>
-				<when test="searchn == 1"> rv_content like '%'||#{search}||'%' </when>
-				<when test="searchn == 2"> id like '%'||#{search}||'%' </when>
-			</choose>
-		</where> 
-		order by rv_date desc 
-		
-		) where r &gt;= #{start} AND r &lt;= #{end}
-</select> -->
 </mapper>
