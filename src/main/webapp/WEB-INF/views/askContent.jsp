@@ -84,10 +84,12 @@ a {
 
 
 <div>
+
 	<c:forEach items="${cList}" var="Qa_CommDto">
 		
 		<div>
-		아이디 : ${Qa_CommDto.id} / 내용 : ${Qa_CommDto.qa_comm_content}
+		운영자<br> 
+		내용 : ${Qa_CommDto.qa_comm_content}
 			
 		 <c:if test="${Qa_CommDto.id == user.id }">
 		<button class="dbtn btn btn-outline-secondary" id="${Qa_CommDto.qa_comm}">삭제</button>
@@ -98,10 +100,12 @@ a {
 		
 	</c:forEach>
 		
+		<c:if test="${ user.id == 'admin'}">
 		<div style= "text-align : right">
 			<input name="askContent" id="askContent" type="text" >
 			<button id="add" class="btn btn-outline-secondary">등록</button>
 		</div>
+		</c:if>
 </div>
 
 

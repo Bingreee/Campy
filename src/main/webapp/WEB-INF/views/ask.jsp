@@ -80,11 +80,14 @@ td {
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 		<div style="margin-right : 200px">
 		<h3>문의사항 목록</h3>
+			
+			<div style="text-align : right">
+					<a href="/askWrite"> 새글 등록</a>
+			</div>
+			
 		<c:if test="${count != 0 }">
 			<table class="table table-hover">
-				<div style="text-align : right">
-					<a href="/askWrite"> 새글 등록</a>
-				</div>
+				
 				<thead>
 					<tr>
 						<th scope="col">번호</th>

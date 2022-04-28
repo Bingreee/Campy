@@ -12,6 +12,6 @@ public class NoticeDto {
 	private String id;
 	private Date not_date;
 	private String not_content;
-	private String not_file;
+	
 	
 }
