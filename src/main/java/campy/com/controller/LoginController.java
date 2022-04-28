@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.google.gson.Gson;
+
 import campy.com.dto.MemberDto;
 import campy.com.service.LoginService;
 import oracle.jdbc.proxy.annotation.Post;
@@ -103,10 +105,14 @@ public class LoginController {
 		return "find_Id_Form";
 	}
 	
-	@RequestMapping(value = "/findId", method = RequestMethod.POST)
-	public String find_Pw(HttpServletResponse response, @RequestParam("mem_tel") String mem_tel, Model md) throws Exception{
-		md.addAttribute("id", service.find_id(response, mem_tel));
-		return "find_Id_Form";
+	@RequestMapping("/findId")
+	@ResponseBody
+	public String findId(String mem_name, String mem_tel) {
+		String id = service.find_id(mem_name, mem_tel);
+		
+		Gson gson = new Gson();
+		String jid = gson.toJson(id);
+		return jid;
 	}
 	
 	@GetMapping("/find_Pw_Form")

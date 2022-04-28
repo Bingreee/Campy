@@ -117,7 +117,6 @@ a {
 <body>
 	<div class="con">
 		<div>
-			<form action="findId" method="post">
 				<header class="campy">
 					<a href="/main"><h1 class="link">Campy</h1></a>
 				</header>
@@ -130,14 +129,39 @@ a {
 					<div class="input-box">
 						<input type="text" id="mem_tel" name="mem_tel" placeholder="ex)010-0000-0000" required> <label for="mem_tel">휴대폰 번호</label>
 					</div>
-					<div class="input-box">
+					<div id="showId" class="input-box">
 						
 					</div>
-					<input type="submit" id="findBtn" value="아이디 찾기">
+					<input type="button" id="findBtn" value="아이디 찾기">
 					<div id="forgot"><a href="login">로그인으로 돌아가기</a></div>
 				</div>
-			</form>
 		</div>
 	</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(function(){
+		$("#findBtn").click(function(){
+			let mem_name = $("#mem_name").val();
+			let mem_tel = $("#mem_tel").val();
+			console.log(mem_name);
+			console.log(mem_tel);
+			
+			$.ajax({
+				url:"/findId",
+				data:{"mem_name":mem_name,"mem_tel":mem_tel},
+				dataType:"json"
+			}).done(function(data){
+				if(data != null) {
+					$("#showId").empty();
+					$("#showId").append(mem_name+"님의 아이디는 "+data+" 입니다.");
+				}else{
+					$("#showId").empty();
+					$("#showId").append("해당하는 아이디가 없습니다.");
+					$("#showId").css("color","red");
+				}
+			})
+		})
+	})
+</script>	
 </body>
 </html>

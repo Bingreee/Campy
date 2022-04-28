@@ -12,7 +12,7 @@ public interface LoginDao {
 	MemberDto memLogin(MemberDto dto);
 	int insertMem(MemberDto dto);
 	String idCheck(String id);
-	String findId(String mem_tel);
+	String findId(Map<String, Object> map);
 	int updatePw(Map<String, String> map);
 	MemberDto loginById(String id);
 }

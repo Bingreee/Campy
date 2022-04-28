@@ -128,8 +128,8 @@ public class RoomController1 {
 	
 	 @RequestMapping("/chkDateList")
 	 @ResponseBody 
-	 public String chkDateList(ReserveDto dto) { List<ReserveDto>
-	 list_res = rservice1.chkDateList(dto);
+	 public String chkDateList(ReserveDto dto) { 
+	 List<ReserveDto> list_res = rservice1.chkDateList(dto);
 	 Gson gson = new Gson(); 
 	 String list_res2 = gson.toJson(list_res); 
 	 return list_res2; 
