@@ -15,9 +15,25 @@
 		<if test="maxno != 0">
 		and maxno&gt;=#{maxno} 
 		</if>
-		and place=#{place} or swim=#{swim} or pick=#{pick} or elec=#{elec} 
-		
-		or wifi=#{wifi} or snack=#{snack} or pet=#{pet}
+		and place=#{place}
+		<if test='#{swim} == "t"'>
+			and swim=#{swim}
+		</if>
+		<if test='#{pick}=="t"'>
+			and pick=#{pick}
+		</if>
+		<if test='#{elec}=="t"'>
+			and elec=#{elec}
+		</if>
+		<if test='#{place}=="t"'>
+			and wifi=#{wifi}
+		</if>
+		<if test='#{place}=="t"'>
+			and snack=#{snack}
+		</if>
+		<if test='#{place}=="t"'>
+			and pet=#{pet}
+		</if>
 		</where>
 	</select>
 	
