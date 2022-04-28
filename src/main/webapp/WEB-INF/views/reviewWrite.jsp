@@ -52,13 +52,15 @@
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-bottom:20px">
 	<h4>'${campName }' 리뷰 작성</h4>
 	<form method="post" id="reviewWriteForm" action="/reviewWrite">
-	<input type="hidden" name="c_no" id="c_no" value="${gg }"/>
-	<input type="hidden" name="reserve_no" id="reserve_no" value="${reserve_no }"/>
-
+	
 	<table style="width:1000px">
 		<tr>
 			<td class="lightgray">제목</td>
-			<td><input type="text" name="rv_title"/></td>
+			<td><input type="text" name="rv_title"/>
+			<input type="hidden" name="c_no" id="c_no" value="${gg }"/>
+			<input type="hidden" name="reserve_no" id="reserve_no" value="${reserve_no }"/>
+			
+			</td>
 			
 		</tr>
 		<tr>

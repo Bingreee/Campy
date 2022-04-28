@@ -126,10 +126,10 @@
      				<img src='../../CampPhoto/Camping/${rStatus.c_no}.jpg' style="width : 200px; margin-top:25px"/>
       			</a>
       				<h5 class="mb-1" style=" margin-right:40px;margin-top:25px; position:relative">${rStatus.c_name}</h5>
-     					<c:if test="${today < start_date }">
-     						<small id="small" style="font-weight:bold; font-color:blue">이용 전</small>
+     					<c:if test="${today < end_date2 }">
+     						<small id="small" style="font-weight:bold; color:blue;margin-right:40px;margin-top:25px;">이용 전</small>
      						</c:if>
-     					<c:if test="${today > start_date }">
+     					<c:if test="${today > end_date2 }">
      						<small id="small" style="font-weight:bold;color:red;margin-right:40px;margin-top:25px;">이용 완료</small>
      						</c:if>
      						

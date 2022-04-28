@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -262,10 +263,13 @@ public class ReserveController {
 		return "reviewUpdateForm";
 	}
 	
-	@PutMapping("/review/update")
+	@PutMapping("/review/updateForm")
 	public String reviewUpdate(ReviewDto rv_dto) {
+		System.out.println(rv_dto);
 		rservice.reviewUpdate(rv_dto);
-		return "redirect:/review";
+		System.out.println(rservice.reviewUpdate(rv_dto));
+		int c_no = rv_dto.getC_no();
+		return "redirect:/reviewInfo/"+c_no;
 	}
 
 	

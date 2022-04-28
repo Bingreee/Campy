@@ -47,19 +47,21 @@
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-bottom:20px">
 	<h4>리뷰 수정</h4>
-<form method="post" id="reviewUpdateForm" action="/review/update"> 
+<form method="post" id="reviewUpdate" action="/review/updateForm"> 
 <input type="hidden" name="_method" value="put">
-	<input type="hidden" name="c_no" id="c_no" value="${gg }"/>
 
 	<table style="width:1000px">
 		<tr>
 			<td class="lightgray">제목</td>
-			<td><input type="text" name="rv_title"/></td>
+			<td><input type="text" name="rv_title" value="${rv_dto.rv_title }"/>
+			<input type="hidden" name="c_no" id="c_no" value="${rv_dto.c_no }"/>
+			<input type="hidden" name="rv_no" id="rv_no" value="${rv_dto.rv_no }"/>
+			</td>
 			
 		</tr>
 		<tr>
 			<td class="lightgray">작성자</td>
-			<td><input name="id" value="${user.id}" readonly></td>
+			<td><input name="id" value="${rv_dto.id}" readonly></td>
 		</tr>
 		<tr>
 			<td class="lightgray">내용</td>
@@ -70,17 +72,15 @@
 		</tr>
 		<tr>
 			<td class="lightgray">별점</td>
-			<td><input type="number" min="0.5" max="5.0" step="0.5" name="rate" id="rate"></td>
+			<td><input type="number" min="0.5" max="5.0" step="0.5" name="rate" id="rate" value="${rv_dto.rate }"></td>
 			<!-- <td><input type="text" pattern = "[0-9]+(.[0-9]+)?" name="rate" id="rate"></td> -->
 		</tr>
 		<tr>
 			<td colspan="2" align="center" >
-				<input type="button" id="rv_save" value="수정 완료" > 
+				<input type="button" id="rv_update_save" value="수정 완료" > 
 			</td>
 		</tr>
 	</table>
-
-
 
 </form>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -104,9 +104,13 @@ smartEditor = function() {
 $(document).ready(function() {
 	smartEditor() 
 	
-    $("#save").click(function(){
+    $("#rv_update_save").click(function(){
+    	var rate = $("#rate").val();
     	oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
-  	  $("#reviewUpdateForm").submit();
+    	alert(rate);
+    	
+    	/* console.log(rate); */
+  	  $("#reviewUpdate").submit();
     });
     
   })
