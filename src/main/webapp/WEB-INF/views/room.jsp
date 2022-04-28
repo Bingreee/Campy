@@ -84,6 +84,7 @@ li{ list-style: none; }
   opacity: 0; 
 
   transition: 0.3s;
+  
 }
 
 #roomInfo a:hover figcaption, #roomInfo a:focus figcaption{
@@ -259,8 +260,10 @@ $('.linkedCalendars').daterangepicker({
 			let date2 = edate2.getTime() - sdate2.getTime();
 			let day2 = Math.abs(date2 / (1000 * 3600 * 24));
 			
-			let c_no = $("#c_no").val();
+			let c_no = $(".bb").val();
 			let c_price = $(this).parents().children(".c_price").text() * day2;
+			
+			console.log(c_no);
 			
 			if(id == "") {
 				alert("로그인 후 이용 가능합니다.");

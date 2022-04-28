@@ -14,7 +14,7 @@
 	margin:auto;
 }
 
-header {
+.campy {
 	display: flex;
 	justify-content: center;
 	margin-top: 150px;
@@ -112,11 +112,15 @@ a {
 	text-align: center;
 	color:rgb(164, 164, 164);
 }
+
+.link{
+	color: black;
+}
 </style>
 </head>
 <body>
-	<header>
-		<h1>Campy</h1>
+	<header class="campy">
+		<a href="/main"><h1 class="link">Campy</h1></a>
 	</header>
 	<div id="con">
 	<form:form action="memLogin" method="post" modelAttribute="command">
