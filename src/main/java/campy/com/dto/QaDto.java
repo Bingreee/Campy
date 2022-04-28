@@ -12,5 +12,5 @@ public class QaDto {
 	private String id;
 	private Date qa_date;
 	private String qa_content;
-	private String qa_open;
+	
 }

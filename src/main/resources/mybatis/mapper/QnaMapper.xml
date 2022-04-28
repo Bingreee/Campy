@@ -26,7 +26,7 @@
 	<select parameterType="map" id="qaList" resultType="campy.com.dto.QaDto">
 		<![CDATA[
 		select * from
-		(select qa_no,id,qa_title,qa_content,qa_date,qa_open, rownum r
+		(select qa_no,id,qa_title,qa_content,qa_date, rownum r
 		from (select * from qa order by qa_no desc)
 		order by qa_no desc)where r >= #{start} and r <= #{end}
 		]]>
@@ -50,7 +50,7 @@
 	
 	<select id="qaListSearch" parameterType="map" resultType="campy.com.dto.QaDto">
 		select * from
-		(select qa_no,id,qa_title,qa_content,qa_date,qa_open, rownum r
+		(select qa_no,id,qa_title,qa_content,qa_date, rownum r
 		from (select * from qa order by qa_date desc)
 		<where>
 			<choose>

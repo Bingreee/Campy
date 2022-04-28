@@ -20,7 +20,7 @@
   <select id="noList" parameterType="map" resultType="campy.com.dto.NoticeDto">
   	<![CDATA[
 		select * from
-		(select not_no,not_title,id,not_date, not_content, not_file,rownum r
+		(select not_no,not_title,id,not_date, not_content,rownum r
 		from (select * from notice order by not_no desc)
 		order by not_no desc)where r >= #{start} AND r <= #{end}
  		]]>
@@ -40,7 +40,7 @@
   <select id="noticeListSearch" parameterType="map" resultType="campy.com.dto.NoticeDto">
 		
 		select * from
-		(select not_no,not_title,id,not_date, not_content, not_file,rownum r
+		(select not_no,not_title,id,not_date, not_content,rownum r
 		from (select * from notice order by not_no desc) 
 		<where>
 			<choose>

@@ -181,9 +181,9 @@ a {
 					<div>
 						<ul class="qna">
 							<li><input type="checkbox" id="qna-1"> <label
-								for="qna-1">다른 사람 명의의 계좌로 환불받을 수 있나요?</label>
+								for="qna-1">예약 확인은 어떻게 하나요?</label>
 								<div>
-									<p>다른 사람 명의로는 환불할 수 없습니다. 고객님 본인 명의 계좌로만 환불이 가능합니다.</p>
+									<p>상단에 있는 "MYPAGE" 에서 가능합니다</p>
 								</div></li>
 							<li><input type="checkbox" id="qna-2"> <label
 								for="qna-2">예약은 어떻게 취소하나요?</label>
@@ -213,9 +213,29 @@ a {
 										주시길 바랍니다.</p>
 
 								</div></li>
+								<li><input type="checkbox" id="qna-6"> <label
+								for="qna-6">예약취소했는데 언제 환불되나요?</label>
+								<div>
+									<p>취소 신청 후 간편결제 사업자 또는 은행/신용카드사에 따라 환불 절차에 일정 시간이 소요됩니다.
+영업일 기준(토/일/공휴일 제외)으로 실시간 계좌이체 2~3일, 신용카드 3~5일 소요됩니다.</p>
+
+								</div></li>
+								<li><input type="checkbox" id="qna-7"> <label
+								for="qna-7">천재지변으로 인한 예약취소는 어떻게 하나요?</label>
+								<div>
+									<p>일반적인 우천에 의한 예약 취소 및 변경 불가합니다.
+태풍 등 기상 특보 시, 입실 당일 현장 날씨 및 캠핑장/펜션의 정책에 따라 연기 또는 취소 결정됩니다. 입실 당일 오전에 캠핑장/펜션에 연락하셔서 안내 받으시기 바랍니다.</p>
+
+								</div></li>
+								<li><input type="checkbox" id="qna-8"> <label
+								for="qna-8">다른 사람 명의의 계좌로 환불받을 수 있나요?</label>
+								<div>
+									<p>다른 사람 명의로는 환불할 수 없습니다. 고객님 본인 명의 계좌로만 환불이 가능합니다.</p>
+
+								</div></li>
+								
+								
 						</ul>
-
-
 					</div>
 
 				</section>
