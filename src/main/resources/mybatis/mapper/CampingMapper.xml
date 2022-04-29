@@ -49,6 +49,19 @@
 		c_no = #{c_no}
 	</select>
 	
+	<delete parameterType="int" id="campFindDelete">
+		delete from Camping
+		where
+		c_no = #{c_no}
+	</delete>
+	
+	<delete parameterType="int" id="roomFindDelete">
+		delete from room
+		where
+		c_no = #{c_no}
+	</delete>
+	
+	
 	<insert parameterType="campy.com.dto.CampCreateDto" id="campCreateInfoC">
 		insert into Camping (c_no, c_name, c_address, maxno, place, c_tel, swim, pick, elec, wifi, snack, pet)
 		values
