@@ -32,6 +32,10 @@
 	select * from reserve,camping where reserve.c_no = camping.c_no order by reserve_date desc
 </select>
 
+<select id="countAllReserve" resultType="int">
+	select count(*) from reserve
+</select>
+
 <select id="chkReserve" parameterType="int" resultType="int">
 	select count(*) from review where reserve_no = #{reserve_no}
 </select>

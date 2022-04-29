@@ -139,7 +139,7 @@
     			</p>
     			<p class="mb-1" style="text-align : center; margin-left:130px">
 					<c:if test="${today < end_date2 }">
-						 <a href="#" id="${rStatus.reserve_no }">예약 취소</a> 
+						 <a href="#" id="${rStatus.reserve_no }" class="deleteReserve">예약 취소</a> 
 					</c:if>
 					<c:if test="${today >= end_date2 }">
 					<center>
@@ -181,15 +181,17 @@ $(function(){
 
      })
 	
-	$("a[id]").click(function(){
+	$(".deleteReserve").click(function(){
+		if (confirm("예약을 취소하시겠습니까 ?")) {
 		let reserve_no = $(this).attr("id");
-		$.ajax({url:"/deleteReserve", 
-			data:"reserve_no="+reserve_no, 
-			method:"delete"
-		}).done(function(){
-			location.href="/reserveStatus";
-		})
-		return false;
+		 $.ajax({url:"/deleteReserve", 
+				data:"reserve_no="+reserve_no, 
+				method:"delete"
+			}).done(function(){
+				location.href="/reserveStatus";
+			})
+			return false;
+		}
 	})//click
 })//ready
 		

@@ -19,6 +19,7 @@ public interface ReserveDao {
 	CampAndReserveDto reserveDetail(int reserve_no);
 	int deleteReserve(ReserveDto dto);
 	List<CampAndReserveDto> adminReserve();
+	int countAllReserve();//모든 예약 개수
 	int countReview(int c_no); //리뷰 개수
 	List<ReviewDto> reviewList(Map<String, Object>m); //리뷰 리스트
 	ReviewDto reviewContent(int rv_no); //리뷰 내용 확인

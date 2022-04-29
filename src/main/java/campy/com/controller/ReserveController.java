@@ -1,6 +1,9 @@
 package campy.com.controller;
 
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -204,8 +207,9 @@ public class ReserveController {
 	
 	
 	@GetMapping("reviewWrite/{c_no}")
-	public String reviewWriteForm2(@PathVariable int c_no,int reserve_no,Model m) {
-		System.out.println(reserve_no);
+	public String reviewWriteForm2(HttpServletResponse response,@PathVariable int c_no,int reserve_no,Model m)throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
 		int chkReserve = rservice.chkReserve(reserve_no);
 		
 		System.out.println("chkReserve : "+chkReserve);
@@ -217,7 +221,12 @@ public class ReserveController {
 			m.addAttribute("reserve_no",reserve_no);
 			return "/reviewWrite";
 		}else {
-			return "redirect:/reserveStatus";
+			out.println("<script>");
+			out.println("alert('이미 작성한 리뷰가 있습니다');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
 		}
 	}
 	

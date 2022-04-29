@@ -25,7 +25,7 @@
 
       <ul class="nav nav-pills">
         <li class="nav-item"><a href="/mypage" class="nav-link">${user.id }님</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Log out</a></li>
+        <li class="nav-item"><a href="/logout" class="nav-link">Log out</a></li>
       </ul>
 </header>
 	
