@@ -4,27 +4,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray; //JSON배열 사용
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONArray; //JSON배열 사용
 
 import campy.com.dto.CampAndReserveDto;
 import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
-import campy.com.dto.R_PhotoDto;
 import campy.com.dto.ReserveDto;
-import campy.com.dto.ReviewDto;
+import campy.com.dto.RoomAndRphoto;
 import campy.com.service.ReserveService;
 import campy.com.service.RoomService1;
 import campy.com.service.RoomService2;
@@ -74,7 +69,7 @@ public class RoomController1 {
 	@RequestMapping("/selRoomPho")
 	@ResponseBody
 	public String selRoomPho(int c_no, int r_no) {
-		List<R_PhotoDto> listR_pho = rservice1.selRoomPho(c_no, r_no);
+		List<RoomAndRphoto> listR_pho = rservice1.selRoomPho(c_no, r_no);
 		
 		Gson gson = new Gson();
 		String r_pho = gson.toJson(listR_pho);
