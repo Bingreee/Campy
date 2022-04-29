@@ -7,33 +7,65 @@
 		<where>
 		1=1
 		<if test="c_name != null">
-		and c_name LIKE '%'||#{c_name}||'%'  
+				<if test="c_address != null">
+				and c_address LIKE '%'||#{c_address}||'%' 
+				</if>
+				<if test="maxno != 0">
+				and maxno&gt;=#{maxno} 
+				</if>
+				<if test="place != null">
+				and place=#{place}
+				</if>
+				<if test="swim == 't'">
+				and swim=#{swim}
+				</if>
+				<if test="pick=='t'">
+				and pick=#{pick}
+				</if>
+				<if test="elec=='t'">
+				and elec=#{elec}
+				</if>
+				<if test="wifi=='t'">
+				and wifi=#{wifi}
+				</if>
+				<if test="snack=='t'">
+					and snack=#{snack}
+				</if>
+				<if test="pet=='t'">
+					and pet=#{pet}
+				</if>
+			and c_name LIKE '%'||#{c_name}||'%'  
 		</if>
-		<if test="c_address != null">
-		and c_address LIKE '%'||#{c_address}||'%' 
+		<if test="c_name == null">
+			<if test="c_address != null">
+				and c_address LIKE '%'||#{c_address}||'%' 
+				</if>
+				<if test="maxno != 0">
+				and maxno&gt;=#{maxno} 
+				</if>
+				<if test="place != null">
+				and place=#{place}
+				</if>
+					<if test="swim == 't'">
+				and swim=#{swim}
+				</if>
+				<if test="pick=='t'">
+				and pick=#{pick}
+				</if>
+				<if test="elec=='t'">
+				and elec=#{elec}
+				</if>
+				<if test="wifi=='t'">
+				and wifi=#{wifi}
+				</if>
+				<if test="snack=='t'">
+					and snack=#{snack}
+				</if>
+				<if test="pet=='t'">
+					and pet=#{pet}
+				</if>
 		</if>
-		<if test="maxno != 0">
-		and maxno&gt;=#{maxno} 
-		</if>
-		and place=#{place}
-		<if test='#{swim} == "t"'>
-			and swim=#{swim}
-		</if>
-		<if test='#{pick}=="t"'>
-			and pick=#{pick}
-		</if>
-		<if test='#{elec}=="t"'>
-			and elec=#{elec}
-		</if>
-		<if test='#{place}=="t"'>
-			and wifi=#{wifi}
-		</if>
-		<if test='#{place}=="t"'>
-			and snack=#{snack}
-		</if>
-		<if test='#{place}=="t"'>
-			and pet=#{pet}
-		</if>
+		
 		</where>
 	</select>
 	
@@ -114,7 +146,9 @@
 		where c_no=#{c_no} and r_no=#{r_no3}
 	</update>
 	
-	
+	<select id="campAll" resultType="campy.com.dto.CampingDto">
+		select * from camping
+	</select>
 	
 	
 	

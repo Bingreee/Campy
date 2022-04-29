@@ -11,7 +11,15 @@
 	h1 {
   		display: inline-block;
 	}
-
+	
+	.searchResult {
+		margin-bottom: 40px;
+	}
+	
+	.selectDate{
+		margin-top: 40px;
+	}
+	
 	nav {
   		display: inline-block;
   		float : right;
@@ -25,22 +33,27 @@
 		display: none;
 	}
 	
-	.loveBtn {
-		margin-top: 100px;
-	}
-	
 	.loveBtn, .reservation, .detail{
 		cursor: pointer;
 	}
 	
 	
 	.thumbnail{
-		width: 800px;
+		width: 780px;
+		border-radius: 7px;
 	}
 	
-	.roomPhoto{
+	.roomPhoto0, .roomPhoto1, .roomPhoto2{
 		width: 260px;
 		height: 200px;
+	}
+	
+	.roomPhoto0 {
+		border-radius: 7px 0 0 7px;
+	}
+	
+	.roomPhoto2 {
+		border-radius: 0 7px 7px 0;
 	}
 
 
@@ -93,23 +106,40 @@ li{ list-style: none; }
 
 .roomContent0, .roomContent1, .roomContent2{
 	display: none;
-	margin-left: 40px;
-}
-
-.roomDetail0, .roomDetail1, .roomDetail2{
-	margin-left: 40px;
 }
 
 .bb{
 	font-size: 1.5em;
-	margin-bottom: 30px;
-	margin-top: 30px;
+	display: inline;
 }
 
 #selectDate{
 	width: 300px;
 	text-align: center;
 }
+
+#result{
+	width: 120px;
+	height: 30px;
+	text-align: center;
+	margin-bottom: 50px;
+	border-radius: 5px;
+}
+
+.countBtn{
+	width: 30px;
+	height: 30px;
+}
+
+.detail{
+	width:100%;
+	height:100%;
+	border: none;
+	background-color:transparent;
+	font-size: 2em;
+	color: white;
+}
+
 </style>
 </head>
 <body>
@@ -118,7 +148,7 @@ li{ list-style: none; }
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
         <span class="fs-4" href="/main">Campy</span>
       </a>
-
+		
       <ul class="nav nav-pills">
       	<c:if test="${user.id != null }">
        		<div class="dropdown">
@@ -150,37 +180,30 @@ li{ list-style: none; }
 </header>
 
 
-	<h4>검색결과</h4>
+	<h4 class="searchResult">검색결과</h4>
 		
 		<c:forEach items="${campList }" var="campList">
 		<c:if test="${room == campList.c_no }">
 			<option value="${campList.c_no }" selected="${room }" class="bb">${campList.c_name }</option> 
 		</c:if>
 		</c:forEach>
+		<c:if test="${user.id == null }">
+		</c:if>
+		<c:if test="${user.id != null}">
+			<input type="button" id="lovebtn" value="♡"><br>
+		</c:if>
 		
-	<h4>날짜선택</h4>
+	<h4 class="selectDate">날짜선택</h4>
 	<input id="selectDate" class="form-control linkedCalendars"/><br><br>
 	<span id="setting" class="input-group-text calendar-icon">
 	<i data-feather="calendar" class="feather-sm"></i>
 	</span>
 	
-	<span>인원 선택 </span><input type="button" value="+" onclick='count("plus")'><span id='result'> 1 </span><input type="button" value="-"  onclick='count("minus")'>
+	<span><h3>인원 선택</h3> </span><input class="countBtn" type="button" value="+" onclick='count("plus")'><input id='result' value='1' readonly><input type="button" class="countBtn" value="-"  onclick='count("minus")'><br>
 	<!-- <input type="button" value="+" onclick='count("plus")'><input type="button" value="-"  onclick='count("minus")'><br> -->
-	<c:if test="${user.id == null }">
-	</c:if>
-	<c:if test="${user.id != null}">
-		<input type="button" id="lovebtn" value="♡"><br>
-	</c:if>
 	<input type="button" value="리뷰 확인하러가기" onclick="location.href='/reviewInfo/${room}'">
 	<h4 class="roomList">객실 목록</h4>
 	<div id="roomInfo"></div>
-	
-	<%-- 전체 객실 가져오기
-	<c:forEach items="${room}" var="room">
-		<div class="roomListDetail">${room.c_no } / ${room.r_no} / ${room.r_content }
-		<input type="button" value="예약하기"></div><br>
-	</c:forEach> --%>
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -210,10 +233,10 @@ $('.linkedCalendars').daterangepicker({
 	
 	function count(type)  {
 		  // 결과를 표시할 element
-		  const resultElement = document.getElementById('result');
-		  
+		  var number = document.getElementById('result').value;
+		 
 		  // 현재 화면에 표시된 값
-		  let number = resultElement.innerText;
+		  //let number = resultElement.val();
 		  
 		  // 더하기/빼기
 		  if(type === 'plus') {
@@ -230,7 +253,7 @@ $('.linkedCalendars').daterangepicker({
 		    }
 		  }
 		  // 결과 출력
-		  resultElement.innerText = number;
+		  document.getElementById('result').value = number;
 		}
 	
 	$(function(){
@@ -330,7 +353,7 @@ $('.linkedCalendars').daterangepicker({
 					for(let i=0; i<data.length; i++) {
 						//let img = $("<img class='roomPhoto'>").attr({'src': '../../CampPhoto/'+data[i].pho_address});
 						let src = "../../CampPhoto/"+data[i].pho_address+""
-						$(".roomDetail"+j_no+"").append("<img class='roomPhoto' src='"+src+"'>");
+						$(".roomDetail"+j_no+"").append("<img class='roomPhoto"+i+"' src='"+src+"'>");
 						$(".roomContent"+j_no+"").show();
 					} 
 				})
@@ -343,7 +366,7 @@ $('.linkedCalendars').daterangepicker({
 			
 			if(btnval == "♥") {
 				$.ajax({
-					url:"/deleteLove",
+					url:"/deleteLoveRoom",
 					data:{"c_no":c_no},
 					dataType:"text"
 				}).done(function(data){

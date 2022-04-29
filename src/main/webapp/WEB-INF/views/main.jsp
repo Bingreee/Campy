@@ -47,7 +47,7 @@
 	} */
 	
 
-/* li{ list-style: none; } */
+li{ list-style: none; } 
 
 .gallery{
   width: 940px; margin: 0 auto;
@@ -118,7 +118,12 @@
 	#adminOnly{
 		display : none;
 	}
-	
+	option {
+		text-align : center;
+	}
+	select {
+		width : 200px;
+	}
 </style>
 
 
@@ -174,24 +179,30 @@
 	
 	<nav id="MypageSide">
 	<form>
-	캠핑장 둘러보기			<br>
+	<h4>캠핑장 둘러보기</h4>
+				<br>
 
-		이름으로 검색 <input name="c_name" type="text" size="10" id="c_name">
+		<input name="c_name" type="text" size="30" id="c_name" placeholder="캠핑장명을 입력해주세요" style="text-align:center;">
+		<br>
 		<br>
 
-
+				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-map-fill" viewBox="0 0 16 16">
+ 				 <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.502.502 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5V.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.498.498 0 0 0-.196 0L5 14.09zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1-.5-.1z"/>
+				</svg>
 			<select name="c_address" id ="c_address">
-    			<option value="">지역선택</option>
-    			<option value="서울">서울</option>
+    			<option value="" >지역선택</option>
+    			<option value="서울" >서울</option>
     			<option value="경기도">경기도</option>
     			<option value="강원도">강원도</option>
     			<option value="전라북도">전라북도</option>
     			<option value="전남">전남</option>
     			<option value="경상남도">경상남도</option>
 			</select>
-			<br>
+			<br><br>
 	
-
+			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+  			<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+			</svg>
 			<select name="maxno" id="maxno">
     			<option value="0">인원선택</option>
     			<option value="1">1</option>
@@ -204,22 +215,28 @@
     			<option value="8">8</option>
 			</select>
 			<br>	
-
+			<br>
 			<div class = "place">
-				주변경관<br>
-				<input type="radio" name="place" value="산" checked="checked" class="place">산
+				<form>
+				<fieldset>
+				<legend>주변경관</legend>
+				<input type="radio" name="place" value="산"  class="place">산
 				<input type="radio" name="place" value="바다" class="place">바다
 				<input type="radio" name="place" value="도심" class="place">도심
+				</fieldset>
+				</form>
 			</div>
-	
+			<br><br>
 		<div class = "options">
-		옵션 <br>
+		<fieldset>
+		<legend>옵션</legend>
 		<label><input type="checkbox" name="swim"  id="swim" class="swim"> 수영</label>			
 		<label><input type="checkbox" name="pick"  id="pick" class="pick"> 픽업</label>				
 		<label><input type="checkbox" name="elec"  id="elec" class="elec"> 전기</label>			
 		<label><input type="checkbox" name="wifi"  id="wifi" class="wifi"> 와이파이</label>				
 		<label><input type="checkbox" name="snack"  id="snack" class="snack"> 스낵</label>				
 		<label><input type="checkbox" name="pet"  id="pet" class="pet"> 펫</label> 
+		</fieldset>
 		<br>
 		</div>
 	
@@ -238,7 +255,16 @@
 	</figure>
 	 -->
 	<div class="gallery" id="table1">
-		
+		<c:forEach items="${campAll }" var="campAll">
+			<ul>
+				<li>
+				<a href="/roomInfo/${campAll.c_no }">
+				<figure> <img src='../../CampPhoto/Camping/${campAll.c_no }.jpg'  width='600' height='400'>
+				<figcaption class='hc vc'>${campAll.c_name }</figcaption>
+				</figure></a>
+				</li>
+			</ul>
+		</c:forEach>
 	</div>
 
 
@@ -257,6 +283,8 @@
 		$("#adminOnly").show();
 	
 	}
+	
+	
 	
 	$(document).on('click',"#mainSearchButton",function(){
 		if(document.getElementById("swim").checked==true){

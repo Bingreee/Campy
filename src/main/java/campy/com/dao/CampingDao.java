@@ -29,4 +29,5 @@ public interface CampingDao {
 	int roomFindDelete(int c_no);
 
 	int campFindDelete(int c_no);
+	List<CampingDto> campAll();
 }

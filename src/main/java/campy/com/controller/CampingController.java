@@ -135,4 +135,11 @@ public class CampingController {
 	public List<CampingDto> campList(){
 		return rservice2.selectC_name();
 	}
+	
+	@GetMapping("/main")
+	public String campAll(Model m){
+		List<CampingDto> c= service.campAll();
+		m.addAttribute("campAll",c);
+		return "/main";
+	}
 }
