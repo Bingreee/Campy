@@ -1,14 +1,26 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.DecimalFormat"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <style>
+/* 	nav {
+  		display: inline-block;
+  		float : right;
+	} */
+
 	#MypageSide {
 		float : left;
 		height : 1000px;
@@ -16,26 +28,26 @@
 		border-right : solid 1px black;
 	}
 	
-	h1 {
+/* 	h1 {
   		display: inline-block;
-	} 
+	}  */
 
-	.starter {
+/* 	.starter {
   		display: inline-block;
   		float : right;
-	} 
+	}  */
 	
-	.rightButton{
+/* 	.rightButton{
 		width : 100px;
-	}
+	} */
 	
-	a {
+/* 	a {
 		text-decoration-line: none;
 		color: #1ea1f7;
-	}
+	} */
 	
-	*{ padding: 0; margin: 0; }
-li{ list-style: none; }
+
+/* li{ list-style: none; } */
 
 .gallery{
   width: 940px; margin: 0 auto;
@@ -103,50 +115,51 @@ li{ list-style: none; }
 	font-weight: 600;
 	}
 </style>
+
+
 </head>
 
 
 <body>
-<%-- 
-		<h1> Campy </h1>
-	<nav class="starter">
-  		<ul>
-			<c:if test="${user.id == null }">
-				<button type="button" onclick="location.href='login' " class="rightButton">로그인</button><br>
-				<button type="button" onclick="location.href='join' " class="rightButton">회원가입</button>
-		<!-- 		<a href="login">로그인</a><br>
-				<a href="join">회원가입</a> -->
-			</c:if>
-			<c:if test="${user.id != null }">
-				${user.id}
-			</c:if>
-		</ul>
-	</nav> --%>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-	<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
-	<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-		<div class="container-fluid">
-			<h1> Campy </h1>
-			<div>
-				<ul class="nav justify-content-end">
-					<li>
-						<c:if test="${user.id == null }">
-							<button type="button" onclick="location.href='login' "
-								class="rightButton">로그인</button>
-							<br>
-							<button type="button" onclick="location.href='join' "
-								class="rightButton">회원가입</button>
-						</c:if> 
-						<c:if test="${user.id != null }">
-								${user.id}
-						</c:if>
-					</li>
-				</ul>
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom" style="position:sticky;top:0px; z-index: 10;background-color:white;">
+      <a href="/main" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4" href="/main">Campy</span>
+      </a>
+
+      <ul class="nav nav-pills">
+      	<c:if test="${user.id != null }">
+       		<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			${user.id }님
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
+    				<li><a class="dropdown-item" href="/qa">Q&A</a></li>
+    				<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
+  				</ul>
 			</div>
-		</div>
-	</nav> 
-
+        	<li class="nav-item"><a href="/logout" class="nav-link">Log out</a></li>
+        </c:if>
+        <c:if test="${user.id == null }">
+        	<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  					<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+				</svg>
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/login">로그인</a></li>
+    				<li><a class="dropdown-item" href="/joinSelect">회원가입</a></li>
+  				</ul>
+			</div>
+        </c:if>
+      </ul>
+</header>
+	
 
 	<hr>
 	
@@ -218,9 +231,6 @@ li{ list-style: none; }
 	<div class="gallery" id="table1">
 		
 	</div>
-
-	
-	<div> </div>
 
 
 </body>
