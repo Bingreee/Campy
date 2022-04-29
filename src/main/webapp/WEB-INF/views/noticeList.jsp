@@ -65,15 +65,65 @@ a {
         </c:if>
       </ul>
 </header>
+    
+<div class="container-fluid">
+<div class="row">
+	<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="position:sticky;top:100px;height:500px;">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/mypage">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              마이 페이지
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/memLove">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+              찜한 캠핑장
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reserveStatus">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+              내 예약 확인
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="qna">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              Q&A
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="noticeList">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              공지사항
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="noticeList">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              Integrations
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+	
+	
+
+
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
 		<div style="margin-right : 200px">
 
 		<h1>공지사항 목록</h1>
+		<c:if test="${ user.id != null}">
 		<div align="right">
 			<a href="/main">main </a><a href="/noticeWrite"> 새글 등록</a>
 		</div>
-
+		</c:if>
 		<c:if test="${count != 0 }">
 			<table class="table table-hover">
 				<thead>
@@ -82,7 +132,7 @@ a {
 						<th scope="col">작성자</th>
 						<th scope="col">제목</th>
 						<th scope="col">작성일</th>
-						<!-- <th>파일</th> -->
+						
 					</tr>
 				</thead>
 				<c:forEach items="${nList}" var="notice">

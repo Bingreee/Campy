@@ -4,7 +4,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <title>캠핑 객실 검색</title>
 <style>
 
@@ -22,7 +22,7 @@
 	}
 	
 	#setting{
-		position: absolute;
+		display: none;
 	}
 	
 	.loveBtn {
@@ -33,16 +33,13 @@
 		cursor: pointer;
 	}
 	
-	.roomDetail, .roomContent{
-		display:none;
-	}
 	
 	.thumbnail{
-		width: 500px;
+		width: 800px;
 	}
 	
 	.roomPhoto{
-		width: 200px;
+		width: 260px;
 		height: 200px;
 	}
 
@@ -84,41 +81,75 @@ li{ list-style: none; }
   opacity: 0; 
 
   transition: 0.3s;
-  
 }
 
 #roomInfo a:hover figcaption, #roomInfo a:focus figcaption{
   opacity: 1;
 }
 
-.flo{
+#roomInfo{
 	float: right;
 }
 
+.roomContent0, .roomContent1, .roomContent2{
+	display: none;
+	margin-left: 40px;
+}
 
+.roomDetail0, .roomDetail1, .roomDetail2{
+	margin-left: 40px;
+}
+
+.bb{
+	font-size: 1.5em;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+
+#selectDate{
+	width: 300px;
+	text-align: center;
+}
 </style>
 </head>
 <body>
-<h1> Campy </h1>
-	<nav>
-		<ul>
-			<c:if test="${user.id == null }">
-				<button type="button" onclick="location.href='/login' " class="rightButton">로그인</button><br>
-				<button type="button" onclick="location.href='/join' " class="rightButton">회원가입</button>
-		<!-- 		<a href="login">로그인</a><br>
-				<a href="join">회원가입</a> -->
-			</c:if>
-			<c:if test="${user.id != null }">
-				${user.id}
-				<form action="logout" method="get">
-					<button type="submit">로그아웃</button>
-				</form>
-			</c:if>
-		</ul>
-	</nav>
-	<hr>
-	<div class="v-line"></div>
-	
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom" style="position:sticky;top:0px; z-index: 10;background-color:white;">
+      <a href="/main" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4" href="/main">Campy</span>
+      </a>
+
+      <ul class="nav nav-pills">
+      	<c:if test="${user.id != null }">
+       		<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			${user.id }님
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
+    				<li><a class="dropdown-item" href="/qa">Q&A</a></li>
+    				<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
+  				</ul>
+			</div>
+        	<li class="nav-item"><a href="/logout" class="nav-link">Log out</a></li>
+        </c:if>
+        <c:if test="${user.id == null }">
+        	<div class="dropdown">
+  			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  					<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+				</svg>
+  			</a>
+  				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    				<li><a class="dropdown-item" href="/login">로그인</a></li>
+    				<li><a class="dropdown-item" href="/joinSelect">회원가입</a></li>
+  				</ul>
+			</div>
+        </c:if>
+      </ul>
+</header>
+
+
 	<h4>검색결과</h4>
 		
 		<c:forEach items="${campList }" var="campList">
@@ -133,8 +164,8 @@ li{ list-style: none; }
 	<i data-feather="calendar" class="feather-sm"></i>
 	</span>
 	
-	<span>인원 선택 </span><span id='result'> 1</span>
-	<input type="button" value="+" onclick='count("plus")'><input type="button" value="-"  onclick='count("minus")'><br>
+	<span>인원 선택 </span><input type="button" value="+" onclick='count("plus")'><span id='result'> 1 </span><input type="button" value="-"  onclick='count("minus")'>
+	<!-- <input type="button" value="+" onclick='count("plus")'><input type="button" value="-"  onclick='count("minus")'><br> -->
 	<c:if test="${user.id == null }">
 	</c:if>
 	<c:if test="${user.id != null}">
@@ -155,7 +186,7 @@ li{ list-style: none; }
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 $('.linkedCalendars').daterangepicker({
@@ -210,22 +241,18 @@ $('.linkedCalendars').daterangepicker({
 				type : "get",
 				dataType : "json"
 			}).done(function(data){
-				//console.log(data);
 				$("#roomInfo").empty();
 				for(let i=0; i<data.length; i++){
-					//let img = $("<img class='thumbnail"+data[i].r_no+"'>").attr({'src': '../../CampPhoto/'+data[i].r_photo});
 					let src = "../../CampPhoto/"+data[i].r_photo+""
-					let str = "<div id='"+data[i].r_no+"'><ul><li><a><figure><img class='thumbnail' src='"+src+"'><figcaption>"+data[i].r_no+"</figcaption></figure></a>"+
+					let str = "<div id='"+data[i].r_no+"'><ul><li><a><figure><img class='thumbnail' src='"+src+"'><figcaption>"+"<input type='button' id='"+data[i].r_no+"' class='detail' value='상세정보'>"+"</figcaption></figure></a>"+
 								"<span class='flo'>객실번호 :"+data[i].r_no+"<br>"+
 								"캠핑 종류 : "+data[i].theme+"<br>"+
 								"최대 인원 : "+data[i].r_maxno+"<br>"+
 								"가격 : <span class='c_price'>"+data[i].c_price+"</span><br>"+
 								"<input type='button' id='"+data[i].r_no+"' class='reservation' value='예약하기'>"+
-								"<input type='button' id='"+data[i].r_no+"' class='detail' value='상세정보'>"+
-								"<div class='roomDetail'></div>"+
-								"<div class='roomContent'>"+data[i].r_content+"</div></span></li></ul></div>";
+								"<div class='rooms"+i+"'><div class='roomDetail"+i+"'></div>"+
+								"<div class='roomContent"+i+"'>"+data[i].r_content+"</div></div></span></li></ul></div>";
 								
-					//$("#roomInfo").append(img);			
 					$("#roomInfo").append(str);	
 					
 				}
@@ -263,8 +290,6 @@ $('.linkedCalendars').daterangepicker({
 			let c_no = $(".bb").val();
 			let c_price = $(this).parents().children(".c_price").text() * day2;
 			
-			console.log(c_no);
-			
 			if(id == "") {
 				alert("로그인 후 이용 가능합니다.");
 				location.href="/login";
@@ -282,48 +307,38 @@ $('.linkedCalendars').daterangepicker({
 					data:{"c_no":c_no,"r_no":r_no,"c_price":c_price,"start_date":start_date,"end_date":end_date},
 					dataType:"text"
 				}).done(function(data){
-					//console.log(data);
 					location.href="/reserveStatus";
 				})
 			}
 		})
 		
 		$(document).on('click',".detail",function(){
-			$('.roomContent').slideUp(300);
-	         if ($(this).siblings('.roomContent').is(':hidden')){
-	            $(this).siblings('.roomContent').slideDown(300);
-	         } else{
-	            $(this).siblings('.roomContent').slideUp(300);
-	         }
-			
-			 $('.roomDetail').slideUp(300);
-	         if ($(this).siblings('.roomDetail').is(':hidden')){
-	            $(this).siblings('.roomDetail').slideDown(300);
-	         } else{
-	            $(this).siblings('.roomDetail').slideUp(300);
-	         }
 			
 	          let c_no = $(".bb").val();
 			  let r_no = $(this).attr("id");
+			  let j_no = r_no - 101;
+			  
+			  $(".rooms"+j_no).toggle();
 			  
 			  $.ajax({
 					url:"/selRoomPho",
 					data:{"c_no" :c_no,"r_no":r_no},
 					dataType:"json"
 				}).done(function(data){
-					//console.log(data);
-					$(".roomDetail").empty();
+					console.log(data);
+					$(".roomDetail"+j_no+"").empty();
 					for(let i=0; i<data.length; i++) {
 						//let img = $("<img class='roomPhoto'>").attr({'src': '../../CampPhoto/'+data[i].pho_address});
 						let src = "../../CampPhoto/"+data[i].pho_address+""
-						$(".roomDetail").append("<img class='roomPhoto' src='"+src+"'>");
+						$(".roomDetail"+j_no+"").append("<img class='roomPhoto' src='"+src+"'>");
+						$(".roomContent"+j_no+"").show();
 					} 
 				})
 				
 		})
 		
 		$("#lovebtn").click(function(){
-			var c_no = $("#c_no").val();
+			var c_no = $(".bb").val();
 			var btnval = $("#lovebtn").val();
 			
 			if(btnval == "♥") {
@@ -358,6 +373,16 @@ $('.linkedCalendars').daterangepicker({
 			$("#102").show();
 			$("#103").show();
 			let c_no = $(".bb").val();
+			
+			let date = $("#selectDate").val();
+			let start_date = date.substr(0,10);
+			let end_date = date.substr(13);
+			if(start_date == end_date) {
+				alert("예약은 최소 1박부터 가능합니다.");
+				return false;
+			}
+			
+			console.log(start_date);
 			$.ajax({
 				url : "/room/"+c_no,
 				type : "get",
@@ -374,7 +399,6 @@ $('.linkedCalendars').daterangepicker({
 						data:{"c_no":c_no,"r_no":r_no,"start_date":start_date,"end_date":end_date},
 						dataType:"json"
 					}).done(function(data){
-						console.log(data);
 						
 						for(let i = 0; i <data.length; i++) {
 							console.log(data[i].r_no);
