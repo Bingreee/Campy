@@ -39,13 +39,13 @@
 	
 	
 	.thumbnail{
-		width: 780px;
+		width: 500px;
 		border-radius: 7px;
 	}
 	
 	.roomPhoto0, .roomPhoto1, .roomPhoto2{
-		width: 260px;
-		height: 200px;
+		width: 150px;
+		height: 180px;
 	}
 	
 	.roomPhoto0 {
@@ -104,9 +104,9 @@ li{ list-style: none; }
 	float: right;
 }
 
-.roomContent0, .roomContent1, .roomContent2{
+/* .roomContent0, .roomContent1, .roomContent2{
 	display: none;
-}
+} */
 
 .bb{
 	font-size: 1.5em;
@@ -179,6 +179,9 @@ li{ list-style: none; }
       </ul>
 </header>
 
+<div class="container-fluid">
+<div class="row">
+ 	<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="position:sticky;top:100px;height:500px;">
 
 	<h4 class="searchResult">검색결과</h4>
 		
@@ -202,8 +205,15 @@ li{ list-style: none; }
 	<span><h3>인원 선택</h3> </span><input class="countBtn" type="button" value="+" onclick='count("plus")'><input id='result' value='1' readonly><input type="button" class="countBtn" value="-"  onclick='count("minus")'><br>
 	<!-- <input type="button" value="+" onclick='count("plus")'><input type="button" value="-"  onclick='count("minus")'><br> -->
 	<input type="button" value="리뷰 확인하러가기" onclick="location.href='/reviewInfo/${room}'">
-	<h4 class="roomList">객실 목록</h4>
+	</nav>
+	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-bottom:20px">
+	<!-- <h4 class="roomList">객실 목록</h4> -->
 	<div id="roomInfo"></div>
+	</main>
+	</div>
+	</div>
+	
+	
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -268,13 +278,8 @@ $('.linkedCalendars').daterangepicker({
 				for(let i=0; i<data.length; i++){
 					let src = "../../CampPhoto/"+data[i].r_photo+""
 					let str = "<div id='"+data[i].r_no+"'><ul><li><a><figure><img class='thumbnail' src='"+src+"'><figcaption>"+"<input type='button' id='"+data[i].r_no+"' class='detail' value='상세정보'>"+"</figcaption></figure></a>"+
-								"<span class='flo'>객실번호 :"+data[i].r_no+"<br>"+
-								"캠핑 종류 : "+data[i].theme+"<br>"+
-								"최대 인원 : "+data[i].r_maxno+"<br>"+
-								"가격 : <span class='c_price'>"+data[i].c_price+"</span><br>"+
-								"<input type='button' id='"+data[i].r_no+"' class='reservation' value='예약하기'>"+
-								"<div class='rooms"+i+"'><div class='roomDetail"+i+"'></div>"+
-								"<div class='roomContent"+i+"'>"+data[i].r_content+"</div></div></span></li></ul></div>";
+								"<div class='roomDetail"+i+"'></div>"+
+								"</li></ul></div>";
 								
 					$("#roomInfo").append(str);	
 					
@@ -350,11 +355,28 @@ $('.linkedCalendars').daterangepicker({
 				}).done(function(data){
 					console.log(data);
 					$(".roomDetail"+j_no+"").empty();
+					console.log(data.r_no);
+					/* "객실번호 :"+data.r_no+"<br>"+
+					 "캠핑 종류 : "+data.theme+"<br>"+
+					"최대 인원 : "+data.r_maxno+"<br>"+
+					"가격 : <span class='c_price'>"+data.c_price+"</span><br>"+
+					"<input type='button' id='"+data.r_no+"' class='reservation' value='예약하기'>"+ */
+					/* "<div class='rooms"+i+"'>"+
+					"<div class='roomContent"+i+"'>"+data[i].r_content+"</div>" */
 					for(let i=0; i<data.length; i++) {
 						//let img = $("<img class='roomPhoto'>").attr({'src': '../../CampPhoto/'+data[i].pho_address});
 						let src = "../../CampPhoto/"+data[i].pho_address+""
 						$(".roomDetail"+j_no+"").append("<img class='roomPhoto"+i+"' src='"+src+"'>");
-						$(".roomContent"+j_no+"").show();
+								/* "객실번호 :"+data[i].r_no+"<br>"+
+								 "캠핑 종류 : "+data[i].theme+"<br>"+
+								"최대 인원 : "+data[i].r_maxno+"<br>"+
+								"가격 : <span class='c_price'>"+data[i].c_price+"</span><br>"+
+								"<input type='button' id='"+data[i].r_no+"' class='reservation' value='예약하기'>"+
+								"<div class='rooms"+i+"'>"+
+								"<div class='roomContent"+i+"'>"+data[i].r_content+"</div>"); */
+								
+						 /* ); */ 
+						
 					} 
 				})
 				

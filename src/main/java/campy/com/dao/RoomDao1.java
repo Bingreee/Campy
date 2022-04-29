@@ -6,14 +6,14 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import campy.com.dto.CampAndReserveDto;
-import campy.com.dto.R_PhotoDto;
 import campy.com.dto.ReserveDto;
+import campy.com.dto.RoomAndRphoto;
 
 @Mapper
 public interface RoomDao1 {
 	
 	int insertReserve(ReserveDto dto);
-	List<R_PhotoDto> selRoomPho(Map<String,Object> m);
+	List<RoomAndRphoto> selRoomPho(Map<String,Object> m);
 	List<ReserveDto> allReserve();
 	int selCamNO(int c_no);
 	int chkDate(ReserveDto dto);

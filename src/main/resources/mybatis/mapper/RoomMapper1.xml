@@ -8,8 +8,8 @@
 	insert into reserve values(#{id},#{mem_name},#{c_no},#{r_no},sysdate,#{mem_tel},#{c_price},#{start_date},#{end_date},seq_reserve.nextval,to_date(#{end_date}, 'yy/mm/dd')+1)
 </insert>
 
-<select id="selRoomPho" resultType="campy.com.dto.R_PhotoDto" parameterType="map">
-	select * from r_photo where c_no=#{c_no} and r_no=#{r_no}
+<select id="selRoomPho" resultType="campy.com.dto.RoomAndRphoto" parameterType="map">
+	select * from r_photo natural join room  where c_no=#{c_no} and r_no=#{r_no}
 </select>
 
 <select id="allReserve" resultType="campy.com.dto.ReserveDto">
