@@ -72,7 +72,7 @@ a {
 	</c:if>
 	<a href="../noticeList" style="margin-left:50px">목록 이동</a>
 	</div>
-
+<br>
 
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
