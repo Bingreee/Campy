@@ -114,6 +114,11 @@
 	font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 600;
 	}
+	
+	#adminOnly{
+		display : none;
+	}
+	
 </style>
 
 
@@ -131,9 +136,9 @@
       </a>
 
       <ul class="nav nav-pills">
-      		
+      		<button type="button" id="adminOnly" onclick="location.href='fullCalenderPage'" >관리자</button>
       	<c:if test="${user.id != null }">
-      		<button type="button" id="adminOnly" onclick="location.href='fullCalenderPage'">관리자</button>
+      		
       		
       		
       		
@@ -247,7 +252,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
+	
 	if("${user.id}" == "admin"){
 		$("#adminOnly").show();
 	
