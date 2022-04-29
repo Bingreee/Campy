@@ -136,6 +136,7 @@
       		<button type="button" id="adminOnly" onclick="location.href='fullCalenderPage'">관리자</button>
       		
       		
+      		
        		<div class="dropdown">
   			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
     			${user.id }님
