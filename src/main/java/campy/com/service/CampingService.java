@@ -58,4 +58,8 @@ public class CampingService {
 		return dao.campFindDelete(c_no);
 		
 	}
+	
+	public List<CampingDto> campAll(){
+		return dao.campAll();
+	}
 }

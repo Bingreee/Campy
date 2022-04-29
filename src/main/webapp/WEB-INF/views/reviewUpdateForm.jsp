@@ -107,7 +107,6 @@ $(document).ready(function() {
     $("#rv_update_save").click(function(){
     	var rate = $("#rate").val();
     	oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
-    	alert(rate);
     	
     	/* console.log(rate); */
   	  $("#reviewUpdate").submit();
