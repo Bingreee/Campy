@@ -119,10 +119,11 @@ a {
 		<div style="margin-right : 200px">
 
 		<h1>공지사항 목록</h1>
+		<c:if test="${ user.id != null}">
 		<div align="right">
 			<a href="/main">main </a><a href="/noticeWrite"> 새글 등록</a>
 		</div>
-
+		</c:if>
 		<c:if test="${count != 0 }">
 			<table class="table table-hover">
 				<thead>
