@@ -106,6 +106,15 @@ public class CampingController {
 		return "/campRevise";
 	}
 	
+	@RequestMapping("/campDelete/{c_no}")
+	public String campDelete(@PathVariable int c_no, Model m) {
+		service.roomFindDelete(c_no);
+		service.campFindDelete(c_no);
+		
+	
+		return "/campRevise";
+	}
+	
 	@RequestMapping("/campReviseInfo")
 	public String campReviseInfo(CampCreateDto dto) {
 		System.out.println("campReviseInfo 진입");

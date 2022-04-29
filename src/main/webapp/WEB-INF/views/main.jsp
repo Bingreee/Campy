@@ -131,6 +131,7 @@
       </a>
 
       <ul class="nav nav-pills">
+      		<button type="button" id="adminOnly" onclick="location.href='fullCalenderPage'">관리자</button>
       	<c:if test="${user.id != null }">
        		<div class="dropdown">
   			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -232,6 +233,10 @@
 	</div>
 
 
+	
+	
+	
+	
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -239,6 +244,10 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
+	if("${user.id}" == "admin"){
+		$("#adminOnly").show();
+	
+	}
 	
 	$(document).on('click',"#mainSearchButton",function(){
 		if(document.getElementById("swim").checked==true){
