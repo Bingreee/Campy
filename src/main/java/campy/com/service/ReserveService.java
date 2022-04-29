@@ -47,6 +47,10 @@ public class ReserveService {
 		return rdao.adminReserve();
 	}
 	
+	public int countAllReserve() {
+		return rdao.countAllReserve();
+	}
+	
 	public int countReview(int c_no) {
 		return rdao.countReview(c_no);
 	}

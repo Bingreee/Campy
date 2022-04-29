@@ -48,4 +48,14 @@ public class CampingService {
 	public List<RoomDto> roomFinder(int c_no) {
 		return dao.roomFinder(c_no);
 	}
+
+	public int roomFindDelete(int c_no) {
+		return dao.roomFindDelete(c_no);
+		
+	}
+
+	public int campFindDelete(int c_no) {
+		return dao.campFindDelete(c_no);
+		
+	}
 }

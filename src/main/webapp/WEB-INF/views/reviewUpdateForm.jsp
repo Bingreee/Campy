@@ -23,7 +23,7 @@
   			</a>
   				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     				<li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
-    				<li><a class="dropdown-item" href="/qa">Q&A</a></li>
+    				<li><a class="dropdown-item" href="/qna">Q&A</a></li>
     				<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
   				</ul>
 			</div>

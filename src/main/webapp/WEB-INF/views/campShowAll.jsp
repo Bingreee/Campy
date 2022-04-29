@@ -8,7 +8,9 @@
 <body>
 	어떤 캠핑장을 수정하시겠습니까?<br><br>
 	<c:forEach items="${campList }" var="campList">
-			<a href="campRevise/${campList.c_no}" >${campList.c_name } </a> <br>
+			${campList.c_name }<br>
+			<a href="campRevise/${campList.c_no}" >수정 </a>
+			<a href="campDelete/${campList.c_no}" >삭제 </a> <br>
 	</c:forEach>
 
 
