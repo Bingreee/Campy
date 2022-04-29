@@ -24,7 +24,7 @@
 	#MypageSide {
 		float : left;
 		height : 1000px;
-		width : 400px;
+		width : 401px;
 		border-right : solid 1px black;
 	}
 	
