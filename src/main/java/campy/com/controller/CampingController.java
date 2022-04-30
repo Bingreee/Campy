@@ -51,10 +51,10 @@ public class CampingController {
 	}
 	
 	
-	@RequestMapping("/main")
-	public String main(@ModelAttribute("mainSearchInfoResult") CampingDto dto) {
-		return "/main";
-	}
+//	@RequestMapping("/main")
+//	public String main(@ModelAttribute("mainSearchInfoResult") CampingDto dto) {
+//		return "/main";
+//	}
 	
 	
 	@RequestMapping("/join")
