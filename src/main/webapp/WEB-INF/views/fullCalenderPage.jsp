@@ -30,9 +30,8 @@
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
         <span class="fs-4" href="/main">Campy</span>
       </a>
-
+		
       <ul class="nav nav-pills">
-      	<c:if test="${user.id != null }">
        		<div class="dropdown">
   			<a class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownButton1" data-bs-toggle="dropdown" aria-expanded="false">
     			${user.id }님
@@ -44,7 +43,6 @@
   				</ul>
 			</div>
         	<li class="nav-item"><a href="/logout" class="nav-link">Log out</a></li>
-        </c:if>
       </ul>
 </header>
 
