@@ -139,7 +139,7 @@ public class LoginController {
 	
 	@GetMapping("/")
 	public String goToMain() {
-		return "main";
+		return "redirect:main";
 	}
 }
 

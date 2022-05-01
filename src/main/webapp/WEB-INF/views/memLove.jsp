@@ -5,6 +5,7 @@
 <html>
 <head>
 <title>찜 하기 목록</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <style>
 	#MypageSide {
 		float : left;
@@ -58,7 +59,7 @@
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
         <span class="fs-4" href="/main">Campy</span>
       </a>
-
+		
       <ul class="nav nav-pills">
       	<c:if test="${user.id != null }">
        		<div class="dropdown">
@@ -67,7 +68,7 @@
   			</a>
   				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     				<li><a class="dropdown-item" href="/mypage">마이 페이지</a></li>
-    				<li><a class="dropdown-item" href="/qna">Q&A</a></li>
+    				<li><a class="dropdown-item" href="/qa">Q&A</a></li>
     				<li><a class="dropdown-item" href="/noticeList">공지사항</a></li>
   				</ul>
 			</div>
@@ -87,7 +88,7 @@
 			</div>
         </c:if>
       </ul>
-	</header>
+</header>
 	
 	<div class="container-fluid">
 <div class="row">
@@ -139,15 +140,28 @@
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-bottom:20px">
 	
 	
-	<h3>찜 목록</h3>
-	
+	<h3 style="margin: 20px 170px">찜 목록</h3>
+
 <c:forEach items="${loveStatus }" var="loveStatus">
-<fieldset>
-	<p>캠핑장이름 : ${loveStatus.c_name }</p>
-	<p><a href="/roomInfo/${loveStatus.c_no }">상세보기</a></p>
-	<!-- <button id="" type="button"></button> -->
-	<button id="${loveStatus.id }" value="${loveStatus.c_no }" class="loveBtn" type="button">♥</button>
-	</fieldset>
+<nav style="display: block; height: 150px; width: 700px;float:left; margin-left:170px; margin-bottom:100px">
+<nav class="list-group-item list-group-item-action " >
+<!-- <fieldset style="float:left;display:flex;"> -->
+	<div class="d-flex w-100 justify-content-between" >
+    	<a href="/roomInfo/${loveStatus.c_no }" >
+    		<img src='../../CampPhoto/Camping/${loveStatus.c_no}.jpg' style="width : 200px; margin-top:25px;"/>
+		</a>
+      	<h5 class="mb-1" style=" margin-right:40px;margin-top:25px; position:relative">${loveStatus.c_name }</h5>
+    </div>
+    <p class="mb-1" style="text-align : center; margin-left:130px;">
+	<button id="${loveStatus.id }" value="${loveStatus.c_no }" class="loveBtn" type="button">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16" >
+  			<path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+		</svg>
+	</button>
+	</p>
+<!-- </fieldset> -->
+</nav>
+</nav>
 </c:forEach>
 	</main>
 </div>
