@@ -192,7 +192,7 @@ li{ list-style: none; }
   			</a>
   				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     				<li><a class="dropdown-item" href="/login">로그인</a></li>
-    				<li><a class="dropdown-item" href="/joinSelect">회원가입</a></li>
+    				<li><a class="dropdown-item" href="/join">회원가입</a></li>
   				</ul>
 			</div>
         </c:if>
