@@ -15,4 +15,5 @@ public interface LoveDao {
 	int checkLove(Map<String, Object> m);
 	List<CampingAndLoveDto> LoveList(String id);
 	int deleteLove(CampingAndLoveDto cAldto);
+	int deleteLoveRoom(Map<String, Object> m);
 }

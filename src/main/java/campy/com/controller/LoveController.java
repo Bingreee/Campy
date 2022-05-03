@@ -66,12 +66,12 @@ public class LoveController {
 	
 	
 	
-//	@RequestMapping("/deleteLove")
-//	@ResponseBody
-//	public String deleteLove(@ModelAttribute("user") MemberDto memberdto, int c_no) {
-//		int y = lservice.deleteLove(memberdto.getId(),c_no);
-//		return y+"";
-//	}
+	@RequestMapping("/deleteLoveRoom")
+	@ResponseBody
+	public String deleteLove(@ModelAttribute("user") MemberDto memberdto, int c_no) {
+	int y = service.deleteLoveRoom(memberdto.getId(), c_no);
+		return y+"";
+	}
 	
 	@RequestMapping("/deleteLove")
 	@ResponseBody
