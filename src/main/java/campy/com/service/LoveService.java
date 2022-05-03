@@ -34,13 +34,13 @@ public class LoveService {
 		return dao.LoveList(id);
 	}
 	
-//	public int deleteLove(String id, int c_no) {
-//		Map<String, Object> m =new HashMap<String, Object>();
-//		m.put("id", id);
-//		m.put("c_no", c_no);
-//		int y = dao.deleteLove(m);
-//		return y;
-//	}
+	public int deleteLoveRoom(String id, int c_no) {
+		Map<String, Object> m =new HashMap<String, Object>();
+		m.put("id", id);
+		m.put("c_no", c_no);
+		int y = dao.deleteLoveRoom(m);
+		return y;
+	}
 	
 	public int deleteLove(CampingAndLoveDto cAldto) {
 		return dao.deleteLove(cAldto);

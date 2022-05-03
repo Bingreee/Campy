@@ -12,6 +12,10 @@
 	delete from love where id=#{id} and c_no=#{c_no}
 </delete>
 
+<delete id="deleteLoveRoom" parameterType="map">
+	delete from love where id=#{id} and c_no=#{c_no}
+</delete>
+
 <select id="checkLove" parameterType="map" resultType="int">
 	select count(*) from love where id=#{id} and c_no=#{c_no}
 </select>

@@ -40,12 +40,13 @@
 	
 	.thumbnail{
 		width: 500px;
+		height: 350px;
 		border-radius: 7px;
 	}
 	
 	.roomPhoto0, .roomPhoto1, .roomPhoto2{
 		width: 150px;
-		height: 180px;
+		height: 200px;
 	}
 	
 	.roomPhoto0 {
@@ -60,9 +61,11 @@
 li{ list-style: none; }
 
 #roomInfo{
+  width: 1000px;
   margin: 0 auto;
   overflow: hidden;
   float: left;
+  display: block;
 }
 
 #roomInfo li{
@@ -101,12 +104,8 @@ li{ list-style: none; }
 }
 
 #roomInfo{
-	float: right;
+	float: left;
 }
-
-/* .roomContent0, .roomContent1, .roomContent2{
-	display: none;
-} */
 
 .bb{
 	font-size: 1.5em;
@@ -119,7 +118,7 @@ li{ list-style: none; }
 }
 
 #result{
-	width: 120px;
+	width: 200px;
 	height: 30px;
 	text-align: center;
 	margin-bottom: 50px;
@@ -140,6 +139,27 @@ li{ list-style: none; }
 	color: white;
 }
 
+.roomDetail0, .roomDetail1, .roomDetail2{
+	float: left;
+	margin-left: 10px;
+}
+
+.reservation, #goReview{
+	background: linear-gradient(to left, rgb(41, 123, 255), rgb(51, 203, 255));
+	border: none;
+	color: white;
+	border-radius: 8px;
+}
+
+#goReview{
+	width:270px;
+	height: 40px;
+}
+
+.reservation{
+	width:150px;
+	height: 40px;
+}
 </style>
 </head>
 <body>
@@ -204,7 +224,7 @@ li{ list-style: none; }
 	
 	<span><h3>인원 선택</h3> </span><input class="countBtn" type="button" value="+" onclick='count("plus")'><input id='result' value='1' readonly><input type="button" class="countBtn" value="-"  onclick='count("minus")'><br>
 	<!-- <input type="button" value="+" onclick='count("plus")'><input type="button" value="-"  onclick='count("minus")'><br> -->
-	<input type="button" value="리뷰 확인하러가기" onclick="location.href='/reviewInfo/${room}'">
+	<input type="button" value="리뷰 확인하러가기" id="goReview" onclick="location.href='/reviewInfo/${room}'">
 	</nav>
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-bottom:20px">
 	<!-- <h4 class="roomList">객실 목록</h4> -->
@@ -278,7 +298,15 @@ $('.linkedCalendars').daterangepicker({
 				for(let i=0; i<data.length; i++){
 					let src = "../../CampPhoto/"+data[i].r_photo+""
 					let str = "<div id='"+data[i].r_no+"'><ul><li><a><figure><img class='thumbnail' src='"+src+"'><figcaption>"+"<input type='button' id='"+data[i].r_no+"' class='detail' value='상세정보'>"+"</figcaption></figure></a>"+
-								"<div class='roomDetail"+i+"'></div>"+
+								"<div class='roomDetail"+i+"'>"+
+								"객실번호 :"+data[i].r_no+"<br>"+
+								"캠핑 종류 : "+data[i].theme+"<br>"+
+								"최대 인원 : "+data[i].r_maxno+"<br>"+
+								"가격 : <span class='c_price'>"+data[i].c_price+"</span><br>"+
+								"<input type='button' id='"+data[i].r_no+"' class='reservation' value='예약하기'>"+
+								//"<div class='roomContent"+i+"'>"+data[i].r_content+"</div>"+
+								"<div class='eachRoom"+i+"'></div>"+
+								"</div>"+
 								"</li></ul></div>";
 								
 					$("#roomInfo").append(str);	
@@ -346,7 +374,7 @@ $('.linkedCalendars').daterangepicker({
 			  let r_no = $(this).attr("id");
 			  let j_no = r_no - 101;
 			  
-			  $(".rooms"+j_no).toggle();
+			  //$(".toggleRoom"+j_no).toggle();
 			  
 			  $.ajax({
 					url:"/selRoomPho",
@@ -354,29 +382,11 @@ $('.linkedCalendars').daterangepicker({
 					dataType:"json"
 				}).done(function(data){
 					console.log(data);
-					$(".roomDetail"+j_no+"").empty();
-					console.log(data.r_no);
-					/* "객실번호 :"+data.r_no+"<br>"+
-					 "캠핑 종류 : "+data.theme+"<br>"+
-					"최대 인원 : "+data.r_maxno+"<br>"+
-					"가격 : <span class='c_price'>"+data.c_price+"</span><br>"+
-					"<input type='button' id='"+data.r_no+"' class='reservation' value='예약하기'>"+ */
-					/* "<div class='rooms"+i+"'>"+
-					"<div class='roomContent"+i+"'>"+data[i].r_content+"</div>" */
+					$(".eachRoom"+j_no+"").empty();
 					for(let i=0; i<data.length; i++) {
-						//let img = $("<img class='roomPhoto'>").attr({'src': '../../CampPhoto/'+data[i].pho_address});
 						let src = "../../CampPhoto/"+data[i].pho_address+""
-						$(".roomDetail"+j_no+"").append("<img class='roomPhoto"+i+"' src='"+src+"'>");
-								/* "객실번호 :"+data[i].r_no+"<br>"+
-								 "캠핑 종류 : "+data[i].theme+"<br>"+
-								"최대 인원 : "+data[i].r_maxno+"<br>"+
-								"가격 : <span class='c_price'>"+data[i].c_price+"</span><br>"+
-								"<input type='button' id='"+data[i].r_no+"' class='reservation' value='예약하기'>"+
-								"<div class='rooms"+i+"'>"+
-								"<div class='roomContent"+i+"'>"+data[i].r_content+"</div>"); */
+						$(".eachRoom"+j_no+"").append("<img class='roomPhoto"+i+"' src='"+src+"'>");
 								
-						 /* ); */ 
-						
 					} 
 				})
 				
