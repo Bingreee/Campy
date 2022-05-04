@@ -21,6 +21,7 @@ import campy.com.dto.CampingDto;
 import campy.com.dto.MemberDto;
 import campy.com.dto.ReserveDto;
 import campy.com.dto.RoomDto;
+import campy.com.dto.RoomListDto;
 import campy.com.service.CampingService;
 import campy.com.service.RoomService2;
 
@@ -123,17 +124,23 @@ public class CampingController {
 		return "/main";
 	}
 	
-	@RequestMapping("/campCreateInfo")
-	public String campCreateInfo(CampCreateDto dto) {
-		service.campCreateInfo(dto);
-		return "/main";
-	}
+	/*
+	 * @RequestMapping("/campCreateInfo") public String campCreateInfo(CampCreateDto
+	 * dto) { service.campCreateInfo(dto); return "/main"; }
+	 */
 	
-	@RequestMapping("/roomCreateInfo")
-	@ResponseBody
-	public int campCreateInfoR1(RoomDto dto) {
-		int i = service.campCreateInfoR1(dto);
-		return i;
+	/*
+	 * @RequestMapping("/roomCreateInfo")
+	 * 
+	 * @ResponseBody public int campCreateInfoR1(RoomDto dto) { int i =
+	 * service.campCreateInfoR1(dto); return i; }
+	 */
+	
+	@RequestMapping("/CreateRoom")
+	public String CreateRoom(Model m, @ModelAttribute("rLDto")RoomListDto rListDto) {
+		System.out.println(rListDto);
+		service.campCreateInfoR1(rListDto);
+		return "redirect:/campCreate";
 	}
 	
 	@ModelAttribute("campList")
