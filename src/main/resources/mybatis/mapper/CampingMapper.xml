@@ -95,27 +95,19 @@
 	
 	
 	<insert parameterType="campy.com.dto.CampCreateDto" id="campCreateInfoC">
+		<selectKey keyProperty="c_no" resultType="int" order="AFTER"> 
+			SELECT seq_camping.CURRVAL FROM DUAL 
+		</selectKey>
+
 		insert into Camping (c_no, c_name, c_address, maxno, place, c_tel, swim, pick, elec, wifi, snack, pet)
 		values
 		(seq_camping.nextval,#{c_name}, #{c_address}, #{maxno}, #{place}, #{c_tel}, #{swim}, #{pick}, #{elec}, #{wifi}, #{snack}, #{pet} )
 	</insert>
 	
-	<insert parameterType="campy.com.dto.CampCreateDto" id="campCreateInfoR1">
+	<insert parameterType="campy.com.dto.RoomDto" id="campCreateInfoR1">
 		insert into Room (c_no, r_no, theme, r_maxno, r_content, c_price)
 		values
-		(seq_camping.currval, #{r_no1}, #{theme1}, #{r_maxno1}, #{r_content1}, #{c_price1} )
-	</insert>
-	
-	<insert parameterType="campy.com.dto.CampCreateDto" id="campCreateInfoR2">
-		insert into Room (c_no, r_no, theme, r_maxno, r_content, c_price)
-		values
-		(seq_camping.currval, #{r_no2}, #{theme2}, #{r_maxno2}, #{r_content2}, #{c_price2} )
-	</insert>
-	
-	<insert parameterType="campy.com.dto.CampCreateDto" id="campCreateInfoR3">
-		insert into Room (c_no, r_no, theme, r_maxno, r_content, c_price)
-		values
-		(seq_camping.currval, #{r_no3}, #{theme3}, #{r_maxno3}, #{r_content3}, #{c_price3} )
+		(seq_camping.currval,#{r_no},#{theme},#{r_maxno},#{r_content},#{c_price} )
 	</insert>
 	
 	<update parameterType="campy.com.dto.CampCreateDto" id="campReviseInfoC">
@@ -147,7 +139,7 @@
 	</update>
 	
 	<select id="campAll" resultType="campy.com.dto.CampingDto">
-		select * from camping
+		select * from camping order by c_no
 	</select>
 	
 	

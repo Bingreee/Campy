@@ -1,5 +1,7 @@
 package campy.com.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -12,4 +14,5 @@ public class RoomDto {
 	private String r_content;
 	private String r_photo;
 	private int c_price;
+	
 }
