@@ -38,45 +38,52 @@
 
 <div class="container-fluid">
 <div class="row">
-	<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="position:sticky;top:100px;height:500px;">
+	<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" > <!-- style="position:sticky;top:100px;height:500px;" -->
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/mypage">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-              마이 페이지
+            <a class="nav-link active" aria-current="page" href="/fullCalenderPage">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+  				<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+				</svg>  Full Calender              
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/memLove">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-              찜한 캠핑장
+            <a class="nav-link" href="/adminReserve">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+  				<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+				</svg>  전체 예약 리스트
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="reserveStatus">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart" aria-hidden="true"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-              내 예약 확인
+            <a class="nav-link" href="/campCreate">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+  				<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+				</svg>  캠핑장 등록
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="qna">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-              Q&A
+            <a class="nav-link" href="campShowAll">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+  				<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+				</svg>  캠핑장 수정/삭제
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="noticeList">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-              공지사항
+            <a class="nav-link" href="/ask">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+  				<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+				</svg> 문의사항 관리
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="noticeList">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-              Integrations
+            <a class="nav-link" href="/noticeList">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+  				<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+				</svg>  공지사항 관리
             </a>
           </li>
+          
         </ul>
       </div>
     </nav>
@@ -131,16 +138,18 @@
  			
  			
             </div>
-            
+                  <input type="submit" name="campCreateButton" value="캠핑장 신규등록" id="campCreateButton">
+          </form:form>
+          <%-- <form:form> --%>
             <div id = roomInformation1>
             	<div class="title"><h4>객실 정보 입력</h4></div>
             	
-            	<label> 객실 번호 </label><input type="text" name="r_no1" id="r_no1"><br>
+            	<label> 객실 번호 </label><input type="text" name="r_no" id="r_no"><br>
             	
-            	<label> 객실 테마 </label><input type="text" name="theme1" id="theme1"><br>
+            	<label> 객실 테마 </label><input type="text" name="theme" id="theme"><br>
             	
             	<label> 최대 인원 </label>
-            	<select name="r_maxno1" id="r_maxno1">
+            	<select name="r_maxno" id="r_maxno">
     			<option value="0">인원선택</option>
     			<option value="1">1</option>
     			<option value="2">2</option>
@@ -152,65 +161,14 @@
     			<option value="8">8</option>
 				</select><br>
             	
-            	<label> 객실 설명 </label><textarea name="r_content1" id="r_content1" rows=4></textarea><br>
+            	<label> 객실 설명 </label><textarea name="r_content" id="r_content" rows=4></textarea><br>
             	
-            	<label> 객실 가격 </label><input type="number" name="c_price1" id="c_price1"><br>
+            	<label> 객실 가격 </label><input name="c_price" id="c_price"><br>
             </div>
+            <button class="createRoom">등록</button>
+           <%--  </form:form> --%>
             
-            <div id = roomInformation2>
-            	<div class="title"><h4>객실 정보 입력</h4></div>
-            	
-            	<label> 객실 번호 </label><input type="text" name="r_no2" id="r_no2"><br>
-            	
-            	<label> 객실 테마 </label><input type="text" name="theme2" id="theme2"><br>
-            	
-            	<label> 최대 인원 </label>
-				<select name="r_maxno2" id="r_maxno2">
-    			<option value="0">인원선택</option>
-    			<option value="1">1</option>
-    			<option value="2">2</option>
-    			<option value="3">3</option>
-    			<option value="4">4</option>
-    			<option value="5">5</option>
-    			<option value="6">6</option>
-    			<option value="7">7</option>
-    			<option value="8">8</option>
-				</select><br>
-            	
-            	<label> 객실 설명 </label><textarea name="r_content2" id="r_content2" rows=4></textarea><br>
-            	
-            	<label> 객실 가격 </label><input type="number" name="c_price2" id="c_price2"><br>
-            </div>
-            
-            <div id = roomInformation3>
-            	<div class="title"><h4>객실 정보 입력</h4></div>
-            	
-            	<label> 객실 번호 </label><input type="text" name="r_no3" id="r_no3"><br>
-            	
-            	<label> 객실 테마 </label><input type="text" name="theme3" id="theme3"><br>
-            	
-            	<label> 최대 인원 </label>
-				<select name="r_maxno3" id="r_maxno3">
-    			<option value="0">인원선택</option>
-    			<option value="1">1</option>
-    			<option value="2">2</option>
-    			<option value="3">3</option>
-    			<option value="4">4</option>
-    			<option value="5">5</option>
-    			<option value="6">6</option>
-    			<option value="7">7</option>
-    			<option value="8">8</option>
-				</select><br>
-            	
-            	<label> 객실 설명 </label><textarea name="r_content3" id="r_content3" rows=4></textarea><br>
-            	
-            	<label> 객실 가격 </label><input type="number" name="c_price3" id="c_price3"><br>
-            </div>
-            
-                 <input type="submit" name="campCreateButton" value="캠핑장 신규등록" id="campCreateButton">
-            
-	</form:form>
-	
+ 	    	
 </main>
 </div>
 </div>
@@ -274,6 +232,25 @@ $(document).on('click',"#campCreateButton",function(){
 		document.getElementById("pet").value='f';
 	}
 });
+
+$(function(){
+	$(".createRoom").click(function(){
+		let r_no = $("#r_no").val();
+		let theme = $("#theme").val();
+		let r_maxno = $("#r_maxno").val();
+		let r_content = $("#r_content").val();
+		let c_price = $("#c_price").val();
+		
+		$.ajax({
+			url:"/roomCreateInfo",
+			type:"post",
+			data:{"r_no":r_no,"theme":theme,"r_maxno":r_maxno,"r_content":r_content,"c_price":c_price},
+			dataType:"text"
+		}).done(function(data){
+			
+		})
+	})
+})
 </script>
 
 

@@ -25,12 +25,11 @@ public class CampingService {
 	}
 
 	public int campCreateInfo(CampCreateDto dto) {
-		System.out.println("campCreateInfo 서비스 메서드 접속");
-		dao.campCreateInfoC(dto);
-		System.out.println("campCreateInfo 서비스 메서드 캠핑장정보 출력");
-		dao.campCreateInfoR1(dto);
-		dao.campCreateInfoR2(dto);
-		return dao.campCreateInfoR3(dto);
+		return dao.campCreateInfoC(dto);
+	}
+	
+	public int campCreateInfoR1(RoomDto dto) {
+		return dao.campCreateInfoR1(dto);
 	}
 
 	public int campReviseInfo(CampCreateDto dto) {

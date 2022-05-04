@@ -125,10 +125,15 @@ public class CampingController {
 	
 	@RequestMapping("/campCreateInfo")
 	public String campCreateInfo(CampCreateDto dto) {
-		System.out.println("campCreateInfo 진입");
-		System.out.println(dto);
 		service.campCreateInfo(dto);
 		return "/main";
+	}
+	
+	@RequestMapping("/roomCreateInfo")
+	@ResponseBody
+	public int campCreateInfoR1(RoomDto dto) {
+		int i = service.campCreateInfoR1(dto);
+		return i;
 	}
 	
 	@ModelAttribute("campList")
