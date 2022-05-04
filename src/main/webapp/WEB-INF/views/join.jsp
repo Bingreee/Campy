@@ -275,7 +275,7 @@ $(function(){
    //비밀번호 확인    
        $("#repw").on("keyup",function(){
             if($("#pw").val()==$("#repw").val()){
-               $(".repw.regex").css("color","black").html("&emsp;비밀번호가 일치합니다"); 
+               $(".repw.regex").css("color","green").html("&emsp;비밀번호가 일치합니다"); 
             }else{
              $(".repw.regex").css("color","red").html("&emsp;&emsp;&emsp;&emsp;비밀번호가 일치하지않습니다"); 
             }
@@ -289,7 +289,7 @@ $(function(){
             if(result != null){
                $(".mem_name.regex").html("");  
             }else{
-                $(".mem_name.regex").html("&emsp;&ensp;한글만 입력 가능합니다.");
+                $(".mem_name.regex").css("color","red").html("&emsp;&ensp;한글만 입력 가능합니다.");
             }
             
         })
