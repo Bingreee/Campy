@@ -1,7 +1,9 @@
 package campy.com.controller;
 
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,11 @@ public class CampingController {
 		return 0;
 	}
 	
+	@ModelAttribute("campList")
+	public List<CampingDto> campList(){
+		return rservice2.selectC_name();
+	}
+
 	
 //	@RequestMapping("/main")
 //	public String main(@ModelAttribute("mainSearchInfoResult") CampingDto dto) {
@@ -92,8 +99,10 @@ public class CampingController {
 	}
 	
 	@RequestMapping("/campShowAll")
-	public String campShowAll() {
-		return "campShowAll";
+	public String campShowAll(Model m) {
+		List<CampingDto> campAll = service.campAll();
+		m.addAttribute("campList",campAll);
+		return "/campShowAll";
 	}
 	
 	@RequestMapping("/campRevise/{c_no}")
@@ -108,12 +117,11 @@ public class CampingController {
 	}
 	
 	@RequestMapping("/campDelete/{c_no}")
-	public String campDelete(@PathVariable int c_no, Model m) {
+	@ResponseBody
+	public String campDelete(@PathVariable int c_no, Model m){
 		service.roomFindDelete(c_no);
-		service.campFindDelete(c_no);
-		
-	
-		return "/campRevise";
+		int j = service.campFindDelete(c_no);
+		return ""+j;
 	}
 	
 	@RequestMapping("/campReviseInfo")
@@ -143,11 +151,7 @@ public class CampingController {
 		return "redirect:/campCreate";
 	}
 	
-	@ModelAttribute("campList")
-	public List<CampingDto> campList(){
-		return rservice2.selectC_name();
-	}
-	
+		
 	@GetMapping("/main")
 	public String campAll(Model m){
 		List<CampingDto> c= service.campAll();
