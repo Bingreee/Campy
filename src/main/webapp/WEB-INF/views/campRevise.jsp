@@ -79,7 +79,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="campShowAll">
+            <a class="nav-link" href="/campShowAll">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
   				<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
 				</svg>  캠핑장 수정/삭제
@@ -114,6 +114,7 @@
             
             <label> 캠핑장 주소 </label><input type="text" name="c_address" id="c_address" value="${ReviseCamp.c_address }" style="width:400px;"><br>
             
+            <%-- <label> 최대 인원 </label><input type="number" name="maxno" id="maxno" value="${ReviseCamp.maxno }"><br> --%>
             <label> 최대인원 </label>
             <select name="maxno" id="maxno">
     			<option value="0">인원선택</option>
@@ -129,9 +130,9 @@
             
             <label> 캠핑장 주변경관 </label><br>
             <div class = "place">
-				<input type="radio" name="place" value="산" checked="checked" class="place">산
-				<input type="radio" name="place" value="바다" class="place">바다
-				<input type="radio" name="place" value="도심" class="place">도심
+				<input type="radio" name="place" id="mount" value="산"  class="place">산
+				<input type="radio" name="place" id="sea" value="바다" class="place">바다
+				<input type="radio" name="place" id="city" value="도심" class="place">도심
 			</div>
             
             <label> 전화번호 </label><input type="text" name="c_tel" id="c_tel" value="${ReviseCamp.c_tel }"><br>
@@ -151,11 +152,11 @@
 			<h4>객실 정보 입력</h4>
 			
             <c:forEach items="${ReviseRoom }" var="ReviseRoom" varStatus="status">
-            <fieldset style="margin-bottom:20px;border:2px solid black;border-radius:5px;">
-            <div style="float:left;width:30%;height:249px;">
+            <fieldset style="margin-bottom:20px;border:2px solid black;border-radius:5px;width:40%">
+            <div style="float:left;height:249px;">
             	<label> 객실 번호 </label><input type="text" name="r_no${status.count}" id="r_no${status.count} " value="${ReviseRoom.r_no }" readonly><br>
             	<label> 객실 테마 </label><input type="text" name="theme${status.count}" id="theme${status.count}" value="${ReviseRoom.theme }"><br>
-            	<label> 최대 인원 </label><input type="number" name="r_maxno${status.count}" id="r_maxno${status.count}" value="${ReviseRoom.r_maxno }">
+            	<label> 최대 인원 </label><input type="number" name="r_maxno${status.count}" id="r_maxno${status.count}" value="${ReviseRoom.r_maxno }"><br>
     			<!-- <option value="0">인원선택</option>
     			<option value="1">1</option>
     			<option value="2">2</option>
@@ -168,9 +169,9 @@
 				</select><br> -->
             	<label> 객실 가격 </label><input type="number" name="c_price${status.count}" id="c_price${status.count}" value="${ReviseRoom.c_price }"><br>
 			</div>
-			<div style="float:left;width:70%;">
+			<%-- <div style="float:left;width:70%;">
 			    <label> 객실 설명 </label><textarea name="r_content${status.count}" id="r_content${status.count}" value="${ReviseRoom.r_content }"></textarea><br>
-			</div>
+			</div> --%>
 			</fieldset>
 			</c:forEach>
    			
@@ -184,6 +185,58 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+var radio ="${ReviseCamp.place}";
+if(radio == "산"){
+	$("#mount").prop("checked",true);
+}else if(radio == "바다"){
+	$("#sea").prop("checked",true);
+}else{
+	$("#city").prop("checked",true);
+}
+
+
+var checkYn1 = "${ReviseCamp.swim}";
+if(checkYn1 == "t"){
+	$("#swim").prop("checked",true);
+}else{
+	$("#swim").prop("checked",false);
+}
+
+var checkYn2 = "${ReviseCamp.pick}";
+if(checkYn2 == "t"){
+	$("#pick").prop("checked",true);
+}else{
+	$("#pick").prop("checked",false);
+}
+
+var checkYn3 = "${ReviseCamp.elec}";
+if(checkYn3 == "t"){
+	$("#elec").prop("checked",true);
+}else{
+	$("#elec").prop("checked",false);
+}
+
+var checkYn4 = "${ReviseCamp.wifi}";
+if(checkYn4 == "t"){
+	$("#wifi").prop("checked",true);
+}else{
+	$("#wifi").prop("checked",false);
+}
+
+var checkYn5 = "${ReviseCamp.snack}";
+if(checkYn5 == "t"){
+	$("#snack").prop("checked",true);
+}else{
+	$("#snack").prop("checked",false);
+}
+
+var checkYn6 = "${ReviseCamp.pet}";
+if(checkYn6 == "t"){
+	$("#pet").prop("checked",true);
+}else{
+	$("#pet").prop("checked",false);
+} 
+
 $(document).on('click',"#campReviseButton",function(){
 	if(document.getElementById("swim").checked==true){
 		document.getElementById("swim").value='t';

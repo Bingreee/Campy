@@ -5,6 +5,21 @@
 <head>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <title>캠핑장 수정/삭제</title>
+<style>
+button{
+	background: linear-gradient(to left, rgb(41, 123, 255), rgb(51, 203, 255));
+	border: none;
+	color: white;
+	border-radius: 8px;
+	width: 70px;
+	height: 28px;
+	/* font-size: 14pt; */
+	/* margin-left: 32px; */
+	font-family: 'Noto Sans KR', sans-serif;
+	/* font-weight: 600; */
+}
+
+</style>
 </head>
 <body>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -57,7 +72,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="campShowAll">
+            <a class="nav-link" href="/campShowAll">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
   				<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
 				</svg>  캠핑장 수정/삭제
@@ -89,14 +104,39 @@
 		<tbody>
 		<c:forEach items="${campList }" var="campList">
 			<tr>
-			<td>${campList.c_name }</td>
-			<td><a href="campRevise/${campList.c_no}" >수정 </a></td>
-			<td><a href="campDelete/${campList.c_no}" >삭제 </a></td>
+			<td style="width:60%;">${campList.c_name }</td>
+			<td style="width:20%;"><button onclick="location.href='campRevise/${campList.c_no}'" >수정 </button></td>
+			<td style="width:20%;"><button type="button" value="${campList.c_no}" id="campDelete" >삭제 </button></td>
 			</c:forEach>
 			</tr>
 		</tbody>
 </main>
 </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(document).on('click', '#campDelete', function() {
+	var c_no = $(this).val();
+	if (confirm("캠핑장을 삭제하시겠습니까 ?")) {
+		/* if(!confirm("예약하시겠습니까?")) {
+			location.href="redirect:/";
+			return false;
+		}else{ */
+			$.ajax({
+				url : "../campDelete/"+c_no,
+				data : {
+					"c_no":c_no
+				},
+				success : function(){
+					alert('삭제 완료');
+					location.href='/campShowAll';
+				}
+			})
+		/* } */
+	}
+});
+
+</script>
 </body>
 </html>

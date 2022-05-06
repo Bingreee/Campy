@@ -6,7 +6,26 @@
 <head>
 <title>캠핑장 등록 페이지</title>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-
+<style>
+input{
+ border: solid 2px #1E90FF;
+ border-radius: 5px;
+ }
+ label {
+ 	margin:10px;
+ 	font-weight:bold;
+ }
+ textarea {
+			width: 100%;
+			height: 200px;
+			padding: 10px;
+			box-sizing: border-box;
+			border: solid 2px #1E90FF;
+			border-radius: 5px;
+			font-size: 16px;
+			resize: both;
+		}
+</style>
 </head>
 <body>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -139,32 +158,27 @@
               
           
           <%-- <form:form> --%>
-            <div id = roomInformation1>
+            <div class = roomInformation1>
             	<div class="title"><h4>객실 정보 입력</h4></div>
-            	
-            	<label> 객실 번호 </label><input type="text" name="rListDto[0].r_no" id="r_no"><br>
+            	<fieldset style="margin-bottom:20px;border:2px solid black;border-radius:5px;width:40%">
+            	<label> 객실 번호 </label><input type="text" name="rListDto[0].r_no" id="r_no" value="101"><br>
             	
             	<label> 객실 테마 </label><input type="text" name="rListDto[0].theme" id="theme"><br>
             	
-            	<label> 최대 인원 </label>
-            	<select name="rListDto[0].r_maxno" id="r_maxno">
-    			<option value="0">인원선택</option>
-    			<option value="1">1</option>
-    			<option value="2">2</option>
-    			<option value="3">3</option>
-    			<option value="4">4</option>
-    			<option value="5">5</option>
-    			<option value="6">6</option>
-    			<option value="7">7</option>
-    			<option value="8">8</option>
-				</select><br>
+            	<label> 최대 인원 </label><input type='number' name='rListDto[0].r_maxno' id='r_maxno'><br>
             	
-            	<label> 객실 설명 </label><textarea name="rListDto[0].r_content" id="r_content" rows=4></textarea><br>
+            	<!-- <label> 객실 설명 </label><textarea name="rListDto[0].r_content" id="r_content" rows=4></textarea><br> -->
             	
             	<label> 객실 가격 </label><input name="rListDto[0].c_price" id="c_price"><br>
+            	</fieldset>
             </div>
+            
+             <div class = roomInformation2>
+           		
+             </div>
             <button class="createRoom">등록</button>
             </form:form>
+            <button id="plus" onclick="incrementClick()">추가</button>
             
 </main>
 </div>
@@ -174,6 +188,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+let i = 0;
+
+function incrementClick() {
+	console.log(++i);
+}
+	$("#plus").click(function(){
+		let plus = "<fieldset style='margin-bottom:20px;border:2px solid black;border-radius:5px;width:40%'>"+
+					"<label> 객실 번호 </label><input name='rListDto["+i+"].r_no' id='r_no'><br>"+
+    				"<label> 객실 테마 </label><input name='rListDto["+i+"].theme' id='theme'><br>"+
+    				"<label> 최대 인원 </label><input type='number' name='rListDto["+i+"].r_maxno' id='r_maxno'><br>"+
+    				"<label> 객실 가격 </label><input name='rListDto["+i+"].c_price' id='c_price'><br>"+
+    				"</fieldset>";
+	$(".roomInformation2").append(plus);
+})
+
+
 function sample4_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
