@@ -59,53 +59,43 @@ public class CampingController {
 	}
 
 	
-//	@RequestMapping("/main")
-//	public String main(@ModelAttribute("mainSearchInfoResult") CampingDto dto) {
-//		return "/main";
-//	}
-	
-	
-	@RequestMapping("/join")
+	@RequestMapping("/login/join")
 	public String join() {
-			return "/join";
+			return "/login/join";
 	}
 	
 	@RequestMapping("/mypage")
 	public String mypage() {
-		return "/mypage";
+		return "/mypage/mypage";
 	}
 	
 	@RequestMapping("/mainToRoom")
 	public String mainToRoom(@ModelAttribute("mainSelectC_no") int a, Model m) {
 		m.addAttribute("roomC_no", a);
-		System.out.println("roomC_no");
-		return "/room";
+		return "/campy/room";
 	}
 	
-	@GetMapping("/mainSearch")
-	@ResponseBody						//
+	@GetMapping("/main/mainSearch")
+	@ResponseBody						
 	public List<CampingDto> mainSearch(CampingDto dto, Model m) {
-		System.out.println("mainSearch 들어왔음");
-		System.out.println(dto);
 		List<CampingDto> mainSearchInfoResult=service.mainSearch(dto);
 		m.addAttribute("mainSearchInfoResult", mainSearchInfoResult);
-		System.out.println(mainSearchInfoResult+"mainSearch메서드 In Controller");
 		return mainSearchInfoResult;
 	}
 	
-	@RequestMapping("/campCreate")
+	@RequestMapping("/admin/campCreate")
 	public String campCreate() {
-		return "/campCreate";
+		return "/admin/campCreate";
 	}
 	
-	@RequestMapping("/campShowAll")
+	@RequestMapping("/admin/campShowAll")
 	public String campShowAll(Model m) {
 		List<CampingDto> campAll = service.campAll();
 		m.addAttribute("campList",campAll);
-		return "/campShowAll";
+		return "/admin/campShowAll";
 	}
 	
-	@RequestMapping("/campRevise/{c_no}")
+	@RequestMapping("/admin/campRevise/{c_no}")
 	public String campRevise(@PathVariable int c_no, Model m) {
 		CampingDto ReviseCamp = service.campFinder(c_no);
 		m.addAttribute("ReviseCamp", ReviseCamp);
@@ -113,7 +103,7 @@ public class CampingController {
 		List<RoomDto> ReviseRoom = service.roomFinder(c_no);
 		m.addAttribute("ReviseRoom", ReviseRoom);
 	
-		return "/campRevise";
+		return "/admin/campRevise";
 	}
 	
 	@RequestMapping("/campDelete/{c_no}")
@@ -124,38 +114,23 @@ public class CampingController {
 		return ""+j;
 	}
 	
-	@RequestMapping("/campReviseInfo")
+	@RequestMapping("/admin/campReviseInfo")
 	public String campReviseInfo(CampCreateDto dto) {
-		System.out.println("campReviseInfo 진입");
-		System.out.println(dto);
-		System.out.println(service.campReviseInfo(dto));
-		return "/main";
+		return "/admin/campShowAll";
 	}
-	
-	/*
-	 * @RequestMapping("/campCreateInfo") public String campCreateInfo(CampCreateDto
-	 * dto) { service.campCreateInfo(dto); return "/main"; }
-	 */
-	
-	/*
-	 * @RequestMapping("/roomCreateInfo")
-	 * 
-	 * @ResponseBody public int campCreateInfoR1(RoomDto dto) { int i =
-	 * service.campCreateInfoR1(dto); return i; }
-	 */
-	
-	@RequestMapping("/CreateRoom")
+
+	@RequestMapping("admin/createRoom")
 	public String CreateRoom(Model m, @ModelAttribute("rLDto")RoomListDto rListDto) {
 		System.out.println(rListDto);
 		service.campCreateInfoR1(rListDto);
-		return "redirect:/campCreate";
+		return "redirect:/admin/campShowAll";
 	}
 	
 		
-	@GetMapping("/main")
+	@GetMapping("/campy/main")
 	public String campAll(Model m){
 		List<CampingDto> c= service.campAll();
 		m.addAttribute("campAll",c);
-		return "/main";
+		return "/campy/main";
 	}
 }

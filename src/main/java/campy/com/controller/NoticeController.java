@@ -32,19 +32,19 @@ public class NoticeController {
 		return new MemberDto();
 	}
 
-	@RequestMapping("/noticeList")
+	@RequestMapping("/notice/noticeList")
 	public String noticeList(@RequestParam(name = "p", defaultValue = "1") int page, Model m) {
 		int count = service.count();
 		if (count > 0) {
 
-			int perPage = 5; // 한 페이지에 보일 글의 갯수
+			int perPage = 5; 
 			int startRow = (page - 1) * perPage + 1;
 			int endRow = page * perPage;
 
 			List<NoticeDto> noList = service.noList(startRow, endRow);
 			m.addAttribute("nList", noList);
 			int pageNum = 5;
-			int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); // 전체 페이지 수
+			int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); 
 
 			int begin = (page - 1) / pageNum * pageNum + 1;
 			int end = begin + pageNum - 1;
@@ -58,15 +58,15 @@ public class NoticeController {
 
 		}
 		m.addAttribute("count", count);
-		return "/noticeList";
+		return "/notice/noticeList";
 	}
 
-	@GetMapping("/noticeSearch")
+	@GetMapping("/notice/noticeSearch")
 	public String noticeSearch(int noticesearchn, String noticesearch, @RequestParam(name = "p", defaultValue = "1") int page, Model m) {
 		int count = service.countSearch(noticesearchn, noticesearch);
 		if (count > 0) {
 
-			int perPage = 5; // 한 페이지에 보일 글의 갯수
+			int perPage = 5; 
 			int startRow = (page - 1) * perPage + 1;
 			int endRow = page * perPage;
 
@@ -74,7 +74,7 @@ public class NoticeController {
 			m.addAttribute("nList", noticeList);
 
 			int pageNum = 5;
-			int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); // 전체 페이지 수
+			int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); 
 
 			int begin = (page - 1) / pageNum * pageNum + 1;
 			int end = begin + pageNum - 1;
@@ -91,48 +91,44 @@ public class NoticeController {
 		m.addAttribute("noticesearchn", noticesearchn);
 		m.addAttribute("noticesearch", noticesearch);
 
-		return "/noticeSearch";
+		return "/notice/noticeSearch";
 	}
 
-	@GetMapping("/noticeWrite")
+	@GetMapping("/notice/noticeWrite")
 	public String writeForm(@ModelAttribute("user") MemberDto dto) {
-		return "noticeWrite";
+		return "/notice/noticeWrite";
 	}
 
-	@PostMapping("/noticeWrite")
+	@PostMapping("/notice/noticeWrite")
 	public String noticeWrite(NoticeDto dto) {
 		service.insert(dto);
-		return "redirect:noticeList";
+		return "redirect:/notice/noticeList";
 	}
 
-	@GetMapping("/noticeContent/{no}")
+	@GetMapping("/notice/noticeContent/{no}")
 	public String noticeContent(@PathVariable int no, Model m) {
 		NoticeDto dto = service.noticeOne(no);
 		m.addAttribute("dto", dto);
-		return "noticeContent";
+		return "/notice/noticeContent";
 	}
 
-	@GetMapping("/noticeUpdateForm/{no}")
+	@GetMapping("/notice/noticeUpdateForm/{no}")
 	public String noticeUpdateForm(@PathVariable int no, Model m) {
 		NoticeDto dto = service.noticeOne(no);
 		m.addAttribute("dto", dto);
-		return "noticeUpdateForm";
+		return "/notice/noticeUpdateForm";
 	}
 
-	@RequestMapping("/noticeUpdateForm")
+	@RequestMapping("/notice/noticeUpdateForm")
 	public String noticeUpdateForm(NoticeDto dto) {
 		service.updateNotice(dto);
-		return "redirect:noticeList";
+		return "redirect:/notice/noticeList";
 	}
 
-	@DeleteMapping("/noticeList/delete")
+	@DeleteMapping("/notice/noticeList/delete")
 	@ResponseBody
 	public String delete(int not_no) {
 		int i = service.deleteNotice(not_no);
 		return "" + i;
 	}
-
-	
-	
-	
 }

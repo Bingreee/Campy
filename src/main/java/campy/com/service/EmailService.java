@@ -23,11 +23,8 @@ public class EmailService {
 
 			msg.setSubject(email.getSubject());
 
-			// 일반 텍스트만 전송하려는 경우
 			msg.setText(email.getContent());
 
-			// HTML 컨텐츠를 전송하려면.
-			//msg.setContent("<a href='https://www.naver.com/'>클릭</a>", "text/html;charset=utf-8");
 			msg.setRecipient(RecipientType.TO, new InternetAddress(email.getReceiver()));//수신자 setting
 
 			mailSender.send(msg);

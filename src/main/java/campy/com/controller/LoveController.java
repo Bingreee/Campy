@@ -43,37 +43,36 @@ public class LoveController {
 		return new MemberDto();
 	}
 	
-	@RequestMapping("/insertLove")
+	@RequestMapping("/love/insertLove")
 	public String insertLove(@ModelAttribute("user") MemberDto memberdto, @ModelAttribute("love") LoveDto dto) {
 		dto.setId(memberdto.getId());
 		service.insertLove(dto);
-		return "room";
+		return "/campy/room";
 	}
-	@RequestMapping("/checkLove")
+	@RequestMapping("/love/checkLove")
 	@ResponseBody
 	public String checkLove(@ModelAttribute("user") MemberDto memberdto, int c_no) {
 		int x = lservice.checkLove(memberdto.getId(),c_no);
 		return x+"";
 	}
 	
-	@GetMapping("/memLove")
+	@GetMapping("/mypage/memLove")
 	public String LoveList(@ModelAttribute("user") MemberDto memberdto,Model m) {
 		List<CampingAndLoveDto> loveStatus= lservice.checkLove(memberdto.getId());
-		//System.out.println("loveStatus : "+loveStatus);
 		m.addAttribute("loveStatus",loveStatus);
-		return "memLove";
+		return "/mypage/memLove";
 	}
 	
 	
 	
-	@RequestMapping("/deleteLoveRoom")
+	@RequestMapping("/love/deleteLoveRoom")
 	@ResponseBody
 	public String deleteLove(@ModelAttribute("user") MemberDto memberdto, int c_no) {
 	int y = service.deleteLoveRoom(memberdto.getId(), c_no);
 		return y+"";
 	}
 	
-	@RequestMapping("/deleteLove")
+	@RequestMapping("/love/deleteLove")
 	@ResponseBody
 	public String deleteLove(CampingAndLoveDto cAldto) {
 		int i = lservice.deleteLove(cAldto);

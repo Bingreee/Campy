@@ -69,21 +69,21 @@ public class ReserveController {
 		return new CampAndReserveDto();
 	}
 		
-	 @GetMapping("/reserveStatus")
+	 @GetMapping("/reserve/reserveStatus")
 	 public String reserveStatus(@RequestParam(name="p", defaultValue="1") int page,@ModelAttribute("user") MemberDto dto, Model m) {
 		 
 		 int countReserve = rservice.countReserve(dto.getId());
 			if(countReserve> 0) {
 				
-				int perPage = 5; // 한 페이지에 보일 글의 갯수
-				int startRow = (page - 1) * perPage + 1; //시작 글번호
-				int endRow = page * perPage;			//끝 글번호
+				int perPage = 5; 
+				int startRow = (page - 1) * perPage + 1; 
+				int endRow = page * perPage;			
 				
 				List<CampAndReserveDto> reserveList = rservice.reserveList(startRow, endRow,dto.getId());
 				m.addAttribute("reserveList",reserveList);
 				
 				int pageNum = 5;
-				int totalPages = countReserve / perPage + (countReserve % perPage > 0 ? 1 : 0); //전체 페이지 수
+				int totalPages = countReserve / perPage + (countReserve % perPage > 0 ? 1 : 0); 
 				
 				int begin = (page - 1) / pageNum * pageNum + 1;
 				int end = begin + pageNum -1;
@@ -96,24 +96,24 @@ public class ReserveController {
 				 m.addAttribute("totalPages", totalPages);
 			}
 				m.addAttribute("countReserve",countReserve);
-		 return "reserveStatus";
+		 return "/reserve/reserveStatus";
 	}
 	 
-	@GetMapping("/reserveDetail/{reserve_no}")
+	@GetMapping("/reserve/reserveDetail/{reserve_no}")
 	public String reserveDetail(@PathVariable int reserve_no,Model m) {
 		CampAndReserveDto rStatus = rservice.reserveDetail(reserve_no);
 		m.addAttribute("rStatus",rStatus);
-		return "/reserveDetail";
+		return "/reserve/reserveDetail";
 	}
 	
-	@DeleteMapping("/deleteReserve")
+	@DeleteMapping("/reserve/deleteReserve")
 	@ResponseBody
 	public String deleteReserve(ReserveDto dto) {
 		int i = rservice.deleteReserve(dto);
 		return ""+i;
 	}
 	
-	@GetMapping("/allReserve")
+	@GetMapping("/reserve/allReserve")
 	public String adminReserve(Model m) {
 		List<CampAndReserveDto> adminR = rservice.adminReserve();
 		m.addAttribute("adminR",adminR);
@@ -121,7 +121,7 @@ public class ReserveController {
 	}
 	
 	
-	@GetMapping("/reviewInfo/{c_no}")
+	@GetMapping("/review/reviewInfo/{c_no}")
 	 public String reviewList(@RequestParam(name="p", defaultValue="1") int page,@PathVariable int c_no, Model m) { 
 		int review = rservice1.selCamNO(c_no);
 		 m.addAttribute("review",review); 
@@ -132,13 +132,12 @@ public class ReserveController {
 		Long rate = rservice.avgRate(c_no);
 		m.addAttribute("rate",rate);
 		
-		//글이 있는지 체크
 		int countReview = rservice.countReview(c_no);
 		if(countReview> 0) {
 			
-			int perPage = 10; // 한 페이지에 보일 글의 갯수
-			int startRow = (page - 1) * perPage + 1; //시작 글번호
-			int endRow = page * perPage;			//끝 글번호
+			int perPage = 10; 
+			int startRow = (page - 1) * perPage + 1; 
+			int endRow = page * perPage;			
 			
 			List<ReviewDto> reviewList = rservice.reviewList(startRow, endRow,c_no);
 			m.addAttribute("reviewList",reviewList);
@@ -157,19 +156,19 @@ public class ReserveController {
 			 m.addAttribute("totalPages", totalPages);
 		}
 			m.addAttribute("countReview",countReview);
-			return "review";
+			return "/review/review";
 		}
 	
-	@GetMapping("/reviewContent/{rv_no}")
+	@GetMapping("/review/reviewContent/{rv_no}")
 	public String reviewContent(@PathVariable int rv_no, Model m) {
 		ReviewDto reviewDto = rservice.reviewContent(rv_no);
 		System.out.println(reviewDto);
 		m.addAttribute("rdto",reviewDto);
-		return "reviewContent";
+		return "/review/reviewContent";
 	}
 	
 	
-	@GetMapping("reviewWrite/{c_no}")
+	@GetMapping("/review/reviewWrite/{c_no}")
 	public String reviewWriteForm2(HttpServletResponse response,@PathVariable int c_no,int reserve_no,Model m)throws Exception {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -182,7 +181,7 @@ public class ReserveController {
 			int gg = rservice1.selCamNO(c_no);
 			m.addAttribute("gg",gg);
 			m.addAttribute("reserve_no",reserve_no);
-			return "/reviewWrite";
+			return "/review/reviewWrite";
 		}else {
 			out.println("<script>");
 			out.println("alert('이미 작성한 리뷰가 있습니다');");
@@ -192,26 +191,16 @@ public class ReserveController {
 			return null;
 		}
 	}
-	
-//	@GetMapping("/reviewWrite")
-//	public String reviewWrite2(@RequestParam int reserve_no,Model m) {
-//		ReviewDto chkReserve = rservice.chkReserve(reserve_no);
-//		if(chkReserve == null) {
-//			return "/reviewWrite";
-//		}else {
-//			return "redirect:/";
-//		}
-//	}
-	
-	@PostMapping("/reviewWrite")
+
+	@PostMapping("/review/reviewWrite")
 	public String reviewWrite(ReviewDto rv_dto) {
 		rservice.reviewWrite(rv_dto);
 		int c_no = rv_dto.getC_no();
-		return "redirect:/reviewInfo/"+c_no;
+		return "redirect:/review/reviewInfo/"+c_no;
 	}
 	
-	@GetMapping("/review/{c_no}")
-	@ResponseBody //view가 따로 없고 review.jsp 그대로 사용할 것
+	@GetMapping("/review/review/{c_no}")
+	@ResponseBody 
 	public String reviewOne(@PathVariable int c_no) {
 		List<ReviewDto> rr = rservice.reviewOne(c_no);
 		
@@ -232,7 +221,7 @@ public class ReserveController {
 	public String reviewUpdateForm(@PathVariable int rv_no, Model m) {
 		ReviewDto rv_dto = rservice.reviewContent(rv_no);
 		m.addAttribute("rv_dto",rv_dto);
-		return "reviewUpdateForm";
+		return "/review/reviewUpdateForm";
 	}
 	
 	@PutMapping("/review/updateForm")
@@ -241,7 +230,7 @@ public class ReserveController {
 		rservice.reviewUpdate(rv_dto);
 		System.out.println(rservice.reviewUpdate(rv_dto));
 		int c_no = rv_dto.getC_no();
-		return "redirect:/reviewInfo/"+c_no;
+		return "redirect:/review/reviewInfo/"+c_no;
 	}
 
 	

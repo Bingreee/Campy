@@ -55,25 +55,23 @@ public class RoomController1 {
 		return rservice2.selectC_name();
 	}
 	
-	@RequestMapping("/insertReserve")
+	@RequestMapping("/room/insertReserve")
 	public String insertReserve(@ModelAttribute("user") MemberDto memberdto, ReserveDto dto) {
 		
 		dto.setId(memberdto.getId());
 		dto.setMem_name(memberdto.getMem_name());
 		dto.setMem_tel(memberdto.getMem_tel());
-		//System.out.println(dto);
 		rservice1.insertReserve(dto);
-		return "reserveStatus";
+		return "/reserve/reserveStatus";
 	}
 	
-	@RequestMapping("/selRoomPho")
+	@RequestMapping("/room/selRoomPho")
 	@ResponseBody
 	public String selRoomPho(int c_no, int r_no) {
 		List<RoomAndRphoto> listR_pho = rservice1.selRoomPho(c_no, r_no);
 		
 		Gson gson = new Gson();
 		String r_pho = gson.toJson(listR_pho);
-		//System.out.println(r_pho);
 		return r_pho;
 	}
 	
@@ -87,12 +85,12 @@ public class RoomController1 {
 		return list_all;
 	}
 
-	@RequestMapping("/fullCalenderPage")
+	@RequestMapping("/admin/fullCalenderPage")
 	public String fullCalenderPage() {
-		return "fullCalenderPage";
+		return "/admin/fullCalenderPage";
 	}
 	
-	@RequestMapping("/fullCalender")
+	@RequestMapping("/admin/fullCalender")
 	@ResponseBody
 	public List<Map<String, Object>> selCalender() {
 		List<CampAndReserveDto> calenderList = rservice1.selCalender();
@@ -103,10 +101,10 @@ public class RoomController1 {
         HashMap<String, Object> hash = new HashMap<>();
 
         for (int i = 0; i < calenderList.size(); i++) {
-            hash.put("title", calenderList.get(i).getC_name()+"   "+calenderList.get(i).getMem_name()+"  "+calenderList.get(i).getC_no()+"  "+calenderList.get(i).getR_no());
+            hash.put("title", calenderList.get(i).getC_name()+"   "+calenderList.get(i).getR_no()+"  "+calenderList.get(i).getMem_name());
             hash.put("start", calenderList.get(i).getStart_date());
             hash.put("end", calenderList.get(i).getEnd_date2());
-
+            
             jsonObj = new JSONObject(hash);
             jsonArr.add(jsonObj);
         } 
@@ -120,8 +118,7 @@ public class RoomController1 {
 		return i;
 	}
 	
-	
-	 @RequestMapping("/chkDateList")
+	 @RequestMapping("/room/chkDateList")
 	 @ResponseBody 
 	 public String chkDateList(ReserveDto dto) { 
 	 List<ReserveDto> list_res = rservice1.chkDateList(dto);
@@ -130,5 +127,4 @@ public class RoomController1 {
 	 return list_res2; 
 	 }
 	 
-
 }

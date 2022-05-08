@@ -20,10 +20,6 @@ import campy.com.service.MypageService;
 @Controller
 @SessionAttributes({ "user", "mypage_pwchecker" })
 public class MypageController {
-	/*
-	 * @RequestMapping("/mypage") public String mypage() { return "/mypage"; }
-	 * //CampingController의 매핑과 중복이므로 생략
-	 */
 
 	@Autowired
 	MypageService Service;
@@ -38,35 +34,35 @@ public class MypageController {
 		return "";
 	}
 
-	@RequestMapping("/memLove")
+	@RequestMapping("/mypage/memLove")
 	public String memLove() {
-		return "/memLove";
+		return "/mypage/memLove";
 	}
 
-	@RequestMapping("/reserveStatus")
+	@RequestMapping("/reserve/reserveStatus")
 	public String reserveStatus() {
-		return "/reserveStatus";
+		return "/reserve/reserveStatus";
 	}
 
-	@RequestMapping("/qna")
+	@RequestMapping("/mypage/qna")
 	public String qna() {
-		return "/qna";
+		return "/mypage/qna";
 	}
 
-	@RequestMapping("/memUpdateCheck")
+	@RequestMapping("/mypage/memUpdateCheck")
 	public String memUpdateCheck() {
-		return "/memUpdateCheck";
-	}//비밀번호 확인
+		return "/mypage/memUpdateCheck";
+	}
 
-	@RequestMapping("/memUpdate")
+	@RequestMapping("/mypage/memUpdate")
 	public String memUpdates(@ModelAttribute("user") MemberDto dto) {
 		Service.updateMem(dto);
-		return "/memUpdate";
+		return "/mypage/memUpdate";
 	}
 
-	@GetMapping("/memUpdate")
+	@GetMapping("/mypage/memUpdate")
 	public String memUpdate(@ModelAttribute("user") MemberDto dto) {
-		return "/mypage";
+		return "/mypage/mypage";
 	}
 
 }

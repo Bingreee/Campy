@@ -84,8 +84,7 @@ public class EmailController {
 		int idx = 0;
 		int len = charSet.length;
 		for (int i=0; i<size; i++) {
-		// idx = (int) (len * Math.random());
-		idx = sr.nextInt(len); // 강력한 난수를 발생시키기 위해 SecureRandom을 사용한다.
+		idx = sr.nextInt(len); 
 		sb.append(charSet[idx]);
 		}
 		return sb.toString();
