@@ -60,50 +60,37 @@ public class RoomController2 {
 	public int roomSetter() {
 		return 1;
 	}
-	
-//	@RequestMapping("/room")
-//	public String room(Model m) {
-//		List<RoomDto> rlist = rservice2.room();
-//		m.addAttribute("room",rlist);
-//		return "room";
-//	}
-	
+
 	@RequestMapping("/room")
 	public String selectC_name(@ModelAttribute("user") MemberDto dto, Model m) {
-		//List<CampingDto> r = rservice2.selectC_name();
-		//m.addAttribute("campList",r);
-		
-		
-		return "room";
+		return "/campy/room";
 	}
 	
 	@GetMapping("/room/{c_no}")
-	@ResponseBody //view가 따로 없고 room.jsp 그대로 사용할 것
+	@ResponseBody 
 	public String selectRoom(@PathVariable int c_no, @ModelAttribute("user") MemberDto dto) {
 		List<RoomDto> r2 = rservice2.selectRoom(c_no);
 		
-				
 		Gson gson = new Gson();
 		String r2_text = gson.toJson(r2);
-		//System.out.println(r2_text);
 		return r2_text;
 	}
 	
 	
-	  @GetMapping("/roomInfo/{c_no}") 
+	  @GetMapping("/campy/roomInfo/{c_no}") 
 	  public String roomInfo(@PathVariable int c_no, ReserveDto dto, Model m) { 
 		 int room = rservice2.selectRoomNo(c_no);
 		 List<ReserveDto> listReserve = rservice1.chkDateList(dto);
 		 m.addAttribute("room",room); 
 		 m.addAttribute("chkDateList",listReserve);
-		 return "room"; 
+		 return "/campy/room"; 
 	  }
 	  
-	  @GetMapping("/adminReserve")
+	  @GetMapping("/admin/adminReserve")
 	  public String adminReserve(Model m) {
 		  List<CampAndReserveDto> g = rservice.adminReserve();
 		  m.addAttribute("adminR",g);
-		  return "adminReserve";
+		  return "admin/adminReserve";
 	  }
 	  
 }

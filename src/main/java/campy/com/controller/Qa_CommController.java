@@ -20,13 +20,13 @@ public class Qa_CommController {
 	@Autowired
 	Qa_CommService cservice;
 	
-	@PostMapping("/insertComm")
+	@PostMapping("/ask/insertComm")
 	public String insertComm(Qa_CommDto dto) {
 		int i = cservice.insertComm(dto);
 		return i+"";
 	}
 	
-	@DeleteMapping("/deleteComm/{qa_comm}")
+	@DeleteMapping("/ask/deleteComm/{qa_comm}")
 	public String deleteComm(@PathVariable int qa_comm) {
 		int i = cservice.deleteComm(qa_comm);
 		return i+"";

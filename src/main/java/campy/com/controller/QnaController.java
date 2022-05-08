@@ -38,13 +38,13 @@ public class QnaController {
 		return new MemberDto();
 	}
 
-	@RequestMapping("/ask")
+	@RequestMapping("/ask/ask")
 	public String ask(@RequestParam(name = "p", defaultValue = "1") int page, Model m) {
-		// 글이 있는지 체크
+		
 		int count = qservice.count();
 		if (count > 0) {
 
-			int perPage = 8; // 한 페이지에 보일 글의 갯수
+			int perPage = 8; 
 			int startRow = (page - 1) * perPage + 1;
 			int endRow = page * perPage;
 
@@ -52,7 +52,7 @@ public class QnaController {
 			m.addAttribute("qaList", qaList);
 
 			int pageNum = 5;
-			int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); // 전체 페이지 수
+			int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); 
 
 			int begin = (page - 1) / pageNum * pageNum + 1;
 			int end = begin + pageNum - 1;
@@ -66,27 +66,27 @@ public class QnaController {
 
 		}
 		m.addAttribute("count", count);
-		return "ask";
+		return "/ask/ask";
 
 	}
 
-	@GetMapping("/askWrite")
+	@GetMapping("/ask/askWrite")
 	public String writeForm(@ModelAttribute("user") MemberDto dto) {
-		return "askWrite";
+		return "/ask/askWrite";
 	}
 
-	@PostMapping("/askWrite")
+	@PostMapping("/ask/askWrite")
 	public String askWrite(QaDto dto) {
 		qservice.insert(dto);
-		return "redirect:ask";// 글목록
+		return "redirect:/ask/ask";
 	}
 
-	@GetMapping("/search")
+	@GetMapping("/ask/search")
 	public String search(int searchn, String search, @RequestParam(name = "p", defaultValue = "1") int page, Model m) {
 		int count = qservice.countSearch(searchn, search);
 		if (count > 0) {
 
-			int perPage = 8; // 한 페이지에 보일 글의 갯수
+			int perPage = 8; 
 			int startRow = (page - 1) * perPage + 1;
 			int endRow = page * perPage;
 
@@ -94,7 +94,7 @@ public class QnaController {
 			m.addAttribute("qaList", qaList);
 
 			int pageNum = 5;
-			int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); // 전체 페이지 수
+			int totalPages = count / perPage + (count % perPage > 0 ? 1 : 0); 
 
 			int begin = (page - 1) / pageNum * pageNum + 1;
 			int end = begin + pageNum - 1;
@@ -111,32 +111,32 @@ public class QnaController {
 		m.addAttribute("searchn", searchn);
 		m.addAttribute("search", search);
 
-		return "search";
+		return "/ask/search";
 	}
 
-	@GetMapping("/askContent/{qa_no}")
+	@GetMapping("/ask/askContent/{qa_no}")
 	public String askContent(@PathVariable int qa_no, Model m) {
 		QaDto dto = qservice.qaOne(qa_no);
 		m.addAttribute("dto", dto);
 		List<Qa_CommDto> cList = cservice.selectComm(qa_no);
 		m.addAttribute("cList", cList);
-		return "askContent";
+		return "/ask/askContent";
 	}
 
-	@GetMapping("/updateForm/{qa_no}") 
+	@GetMapping("/ask/updateForm/{qa_no}") 
 	public String updateForm(@PathVariable int qa_no, Model m) {
 		QaDto dto = qservice.qaOne(qa_no);
 		m.addAttribute("dto", dto);
-		return "updateForm";
+		return "/ask/updateForm";
 	}
 
-	@RequestMapping("/update")
+	@RequestMapping("/ask/update")
 	public String update(QaDto dto) {
 		qservice.updateQa(dto);
-		return "redirect:ask";
+		return "redirect:/ask/ask";
 	}
 
-	@DeleteMapping("/delete")
+	@DeleteMapping("/ask/delete")
 	@ResponseBody
 	public String delete(int qa_no) {
 		int i = qservice.deleteQa(qa_no);

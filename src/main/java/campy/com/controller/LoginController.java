@@ -40,72 +40,62 @@ public class LoginController {
 	
 	@GetMapping("/login")
 	public String login() {
-		return "campyLogin";
+		return "/login/campyLogin";
 	}
 	
-	@PostMapping("/memLogin")
+	@PostMapping("/login/memLogin")
 	public String memLogin (@ModelAttribute("command") @Valid MemberDto dto, BindingResult error, Model m) {
 		
 		if(error.hasErrors()) {
-			return "campyLogin";
+			return "/login/campyLogin";
 		}
 		
 		MemberDto resultDto = service.memLogin(dto);
 		if(resultDto == null) {
 			error.reject("nocode", "아이디나 비밀번호가 틀렸습니다.");
-			return "campyLogin";
+			return "/login/campyLogin";
 		}else {
 			m.addAttribute("user", resultDto);
 		}
-		return "redirect:/main";
+		return "redirect:/campy/main";
 	}
 
 	@GetMapping("/logout")
 	public String logout(SessionStatus status) {
 		status.setComplete();
-		return "redirect:/main";
+		return "redirect:/campy/main";
 	}
 	
 	@GetMapping("/roomInfo/logout")
 	public String logout2(SessionStatus status) {
 		status.setComplete();
-		return "redirect:/main";
+		return "redirect:/campy/main";
 	}
-	
-	@GetMapping("/joinSelect")
-	public String joinSelect() {
-		return "joinSelect";
-	}
-	
-	@GetMapping("/insert")
+
+	@GetMapping("/login/join")
 	public String join() {
-		return "join";
+		return "/login/join";
 	}
 	
-	@GetMapping("/idCheck")
+	@GetMapping("/login/idCheck")
 	@ResponseBody
 	public String idCheck(String id) {
 		String checkid = service.idCheck(id);
 		return checkid;
 	}
 	
-	@PostMapping("/insert")
+	@PostMapping("/login/insert")
 	public String insert(MemberDto dto) {
 		service.insertMem(dto);
-		return "redirect:login";
+		return "redirect:/login";
 	}
 	
-	@GetMapping("/snsJoin")
-	public String snsJoin() {
-		return "snsJoin";
-	}
-	
-	@GetMapping("/find_Id_Form")
+	@GetMapping("/login/find_Id_Form")
 	public String find_Id_Form() {
-		return "find_Id_Form";
+		return "/login/find_Id_Form";
 	}
 	
-	@RequestMapping("/findId")
+	@RequestMapping("/login/findId")
 	@ResponseBody
 	public String findId(String mem_name, String mem_tel) {
 		String id = service.find_id(mem_name, mem_tel);
@@ -115,31 +105,26 @@ public class LoginController {
 		return jid;
 	}
 	
-	@GetMapping("/find_Pw_Form")
+	@GetMapping("/login/find_Pw_Form")
 	public String findmemPw() {
-		return "find_Pw_Form";
+		return "/login/find_Pw_Form";
 	}
 	
-	@RequestMapping("/update_Pw_Form")
+	@RequestMapping("/login/update_Pw_Form")
 	public String update_Pw_Form(String id, Model m) {
 		m.addAttribute("id", id);
-		return "update_Pw_Form";
+		return "/login/update_Pw_Form";
 	}
 
-	@PostMapping("/updatePw")
+	@PostMapping("/login/updatePw")
 	public String updatePw(String id, String pw) {
 		service.updatePw(id, pw);
-		return "campyLogin";
+		return "/login/campyLogin";
 	}
-	
-	@GetMapping("/adminPage")
-	public String adminPage() {
-		return "adminPage";
-	}
-	
+
 	@GetMapping("/")
 	public String goToMain() {
-		return "redirect:main";
+		return "redirect:/campy/main";
 	}
 }
 
