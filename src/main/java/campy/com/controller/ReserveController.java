@@ -71,9 +71,6 @@ public class ReserveController {
 		
 	 @GetMapping("/reserveStatus")
 	 public String reserveStatus(@RequestParam(name="p", defaultValue="1") int page,@ModelAttribute("user") MemberDto dto, Model m) {
-//		 List<CampAndReserveDto> rStatus = rservice.reserveStatus(dto.getId());
-//		 System.out.println("rStatus"+rStatus);
-//		 m.addAttribute("rStatus",rStatus);
 		 
 		 int countReserve = rservice.countReserve(dto.getId());
 			if(countReserve> 0) {
@@ -123,40 +120,6 @@ public class ReserveController {
 		return "adminReserve";
 	}
 	
-//	@GetMapping("/review")
-//	public String review(@RequestParam(name="p", defaultValue="1") int page,@PathVariable int c_no, Model m) {
-//		int review = rservice1.selCamNO(c_no);
-//		 m.addAttribute("review",review); 
-//		List<CampingDto> r = rservice2.selectC_name();
-//		m.addAttribute("campList",r);
-//		
-//		//글이 있는지 체크
-//		int countReview = rservice.countReview();
-//		if(countReview> 0) {
-//			
-//			int perPage = 10; // 한 페이지에 보일 글의 갯수
-//			int startRow = (page - 1) * perPage + 1; //시작 글번호
-//			int endRow = page * perPage;			//끝 글번호
-//			
-//			List<ReviewDto> reviewList = rservice.reviewList(startRow, endRow);
-//			m.addAttribute("reviewList",reviewList);
-//			
-//			int pageNum = 5;
-//			int totalPages = countReview / perPage + (countReview % perPage > 0 ? 1 : 0); //전체 페이지 수
-//			
-//			int begin = (page - 1) / pageNum * pageNum + 1;
-//			int end = begin + pageNum -1;
-//			if(end > totalPages) {
-//				end = totalPages;
-//			}
-//			 m.addAttribute("begin", begin);
-//			 m.addAttribute("end", end);
-//			 m.addAttribute("pageNum", pageNum);
-//			 m.addAttribute("totalPages", totalPages);
-//		}
-//			m.addAttribute("countReview",countReview);
-//			return "review";
-//	}
 	
 	@GetMapping("/reviewInfo/{c_no}")
 	 public String reviewList(@RequestParam(name="p", defaultValue="1") int page,@PathVariable int c_no, Model m) { 

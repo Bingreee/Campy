@@ -100,64 +100,6 @@
 			
 	
 	
-	</main>	
-	
-	<!-- 검색
-	<div id="search" align="center">
-		<form action="search">
-			<select name="searchn">
-				<option value="0">제목</option>
-				<option value="1">내용</option>
-				<option value="2">작성자</option>
-			</select>
-			<input type="text" name="search" size="15" maxlength="50" />
-			<input type="submit" value="검색" />
-		</form>
-	</div> -->
-	
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-
-/* $(function(){
-	 $("select").click(function(){ 
-		let c_no = ${review};
-		$.ajax({
-			url : "/reviewInfo/"+c_no,
-			type : "get",
-			dataType : "json",
-			async : false
-		}).done(function(data){
-			//console.log(data[1].rv_no);
-			$("td").empty();
-			var html = "";
-			for(let i=0; i<data.length; i++){
-				html += '<tr>';
-				html += "<td> <a href='/reviewContent/"+data[i].rv_no+"'>"+data[i].rv_title+"</a> </td>";
-				html += "<td>"+data[i].id+"</td>";
-				html += "<td>"+data[i].rv_date+"</td>";
-				html += "<td>"+data[i].rate+"/ 5"+"</td>";
-				html += '</tr>';
-				
-			}
-			$(".table1").html(html);
-		 }) */
-		
-	/* }); */
-	/* $('#reviewWrite').click(function(){
-		if ("${user.id}" == null){
-			alert("로그인 해야함");
-			return false;
-		}else if("${user.id}" != null){
-			alert("리뷰");
-			return reviewWrite;
-		}
-	}) */
-/* }); */
-
-
-
-
-
-</script>
+	</main>
 </body>
 </html>
