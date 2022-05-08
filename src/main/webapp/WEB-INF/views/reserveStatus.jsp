@@ -18,9 +18,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
 <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom" style="position:sticky;top:0px; z-index: 10;background-color:white;">
-      <a href="/main" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <a href="/main" class="d-flex align-items-center  me-md-auto text-dark text-decoration-none">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-        <span class="fs-4" href="/main">Campy</span>
+        <img src="../../CampPhoto/Camping/CampyLogo2.png" style="width:50px;" alt="campy"/>
+        <span href="/main" style="font-weight:bold;font-size:30px;">Campy</span>  <!-- class="fs-4" -->
       </a>
 
       <ul class="nav nav-pills">
