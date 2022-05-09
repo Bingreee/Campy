@@ -50,7 +50,7 @@ a {
   			</a>
   				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     				<li><a class="dropdown-item" href="/login">로그인</a></li>
-    				<li><a class="dropdown-item" href="/joinSelect">회원가입</a></li>
+    				<li><a class="dropdown-item" href="/join">회원가입</a></li>
   				</ul>
 			</div>
         </c:if>
@@ -72,10 +72,17 @@ a {
  	<c:if test="${ user.id == dto.id }">
  	<hr class="my-4">
 		<a href="/updateForm/${dto.qa_no}" style="margin-left:50px">글 수정 </a>
+		
 		<a id="${dto.qa_no}" href="#" style="margin-left:50px">글 삭제</a>
+	
 		
 	</c:if>
 	<a href="../ask" style="margin-left:50px">목록 이동</a>
+	
+<%-- 	<c:if test="${ user.id == 'admin' }">
+		<a id="${dto.qa_no}" href="#" style="margin-left:50px">글 삭제</a>
+	</c:if> --%>
+		
 	</div>
 
 
